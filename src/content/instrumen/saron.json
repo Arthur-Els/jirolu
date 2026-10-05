@@ -1,0 +1,102 @@
+{
+  "slug": "saron",
+  "nama": "Saron",
+  "namaJawa": "ꦱꦫꦺꦴꦤ꧀",
+  "tipe": "bernada",
+  "deskripsiSingkat": "Instrumen balungan bilah perunggu dengan denting jernih dan berwibawa sebagai kerangka melodi utama.",
+  "fungsi": "Saron bertugas membawakan balungan, yaitu kerangka melodi inti yang menjadi patokan harmonis bagi seluruh ansambel gamelan Jawa. Bilah perunggunya ditabuh menggunakan pemukul kayu khusus berbentuk palu. Penabuh menerapkan teknik 'memathet' (meredam bilah sebelumnya dengan jari tangan kiri tepat saat bilah berikutnya dipukul) agar suara tetap bersih dan tidak berdengung tumpang tindih.",
+  "filosofi": "Saron melambangkan ketegasan, keluhuran budi, dan kejujuran dalam tatanan hidup masyarakat Jawa. Dentingnya yang lantang mengingatkan manusia agar teguh memegang prinsip kebajikan. Teknik meredam (memathet) mengandung ajaran mendalam tentang pentingnya mawas diri dan menahan hawa nafsu sebelum melangkah ke babak kehidupan berikutnya.",
+  "gambar": "/images/instrumen/saron.webp",
+  "larasDefault": "pelog",
+  "tersediaDiFase": 2,
+  "laras": {
+    "pelog": [
+      {
+        "nada": "1",
+        "label": "ji",
+        "audio": "/audio/saron/pelog/1.webm",
+        "key": "a",
+        "frekuensi": 275
+      },
+      {
+        "nada": "2",
+        "label": "ro",
+        "audio": "/audio/saron/pelog/2.webm",
+        "key": "s",
+        "frekuensi": 290
+      },
+      {
+        "nada": "3",
+        "label": "lu",
+        "audio": "/audio/saron/pelog/3.webm",
+        "key": "d",
+        "frekuensi": 320
+      },
+      {
+        "nada": "4",
+        "label": "pat",
+        "audio": "/audio/saron/pelog/4.webm",
+        "key": "f",
+        "frekuensi": 360
+      },
+      {
+        "nada": "5",
+        "label": "mo",
+        "audio": "/audio/saron/pelog/5.webm",
+        "key": "g",
+        "frekuensi": 390
+      },
+      {
+        "nada": "6",
+        "label": "nem",
+        "audio": "/audio/saron/pelog/6.webm",
+        "key": "h",
+        "frekuensi": 420
+      },
+      {
+        "nada": "7",
+        "label": "pi",
+        "audio": "/audio/saron/pelog/7.webm",
+        "key": "j",
+        "frekuensi": 465
+      }
+    ],
+    "slendro": [
+      {
+        "nada": "1",
+        "label": "ji",
+        "audio": "/audio/saron/slendro/1.webm",
+        "key": "a",
+        "frekuensi": 280
+      },
+      {
+        "nada": "2",
+        "label": "ro",
+        "audio": "/audio/saron/slendro/2.webm",
+        "key": "s",
+        "frekuensi": 315
+      },
+      {
+        "nada": "3",
+        "label": "lu",
+        "audio": "/audio/saron/slendro/3.webm",
+        "key": "d",
+        "frekuensi": 355
+      },
+      {
+        "nada": "5",
+        "label": "mo",
+        "audio": "/audio/saron/slendro/5.webm",
+        "key": "f",
+        "frekuensi": 405
+      },
+      {
+        "nada": "6",
+        "label": "nem",
+        "audio": "/audio/saron/slendro/6.webm",
+        "key": "g",
+        "frekuensi": 455
+      }
+    ]
+  }
+}

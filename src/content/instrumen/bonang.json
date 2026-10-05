@@ -1,0 +1,210 @@
+{
+  "slug": "bonang",
+  "nama": "Bonang",
+  "namaJawa": "ꦧꦺꦴꦤꦁ",
+  "tipe": "bernada",
+  "deskripsiSingkat": "Deretan gong kecil berkilau (pencon) dua baris yang merajut variasi melodi dan memimpin dinamika irama gending.",
+  "fungsi": "Bonang adalah instrumen pengembang melodi yang sering membuka jalannya gending ('buka'). Terdiri atas pencon (gong-gong kecil berporos tengah) yang disusun dua baris mendatar di atas bentangan tali pluntur. Ditabuh menggunakan sepasang tabuh bulat berlapis lilitan kain tebal (bindi) dengan kedua tangan secara bergantian atau bersamaan (teknik gembyang dan mipil).",
+  "filosofi": "Dua baris pencon pada Bonang melambangkan keseimbangan antara dimensi lahiriah dan batiniah manusia. Jalinan nadanya yang dinamis dan berulang-ulang menyimbolkan bahwa kepemimpinan sejati bukanlah mendikte, melainkan membimbing dengan keluwesan, kelembutan, dan kepekaan rasa demi keharmonisan seluruh masyarakat.",
+  "gambar": "/images/instrumen/bonang.svg",
+  "larasDefault": "pelog",
+  "tersediaDiFase": 2,
+  "laras": {
+    "pelog": [
+      {
+        "nada": "1",
+        "label": "ji (tinggi)",
+        "audio": "/audio/bonang/pelog/1_hi.webm",
+        "key": "q",
+        "frekuensi": 550,
+        "baris": 1
+      },
+      {
+        "nada": "2",
+        "label": "ro (tinggi)",
+        "audio": "/audio/bonang/pelog/2_hi.webm",
+        "key": "w",
+        "frekuensi": 580,
+        "baris": 1
+      },
+      {
+        "nada": "3",
+        "label": "lu (tinggi)",
+        "audio": "/audio/bonang/pelog/3_hi.webm",
+        "key": "e",
+        "frekuensi": 640,
+        "baris": 1
+      },
+      {
+        "nada": "4",
+        "label": "pat (tinggi)",
+        "audio": "/audio/bonang/pelog/4_hi.webm",
+        "key": "r",
+        "frekuensi": 720,
+        "baris": 1
+      },
+      {
+        "nada": "5",
+        "label": "mo (tinggi)",
+        "audio": "/audio/bonang/pelog/5_hi.webm",
+        "key": "t",
+        "frekuensi": 780,
+        "baris": 1
+      },
+      {
+        "nada": "6",
+        "label": "nem (tinggi)",
+        "audio": "/audio/bonang/pelog/6_hi.webm",
+        "key": "y",
+        "frekuensi": 840,
+        "baris": 1
+      },
+      {
+        "nada": "7",
+        "label": "pi (tinggi)",
+        "audio": "/audio/bonang/pelog/7_hi.webm",
+        "key": "u",
+        "frekuensi": 930,
+        "baris": 1
+      },
+      {
+        "nada": "1",
+        "label": "ji",
+        "audio": "/audio/bonang/pelog/1.webm",
+        "key": "a",
+        "frekuensi": 275,
+        "baris": 2
+      },
+      {
+        "nada": "2",
+        "label": "ro",
+        "audio": "/audio/bonang/pelog/2.webm",
+        "key": "s",
+        "frekuensi": 290,
+        "baris": 2
+      },
+      {
+        "nada": "3",
+        "label": "lu",
+        "audio": "/audio/bonang/pelog/3.webm",
+        "key": "d",
+        "frekuensi": 320,
+        "baris": 2
+      },
+      {
+        "nada": "4",
+        "label": "pat",
+        "audio": "/audio/bonang/pelog/4.webm",
+        "key": "f",
+        "frekuensi": 360,
+        "baris": 2
+      },
+      {
+        "nada": "5",
+        "label": "mo",
+        "audio": "/audio/bonang/pelog/5.webm",
+        "key": "g",
+        "frekuensi": 390,
+        "baris": 2
+      },
+      {
+        "nada": "6",
+        "label": "nem",
+        "audio": "/audio/bonang/pelog/6.webm",
+        "key": "h",
+        "frekuensi": 420,
+        "baris": 2
+      },
+      {
+        "nada": "7",
+        "label": "pi",
+        "audio": "/audio/bonang/pelog/7.webm",
+        "key": "j",
+        "frekuensi": 465,
+        "baris": 2
+      }
+    ],
+    "slendro": [
+      {
+        "nada": "1",
+        "label": "ji (tinggi)",
+        "audio": "/audio/bonang/slendro/1_hi.webm",
+        "key": "q",
+        "frekuensi": 560,
+        "baris": 1
+      },
+      {
+        "nada": "2",
+        "label": "ro (tinggi)",
+        "audio": "/audio/bonang/slendro/2_hi.webm",
+        "key": "w",
+        "frekuensi": 630,
+        "baris": 1
+      },
+      {
+        "nada": "3",
+        "label": "lu (tinggi)",
+        "audio": "/audio/bonang/slendro/3_hi.webm",
+        "key": "e",
+        "frekuensi": 710,
+        "baris": 1
+      },
+      {
+        "nada": "5",
+        "label": "mo (tinggi)",
+        "audio": "/audio/bonang/slendro/5_hi.webm",
+        "key": "r",
+        "frekuensi": 810,
+        "baris": 1
+      },
+      {
+        "nada": "6",
+        "label": "nem (tinggi)",
+        "audio": "/audio/bonang/slendro/6_hi.webm",
+        "key": "t",
+        "frekuensi": 910,
+        "baris": 1
+      },
+      {
+        "nada": "1",
+        "label": "ji",
+        "audio": "/audio/bonang/slendro/1.webm",
+        "key": "a",
+        "frekuensi": 280,
+        "baris": 2
+      },
+      {
+        "nada": "2",
+        "label": "ro",
+        "audio": "/audio/bonang/slendro/2.webm",
+        "key": "s",
+        "frekuensi": 315,
+        "baris": 2
+      },
+      {
+        "nada": "3",
+        "label": "lu",
+        "audio": "/audio/bonang/slendro/3.webm",
+        "key": "d",
+        "frekuensi": 355,
+        "baris": 2
+      },
+      {
+        "nada": "5",
+        "label": "mo",
+        "audio": "/audio/bonang/slendro/5.webm",
+        "key": "f",
+        "frekuensi": 405,
+        "baris": 2
+      },
+      {
+        "nada": "6",
+        "label": "nem",
+        "audio": "/audio/bonang/slendro/6.webm",
+        "key": "g",
+        "frekuensi": 455,
+        "baris": 2
+      }
+    ]
+  }
+}

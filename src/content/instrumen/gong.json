@@ -1,0 +1,41 @@
+{
+  "slug": "gong",
+  "nama": "Gong Ageng",
+  "namaJawa": "ꦒꦺꦴꦁꦲꦒꦼꦁ",
+  "tipe": "bersuara",
+  "deskripsiSingkat": "Pusat spiritual dan pamungkas siklus waktu dalam tata musikal gamelan dengan dengung magis yang dalam.",
+  "fungsi": "Gong Ageng merupakan instrumen gamelan dengan ukuran fisik terbesar dan rentang frekuensi paling rendah. Bersama Gong Suwukan dan Kempul, instrumen ini berfungsi sebagai penanda struktural (kolotomik) yang menegaskan akhir dari satu putaran gending besar (gongan) serta mengawali siklus musikal yang baru. Gong ditabuh dengan pemukul kayu berbobot berbusa tebal secara terukur dan penuh keheningan rasa.",
+  "filosofi": "Gong Ageng adalah simbol kesempurnaan kosmos dan ajaran 'Sangkan Paraning Dumadi' (asal mula dan tujuan akhir kehidupan). Dentumannya yang dalam, agung, dan bergaung lama menyiratkan bahwa di balik segala riak dan dinamika kehidupan duniawi yang beraneka ragam, segalanya bermuara kembali pada keheningan zat ketuhanan yang Esa.",
+  "gambar": "/images/instrumen/gong.svg",
+  "tersediaDiFase": 2,
+  "_komentar": "Catatan teknis: Gong adalah instrumen bersuara, sehingga strukturnya menggunakan daftarSuara, bukan daftar tangga nada.",
+  "daftarSuara": [
+    {
+      "id": "gong-ageng",
+      "nama": "Gong Ageng",
+      "audio": "/audio/gong/gong_ageng.webm",
+      "key": "1",
+      "keterangan": "Dentuman terdalam & teragung penutup siklus gongan (tombol 1)",
+      "frekuensi": 55,
+      "decay": 4.5
+    },
+    {
+      "id": "gong-suwukan",
+      "nama": "Gong Suwukan",
+      "audio": "/audio/gong/gong_suwukan.webm",
+      "key": "2",
+      "keterangan": "Gong berukuran sedang pembagi bagian gending (tombol 2)",
+      "frekuensi": 110,
+      "decay": 3.5
+    },
+    {
+      "id": "kempul",
+      "nama": "Kempul",
+      "audio": "/audio/gong/kempul.webm",
+      "key": "3",
+      "keterangan": "Gong gantung aksen berdentang bersih dan cerah (tombol 3)",
+      "frekuensi": 220,
+      "decay": 2.8
+    }
+  ]
+}

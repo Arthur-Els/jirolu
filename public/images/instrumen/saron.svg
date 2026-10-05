@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSaron" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#171411"/>
+      <stop offset="100%" stop-color="#0B0A09"/>
+    </linearGradient>
+    <linearGradient id="emasGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4E3B2"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#A9783C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Latar Gelap -->
+  <rect width="800" height="600" fill="url(#bgSaron)"/>
+
+  <!-- Bingkai Tipis Emas -->
+  <rect x="24" y="24" width="752" height="552" rx="16" fill="none" stroke="#D4AF37" stroke-width="2" stroke-opacity="0.35"/>
+  <rect x="36" y="36" width="728" height="528" rx="12" fill="none" stroke="#A9783C" stroke-width="1" stroke-opacity="0.2"/>
+
+  <!-- Ornamen Sudut Keraton -->
+  <path d="M 44 64 L 64 44" stroke="#D4AF37" stroke-width="2" stroke-opacity="0.5"/>
+  <path d="M 756 64 L 736 44" stroke="#D4AF37" stroke-width="2" stroke-opacity="0.5"/>
+  <path d="M 44 536 L 64 556" stroke="#D4AF37" stroke-width="2" stroke-opacity="0.5"/>
+  <path d="M 756 536 L 736 556" stroke="#D4AF37" stroke-width="2" stroke-opacity="0.5"/>
+
+  <!-- Ikon Ilustrasi Bilah Saron -->
+  <g transform="translate(180, 150)">
+    <!-- Rangka Dasar Rancakan Kayu -->
+    <path d="M 0 160 Q 220 180 440 160 L 430 200 Q 220 220 10 200 Z" fill="#2A1E14" stroke="#D4AF37" stroke-width="1.5" stroke-opacity="0.4"/>
+    
+    <!-- 7 Bilah Logam Saron -->
+    <rect x="30" y="50" width="42" height="110" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    <rect x="85" y="55" width="42" height="105" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    <rect x="140" y="60" width="42" height="100" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    <rect x="195" y="65" width="42" height="95" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    <rect x="250" y="70" width="42" height="90" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    <rect x="305" y="75" width="42" height="85" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    <rect x="360" y="80" width="42" height="80" rx="4" fill="url(#emasGrad)" opacity="0.85"/>
+    
+    <!-- Garis Penyangga Tali Pluntur -->
+    <line x1="20" y1="80" x2="420" y2="95" stroke="#171411" stroke-width="3"/>
+    <line x1="20" y1="135" x2="420" y2="135" stroke="#171411" stroke-width="3"/>
+  </g>
+
+  <!-- Tulisan Nama Alat & Keterangan Placeholder -->
+  <text x="400" y="420" text-anchor="middle" font-family="'Georgia', serif" font-size="34" font-weight="bold" fill="#EFE6D2" letter-spacing="2">
+    SARON
+  </text>
+  <text x="400" y="455" text-anchor="middle" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#D4AF37" letter-spacing="4">
+    ꦱꦫꦺꦴꦤ꧀
+  </text>
+  <text x="400" y="495" text-anchor="middle" font-family="'Inter', sans-serif" font-size="12" fill="#EFE6D2" opacity="0.5" letter-spacing="1.5">
+    FOTO SEGERA HADIR
+  </text>
+</svg>

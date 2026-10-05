@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-tinta: #0B0A09;
+  --color-arang: #171411;
+  --color-emas: #D4AF37;
+  --color-emas-muda: #F4E3B2;
+  --color-emas-tua: #997A1E;
+  --color-perunggu: #A9783C;
+  --color-gading: #EFE6D2;
+
+  --font-serif: var(--font-cormorant), "Georgia", serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  --shadow-pendar: 0 0 25px rgba(212, 175, 55, 0.45);
+}
+
+:root {
+  --bg-tinta: #0B0A09;
+  --card-arang: #171411;
+  --accent-emas: #D4AF37;
+  --text-gading: #EFE6D2;
+}
+
+body {
+  background-color: #0B0A09;
+  color: #EFE6D2;
+  font-family: var(--font-inter), sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Pola latar batik kawung halus (opacity rendah agar tidak mengganggu keterbacaan) */
+.bg-batik-pattern {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(169, 120, 60, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* Sentuhan ornamen garis etnik tipis */
+.ornamen-garis {
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+  height: 1px;
+}
+
+/* Efek pendar keemasan untuk bilah dan tombol aktif */
+.pendar-emas {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+/* Scrollbar elegan */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0A09;
+}
+::-webkit-scrollbar-thumb {
+  background: #25201A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A9783C;
+}

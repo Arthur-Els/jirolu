@@ -1,0 +1,50 @@
+{
+  "slug": "kendang",
+  "nama": "Kendang",
+  "namaJawa": "ꦏꦼꦤ꧀ꦝꦁ",
+  "tipe": "bersuara",
+  "deskripsiSingkat": "Pemimpin detak ritme dan penjaga tempo yang memberi nyawa serta nafas dinamika gending gamelan.",
+  "fungsi": "Kendang adalah instrumen pengatur tempo, irama, dan dinamika (pamurba wirama) dalam ansambel gamelan Jawa. Dimainkan langsung dengan kelenturan telapak tangan dan jemari penabuh (pengendang) tanpa pemukul tambahan. Pengendang memberi aba-aba peralihan irama (irama lancar, dadi, wiled, hingga rangkep) serta memberi isyarat berhenti (suwuk) bagi seluruh pengrawit.",
+  "filosofi": "Kendang menyimbolkan hati nurani dan kesadaran rasa manusia yang memimpin setiap gerak tindakan. Sebagai pengendali tempo, kendang mengajarkan kepekaan empati dan tanggung jawab kepemimpinan: tahu kapan harus mempercepat gerak kemajuan, kapan harus menenangkan diri, dan senantiasa menyelaraskan detak hidup pribadi dengan harmoni lingkungan.",
+  "gambar": "/images/instrumen/kendang.svg",
+  "tersediaDiFase": 2,
+  "_komentar": "Catatan teknis: Kendang adalah instrumen bersuara ritmis, sehingga strukturnya menggunakan daftarSuara pukulan tangan, bukan daftar tangga nada.",
+  "daftarSuara": [
+    {
+      "id": "dung",
+      "nama": "Dung",
+      "audio": "/audio/kendang/dung.webm",
+      "key": "z",
+      "keterangan": "Dung = pukulan dalam dengan jari di tebokan besar, suara bulat bergaung (tombol Z)",
+      "frekuensi": 130,
+      "decay": 0.8
+    },
+    {
+      "id": "tak",
+      "nama": "Tak",
+      "audio": "/audio/kendang/tak.webm",
+      "key": "x",
+      "keterangan": "Tak = pukulan redam telapak di tebokan kecil, suara kering tegas (tombol X)",
+      "frekuensi": 260,
+      "decay": 0.25
+    },
+    {
+      "id": "tung",
+      "nama": "Tung / Tak-tak",
+      "audio": "/audio/kendang/tung.webm",
+      "key": "c",
+      "keterangan": "Tung = sentuhan lentik jari di tepi tebokan kecil, suara tinggi nyaring (tombol C)",
+      "frekuensi": 440,
+      "decay": 0.5
+    },
+    {
+      "id": "dah",
+      "nama": "Dah / Bem",
+      "audio": "/audio/kendang/dah.webm",
+      "key": "v",
+      "keterangan": "Dah = pukulan telapak tangan terbuka di tebokan besar, dentum bass mantap (tombol V)",
+      "frekuensi": 85,
+      "decay": 1.1
+    }
+  ]
+}
