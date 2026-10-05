@@ -10,27 +10,27 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { href: "/", label: "Beranda" },
-    { href: "/#galeri", label: "Galeri Pameran" },
-    { href: "/tentang", label: "Tentang" },
+    { href: "/#galeri", label: "Galeri Alat Musik" },
+    { href: "/tentang", label: "Tentang Jirolu" },
   ];
 
   return (
     <header className="sticky top-0 z-50 w-full bg-tinta/85 backdrop-blur-md border-b border-perunggu/25">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-18 flex items-center justify-between">
-        {/* Brand / Logo Museum */}
+        {/* Brand / Logo Jirolu */}
         <Link
           href="/"
           className="group flex items-center gap-3 transition-transform duration-200 hover:scale-[1.01]"
         >
           <div className="w-10 h-10 rounded-full border border-emas/50 flex items-center justify-center bg-arang/90 shadow-[0_0_12px_rgba(212,175,55,0.2)] group-hover:border-emas group-hover:shadow-[0_0_16px_rgba(212,175,55,0.4)]">
-            <span className="text-emas font-serif text-lg font-bold">ꦒ</span>
+            <span className="text-emas font-serif text-lg font-bold">ꦗꦶ</span>
           </div>
           <div className="flex flex-col">
-            <span className="font-serif text-lg sm:text-xl font-bold tracking-wide text-gading group-hover:text-emas transition-colors">
-              Museum Gamelan
+            <span className="font-serif text-xl sm:text-2xl font-bold tracking-wide text-gading group-hover:text-emas transition-colors">
+              Jirolu
             </span>
-            <span className="text-[10px] tracking-widest text-perunggu uppercase font-sans -mt-0.5">
-              Jawa Tengah
+            <span className="text-[10px] tracking-widest text-perunggu uppercase font-sans -mt-1">
+              Museum Gamelan
             </span>
           </div>
         </Link>
@@ -60,7 +60,7 @@ export const Navbar: React.FC = () => {
             href="/instrumen/saron"
             className="text-xs uppercase tracking-wider px-4 py-2 rounded-full border border-emas/60 text-emas hover:bg-emas hover:text-tinta font-semibold transition-all shadow-[0_0_12px_rgba(212,175,55,0.2)]"
           >
-            Coba Saron
+            Mulai Mainkan
           </Link>
         </nav>
 
@@ -118,7 +118,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setIsMobileMenuOpen(false)}
               className="block text-center w-full py-3 rounded-lg bg-emas text-tinta font-semibold text-sm shadow-[0_0_15px_rgba(212,175,55,0.3)]"
             >
-              Mainkan Saron Virtual
+              Mulai Mainkan Gamelan
             </Link>
           </div>
         </div>

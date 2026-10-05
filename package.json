@@ -1,6 +1,7 @@
 {
   "name": "jirolu",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "Jirolu - Museum gamelan yang bisa kamu mainkan.",
   "private": true,
   "scripts": {
     "dev": "next dev",

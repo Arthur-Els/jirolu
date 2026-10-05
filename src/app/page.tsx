@@ -9,34 +9,36 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center w-full">
       {/* Bagian Pembuka (Hero Section) */}
-      <section className="relative w-full min-h-[82vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+      <section className="relative w-full min-h-[84vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
         {/* Pendaran Cahaya Emas di Latar Belakang */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[600px] h-[340px] sm:h-[600px] bg-emas/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[620px] h-[340px] sm:h-[620px] bg-emas/10 rounded-full blur-[130px] pointer-events-none" />
 
         <div className="relative max-w-4xl mx-auto text-center space-y-8 z-10">
-          {/* Badge Etnik Jawa */}
+          {/* Badge Jirolu */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-arang/90 border border-perunggu/40 text-emas text-xs uppercase tracking-widest font-medium shadow-md">
-            <span>ꦩꦸꦱꦶꦪꦸꦩ꧀ꦒꦩꦼꦭꦤ꧀</span>
+            <span>ꦗꦶꦫꦺꦴꦭꦸ</span>
             <span>•</span>
-            <span>Pameran Seni Suara Tradisi</span>
+            <span>Museum Gamelan Interaktif</span>
           </div>
 
-          {/* Judul Besar Utama */}
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-gading leading-[1.15]">
-            Denting Keheningan, <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emas via-emas-muda to-perunggu">
-              Harmoni Jiwa Jawa
-            </span>
-          </h1>
+          {/* Judul Besar Jirolu & Tagline */}
+          <div className="space-y-4">
+            <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl font-bold tracking-tight text-gading">
+              Jirolu
+            </h1>
+            <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-emas via-emas-muda to-perunggu italic font-medium">
+              &ldquo;Museum gamelan yang bisa kamu mainkan.&rdquo;
+            </p>
+          </div>
 
           {/* Kalimat Pengantar Singkat */}
-          <p className="max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-gading/80 leading-relaxed font-sans font-light">
-            Selamat datang di Museum Digital Gamelan Jawa Tengah. Selami kedalaman filosofis
-            tiap instrumen dan rasakan langsung getaran bilah logam perunggu melalui soundboard
-            virtual tanpa jeda suara.
+          <p className="max-w-2xl mx-auto text-base sm:text-lg text-gading/80 leading-relaxed font-sans font-light">
+            Eksplorasi warisan seni suara gamelan Jawa Tengah di ujung jarimu.
+            Sentuh bilah Saron, dengungkan Bonang dan Gong, atau mainkan denyut irama Kendang
+            secara virtual langsung di peramban web tanpa jeda suara.
           </p>
 
-          {/* Aksi Tombol */}
+          {/* Tombol Aksi */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
             <a
               href="#galeri"
@@ -48,16 +50,16 @@ export default function HomePage() {
               href="/instrumen/saron"
               className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-arang/80 border border-perunggu/50 text-gading hover:text-emas hover:border-emas text-sm sm:text-base tracking-wide transition-all duration-200 flex items-center justify-center min-h-[44px]"
             >
-              Mainkan Saron Virtual
+              Coba Mainkan Soundboard
             </Link>
           </div>
 
-          {/* Statistik / Ringkasan Singkat Pameran */}
+          {/* Statistik Koleksi Jirolu */}
           <div className="grid grid-cols-3 gap-4 pt-12 border-t border-perunggu/20 max-w-lg mx-auto text-center">
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emas">4+</div>
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-emas">4 Alat</div>
               <div className="text-[11px] sm:text-xs text-gading/60 uppercase tracking-wider mt-1">
-                Alat Musik
+                Saron, Bonang, Gong, Kendang
               </div>
             </div>
             <div>
@@ -83,15 +85,15 @@ export default function HomePage() {
       <section className="w-full py-16 px-4 sm:px-6 bg-arang/40 border-y border-perunggu/20">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <span className="text-xs uppercase tracking-widest text-emas font-medium">
-            Nilai Adiluhung
+            Nilai Adiluhung Jawa
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-gading">
-            &ldquo;Aja Kagetan, Aja Gumunan, Aja Dumeh&rdquo;
+            &ldquo;Laras, Raras, Rancak&rdquo;
           </h2>
           <p className="text-sm sm:text-base text-gading/75 leading-relaxed max-w-2xl mx-auto">
-            Gamelan bukan sekadar deretan instrumen musik, melainkan cerminan tata hidup masyarakat
-            Jawa yang mengedepankan keselarasan, tenggang rasa, dan pengendalian ego demi
-            terciptanya irama kehidupan yang tenteram dan seimbang.
+            Nama <strong>Jirolu</strong> mengingatkan kita bahwa musik gamelan bermula dari kesederhanaan langkah awal:
+            <strong> ji (1), ro (2), dan lu (3)</strong>. Dari keselarasan nada dasar ini, lahirlah jalinan irama agung
+            yang menyatukan rasa, cipta, dan budi pekerti manusia.
           </p>
         </div>
       </section>

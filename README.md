@@ -1,139 +1,152 @@
-# 🏛️ Museum Digital Gamelan Jawa Tengah
+# 🏛️ Jirolu — Museum Gamelan yang Bisa Kamu Mainkan
 
-Selamat datang di repositori **Museum Digital Gamelan Jawa Tengah**! Proyek ini adalah museum interaktif berbasis web untuk menjelajahi keindahan estetika, nilai filosofis mendalam, serta memainkan ragam alat musik gamelan Jawa secara virtual dengan suara instan tanpa jeda (*zero latency*).
+**Jirolu** adalah museum digital gamelan Jawa Tengah yang interaktif dan edukatif. Di Jirolu, pengunjung tidak hanya membaca filosofi dan fungsi alat musik karawitan, tetapi juga bisa **langsung memainkannya secara virtual** lewat keyboard atau layar sentuh ponsel dengan suara instan tanpa jeda (*zero latency*).
 
-Dibuat menggunakan pendekatan **Modern-Etnik** yang elegan, bersih, dan berwibawa, memadukan tradisi karawitan Jawa dengan teknologi web modern.
-
----
-
-## 🛠️ Teknologi yang Digunakan (*Tech Stack*)
-
-- **Next.js (App Router)**: Framework modern React dengan fitur *Static Export* (`output: 'export'`) sehingga web dapat di-hosting di mana saja tanpa server backend.
-- **TypeScript**: Menjaga kejelasan struktur data dan mencegah kesalahan kode (*bug-free*).
-- **Tailwind CSS**: Pengaturan gaya tampilan yang rapi dan konsisten dengan palet warna etnik khusus (Tinta, Arang, Emas, Perunggu, Gading).
-- **Web Audio API**: Pemrosesan suara murni dari browser langsung ke kartu suara komputer/ponsel. **Bukan** tag `<audio>` biasa, sehingga mendukung pukulan cepat berulang (*polyphony*), *multi-touch*, dan tanpa *lag*.
-- **Framer Motion**: Menghadirkan animasi halus pendar keemasan pada bilah saat ditabuh.
+Nama **Jirolu** terinspirasi dari tiga nada pertama dalam tangga nada gamelan Jawa:
+- **Ji** (nada 1)
+- **Ro** (nada 2)
+- **Lu** (nada 3)
 
 ---
 
-## 🚀 Cara Menjalankan Proyek di Komputer Lokal
+## 🎵 Alat Musik yang Tersedia di Jirolu
 
-### 1. Prasyarat
-Pastikan komputer kamu sudah terpasang **Node.js** (versi 18 atau lebih baru).
+1. **Saron (Kategori: Bernada)**
+   - Mendukung **Laras Pelog** (7 nada: ji, ro, lu, pat, mo, nem, pi) dengan tombol keyboard `A, S, D, F, G, H, J`.
+   - Mendukung **Laras Slendro** (5 nada: ji, ro, lu, mo, nem) dengan tombol keyboard `A, S, D, F, G`.
+   - Fitur pergantian laras dengan peredaman suara halus (*fade out*).
 
-### 2. Pemasangan (*Install Dependencies*)
-Buka terminal/PowerShell di folder proyek ini (`jirolu`), lalu jalankan:
+2. **Bonang (Kategori: Bernada)**
+   - Disusun dalam **2 baris pencon bundar**:
+     - Baris Atas (nada tinggi): Tombol `Q, W, E, R, T, Y, U`
+     - Baris Bawah (nada rendah): Tombol `A, S, D, F, G, H, J`
+   - Mendukung laras **Pelog** (14 pencon) dan **Slendro** (10 pencon).
+
+3. **Gong Ageng (Kategori: Bersuara)**
+   - Menampilkan 3 gong besar dengan karakter suara berbeda:
+     - **Gong Ageng** (tombol `1`): Dentuman paling dalam penutup siklus gongan.
+     - **Gong Suwukan** (tombol `2`): Gong sedang pembagi kalimat lagu.
+     - **Kempul** (tombol `3`): Gong gantung aksen yang cerah.
+   - Dilengkapi efek animasi **gelombang riak emas melebar pelan** (*ripple effect*) dan durasi dengung panjang (3 - 5 detik). Jika gong yang sama dipukul lagi, suara lama dihentikan dengan cepat agar tidak bising.
+
+4. **Kendang (Kategori: Bersuara / Ritmis)**
+   - Menampilkan ilustrasi kendang interaktif dengan **4 area pukul utama**:
+     - **Dung** (tombol `Z`): Pukulan jari dalam sisi besar, bulat & bergaung.
+     - **Dah / Bem** (tombol `V`): Pukulan telapak tangan terbuka sisi besar, bass mantap.
+     - **Tak** (tombol `X`): Pukulan redam telapak sisi kecil, kering & tegas.
+     - **Tung / Tak-tak** (tombol `C`): Sentuhan lentik jari di tepi sisi kecil, tinggi & nyaring.
+   - Dilengkapi kartu penjelasan karakter pukulan di bawah soundboard.
+
+---
+
+## 🎛️ Fitur Tambahan Soundboard
+
+- **Slider Volume & Tombol Bisu (Mute)** di semua soundboard.
+- **Kartu "Alat Musik Lainnya"** di bagian bawah halaman tiap instrumen untuk memudahkan navigasi antar-koleksi.
+- **Audio Synthesizer Cadangan**: Jika berkas audio `.webm` belum diisi, Jirolu otomatis mensintesis suara nada perunggu, dentuman gong sub-bass, dan membran kendang sehingga web tetap berbunyi merdu tanpa error.
+
+---
+
+## 🚀 Cara Menjalankan Proyek
+
+### 1. Pemasangan (*Install*)
 ```bash
 npm install
 ```
 
-### 3. Menjalankan Server Pengembangan (*Development*)
-Untuk melihat website berjalan di browser kamu:
+### 2. Jalankan Server Dev (*Localhost*)
 ```bash
 npm run dev
 ```
-Buka browser dan kunjungi alamat: [http://localhost:3000](http://localhost:3000).
+Buka browser di [http://localhost:3000](http://localhost:3000).
 
-### 4. Membangun Situs Statis (*Production Build*)
-Untuk menguji hasil ekspor situs statis akhir sebelum disebarkan:
+### 3. Build Static Export (Siap Deploy)
 ```bash
 npm run build
 ```
-Hasil siap saji akan berada di folder `out/`.
+Hasil siap saji akan diekspor ke folder `out/`.
 
 ---
 
-## 🎹 Cara Memainkan Soundboard Virtual
+## 🖼️ Cara Mengganti Gambar Placeholder dengan Foto Asli
 
-1. Buka halaman instrumen (misalnya **/instrumen/saron**).
-2. **Di Laptop / Komputer**:
-   - Tekan tombol keyboard:
-     - `A` = Nada 1 (Ji)
-     - `S` = Nada 2 (Ro)
-     - `D` = Nada 3 (Lu)
-     - `F` = Nada 4 (Pat)
-     - `G` = Nada 5 (Mo)
-     - `H` = Nada 6 (Nem)
-     - `J` = Nada 7 (Pi)
-   - Atau klik bilah langsung menggunakan mouse.
-3. **Di Ponsel / Tablet**:
-   - Sentuh bilah nada perunggu langsung di layar.
-   - Mendukung **multi-touch** (kamu bisa memukul dua atau tiga bilah sekaligus dengan beberapa jari).
-   - Layar tidak akan *scroll* atau *zoom* secara tidak sengaja karena sudah dilengkapi fitur `touch-action: none`.
-4. **Catatan Safari / iPhone**:
-   - Browser seluler membatasi suara otomatis sebelum ada interaksi. Klik tombol **"Aktifkan Suara Audio"** atau langsung sentuh bilah pertama kali untuk membuka kunci audio.
+Jirolu telah menyediakan gambar SVG placeholder etnik yang elegan di `public/images/instrumen/`. Jika kamu sudah memiliki foto asli alat musik, ikuti langkah mudah ini **tanpa perlu mengubah kode komponen**:
+
+1. Letakkan file fotomu (misal format `.webp`, `.jpg`, atau `.png`) di folder:
+   ```
+   public/images/instrumen/
+   ```
+2. Buka file JSON instrumen terkait di folder `src/content/instrumen/`:
+   - `saron.json`
+   - `bonang.json`
+   - `gong.json`
+   - `kendang.json`
+3. Cukup ubah nilai field `"gambar"` ke nama file fotomu, contoh:
+   ```json
+   "gambar": "/images/instrumen/bonang_asli.webp"
+   ```
+4. Simpan, dan foto barumu otomatis tampil di Galeri Beranda, Halaman Detail, dan Kartu Koleksi Lainnya!
 
 ---
 
-## 📂 Panduan Menaruh File Aset (Audio & Gambar)
+## 📂 Daftar Lengkap File Audio yang Perlu Disiapkan
 
-Jika kamu sudah merekam nada gamelan asli dalam format `.webm` berkualitas tinggi, kamu cukup memasukkan file-file tersebut ke folder berikut:
+Jika kamu ingin merekam suara gamelan asli dalam format `.webm`, berikut panduan struktur folder dan nama file persisnya:
 
 ```
-public/
-├── audio/
-│   ├── saron/
-│   │   ├── pelog/       <-- Letakkan file: 1.webm, 2.webm, 3.webm, 4.webm, 5.webm, 6.webm, 7.webm
-│   │   └── slendro/     <-- (Untuk Fase 2) Letakkan nada slendro: 1.webm, 2.webm, 3.webm, 5.webm, 6.webm
-│   ├── bonang/          <-- (Untuk Fase 2)
-│   ├── gong/            <-- (Untuk Fase 2)
-│   └── kendang/         <-- (Untuk Fase 2)
-└── images/
-    └── instrumen/       <-- Foto alat musik: saron.webp, bonang.webp, gong.webp, kendang.webp
+public/audio/
+├── saron/
+│   ├── pelog/
+│   │   ├── 1.webm  (nada ji)
+│   │   ├── 2.webm  (nada ro)
+│   │   ├── 3.webm  (nada lu)
+│   │   ├── 4.webm  (nada pat)
+│   │   ├── 5.webm  (nada mo)
+│   │   ├── 6.webm  (nada nem)
+│   │   └── 7.webm  (nada pi)
+│   └── slendro/
+│       ├── 1.webm  (nada ji)
+│       ├── 2.webm  (nada ro)
+│       ├── 3.webm  (nada lu)
+│       ├── 5.webm  (nada mo)
+│       └── 6.webm  (nada nem)
+│
+├── bonang/
+│   ├── pelog/
+│   │   ├── 1_hi.webm s/d 7_hi.webm (baris atas)
+│   │   └── 1.webm s/d 7.webm       (baris bawah)
+│   └── slendro/
+│       ├── 1_hi.webm s/d 6_hi.webm (baris atas)
+│       └── 1.webm s/d 6.webm       (baris bawah)
+│
+├── gong/
+│   ├── gong_ageng.webm
+│   ├── gong_suwukan.webm
+│   └── kempul.webm
+│
+└── kendang/
+    ├── dung.webm
+    ├── tak.webm
+    ├── tung.webm
+    └── dah.webm
 ```
-
-> **💡 Catatan Ramah:**  
-> Jika file `.webm` rekaman asli belum kamu masukkan, kamu **tidak perlu khawatir!** Sistem kami secara otomatis mengaktifkan **Audio Synthesizer Perunggu Internal** berbasis frekuensi nada gamelan Pelog asli, sehingga kamu tetap bisa mendengar suara denting gamelan secara langsung.
 
 ---
 
 ## ➕ Cara Menambah Alat Musik Baru
 
-Struktur proyek ini dirancang sangat modular dan mudah dikembangkan tanpa database:
-
-1. **Buat file data JSON baru** di folder `src/content/instrumen/` (contoh: `demung.json`):
-   ```json
-   {
-     "slug": "demung",
-     "nama": "Demung",
-     "namaJawa": "ꦢꦼꦩꦸꦁ",
-     "deskripsiSingkat": "Instrumen balungan dengan oktaf lebih rendah dari saron.",
-     "fungsi": "Menegaskan balungan dengan nada rendah berwibawa.",
-     "filosofi": "Melambangkan ketenangan jiwa yang berakar kuat.",
-     "gambar": "/images/instrumen/demung.webp",
-     "larasDefault": "pelog",
-     "tersediaDiFase": 1,
-     "laras": {
-       "pelog": [
-         { "nada": "1", "label": "ji", "audio": "/audio/demung/pelog/1.webm", "key": "a", "frekuensi": 140 }
-       ]
-     }
-   }
-   ```
-2. **Daftarkan di `src/lib/content.ts`**:
-   - Impor `demungData from "@/content/instrumen/demung.json"`.
-   - Masukkan ke array `daftarInstrumen`.
-3. **Sediakan gambar**: Taruh gambar `demung.webp` di folder `public/images/instrumen/`.
-4. Halaman `/instrumen/demung` dan kartunya di Galeri Beranda akan otomatis dibuat oleh Next.js!
+1. Buat file JSON baru di `src/content/instrumen/` (pilih kategori `"bernada"` atau `"bersuara"`).
+2. Daftarkan di `src/lib/content.ts` pada array `daftarInstrumen`.
+3. Sediakan gambar di `public/images/instrumen/`.
+4. Halaman `/instrumen/[slug]` dan kartu galeri akan terbuat otomatis!
 
 ---
 
 ## 🌐 Cara Deploy ke Vercel
 
-Aplikasi ini sudah dioptimalkan dengan konfigurasi statis (`output: 'export'`) sehingga proses *deployment* di Vercel sangat cepat dan gratis:
-
-1. Unggah kode ke repositori **GitHub** kamu.
-2. Masuk ke dasbor [Vercel](https://vercel.com) dan pilih **"Add New Project"**.
-3. Hubungkan repositori GitHub proyek ini.
-4. Pada bagian pengaturan *Build & Output Settings*, Vercel akan otomatis mengenali Next.js:
-   - **Framework Preset**: Next.js
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `out`
-5. Klik **"Deploy"**! Dalam 1-2 menit, situs Museum Digital Gamelan kamu sudah online dan bisa diakses publik di seluruh dunia.
-
----
-
-## 🌿 Filosofi Karawitan Jawa
-
-> *"Laras, Raras, Rancak"*  
-> Keselarasan nada, keindahan rasa, dan keteraturan hidup dalam harmoni alam semesta.
+1. Push kode ke repositori GitHub kamu.
+2. Impor proyek di [Vercel](https://vercel.com).
+3. Vercel akan otomatis mengenali konfigurasi:
+   - Build Command: `npm run build`
+   - Output Directory: `out`
+4. Klik **Deploy** dan situs Jirolu akan online dalam sekejap!

@@ -19,26 +19,28 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gamelan-jawatengah.web.id"),
-  title: "Museum Digital Gamelan Jawa Tengah | Pameran & Soundboard Virtual",
+  metadataBase: new URL("https://jirolu.web.id"),
+  title: "Jirolu | Museum Gamelan yang Bisa Kamu Mainkan",
   description:
-    "Eksplorasi warisan adiluhung gamelan Jawa Tengah secara interaktif. Dengarkan denting Saron, Bonang, Gong, dan Kendang, serta selami filosofi luhur karawitan Nusantara.",
+    "Jirolu adalah museum digital interaktif gamelan Jawa Tengah. Jelajahi filosofi mendalam dan mainkan Saron, Bonang, Gong, serta Kendang secara virtual tanpa jeda suara.",
   keywords: [
+    "jirolu",
     "gamelan jawa",
-    "gamelan jawa tengah",
     "museum gamelan",
     "saron virtual",
-    "soundboard gamelan",
+    "bonang virtual",
+    "gong virtual",
+    "kendang virtual",
     "alat musik tradisional",
-    "karawitan",
+    "karawitan jawa",
   ],
-  authors: [{ name: "Museum Digital Gamelan Jawa Tengah" }],
+  authors: [{ name: "Jirolu" }],
   openGraph: {
-    title: "Museum Digital Gamelan Jawa Tengah",
+    title: "Jirolu | Museum Gamelan yang Bisa Kamu Mainkan",
     description:
-      "Museum digital interaktif: pelajari filosofi dan mainkan alat musik gamelan Jawa secara virtual tanpa jeda suara.",
-    url: "https://gamelan-jawatengah.web.id",
-    siteName: "Museum Digital Gamelan Jawa Tengah",
+      "Museum gamelan digital interaktif: pelajari filosofi dan mainkan alat musik gamelan Jawa secara virtual tanpa delay.",
+    url: "https://jirolu.web.id",
+    siteName: "Jirolu",
     locale: "id_ID",
     type: "website",
   },
@@ -52,13 +54,13 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${inter.variable} ${cormorant.variable} scroll-smooth`}>
       <body className="bg-tinta text-gading bg-batik-pattern flex flex-col min-h-screen">
-        {/* Navigasi Utama */}
+        {/* Navigasi Utama Jirolu */}
         <Navbar />
 
         {/* Konten Halaman */}
         <main className="flex-1 w-full">{children}</main>
 
-        {/* Footer */}
+        {/* Footer Jirolu */}
         <Footer />
       </body>
     </html>

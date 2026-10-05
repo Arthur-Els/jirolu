@@ -3,9 +3,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tentang Museum Digital Gamelan Jawa Tengah",
+  title: "Tentang Jirolu | Museum Gamelan yang Bisa Kamu Mainkan",
   description:
-    "Mengenal tujuan, dedikasi pelestarian karawitan, ucapan terima kasih, dan lisensi sumber daya Museum Digital Gamelan Jawa Tengah.",
+    "Mengenal asal usul nama Jirolu, tujuan pelestarian karawitan, ucapan terima kasih, dan lisensi sumber daya Museum Digital Gamelan Jawa Tengah.",
 };
 
 export default function TentangPage() {
@@ -14,21 +14,37 @@ export default function TentangPage() {
       {/* Header Halaman Tentang */}
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-arang border border-perunggu/40 text-emas text-xs uppercase tracking-widest font-medium">
-          <span>ꦱꦼꦢꦾꦠꦩ</span>
+          <span>ꦗꦶꦫꦺꦴꦭꦸ</span>
           <span>•</span>
-          <span>Profil Museum</span>
+          <span>Tentang Museum</span>
         </div>
         <h1 className="font-serif text-3xl sm:text-5xl font-bold text-gading">
-          Tentang Museum Digital Gamelan
+          Tentang Jirolu
         </h1>
-        <div className="w-20 h-0.5 bg-emas mx-auto rounded-full" />
-        <p className="text-base sm:text-lg text-gading/75 max-w-2xl mx-auto leading-relaxed">
-          Inisiatif preservasi kebudayaan seni karawitan Jawa Tengah yang memadukan keaslian nilai filosofis
-          tradisional dengan teknologi web modern berlatensi rendah.
+        <p className="font-serif text-lg sm:text-xl text-emas italic">
+          &ldquo;Museum gamelan yang bisa kamu mainkan.&rdquo;
         </p>
+        <div className="w-20 h-0.5 bg-emas mx-auto rounded-full" />
       </div>
 
-      {/* Bagian 1: Tujuan Website */}
+      {/* Bagian Asal-Usul Nama Jirolu */}
+      <section className="bg-arang/80 border border-emas/40 rounded-2xl p-6 sm:p-8 space-y-3 shadow-lg backdrop-blur-sm">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emas/20 border border-emas/50 flex items-center justify-center text-emas font-serif font-bold text-lg">
+            ꦗꦶ
+          </div>
+          <h2 className="font-serif text-2xl font-bold text-gading">Makna Nama Jirolu</h2>
+        </div>
+        <p className="text-sm sm:text-base text-gading/85 leading-relaxed font-light">
+          Nama <strong>Jirolu</strong> diambil dari tiga nada pertama dalam tangga nada gamelan Jawa, yaitu{" "}
+          <strong className="text-emas">ji</strong> (nada 1), <strong className="text-emas">ro</strong> (nada 2), dan{" "}
+          <strong className="text-emas">lu</strong> (nada 3). Ketiga nada dasar ini melambangkan langkah awal dalam belajar
+          dan menghayati keindahan seni karawitan, di mana setiap orang memulai dari ketukan pertama yang sederhana sebelum
+          menemukan keharmonisan dalam gending yang agung.
+        </p>
+      </section>
+
+      {/* Bagian 1: Tujuan Jirolu */}
       <section className="bg-arang/80 border border-perunggu/30 rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas">
@@ -45,11 +61,11 @@ export default function TentangPage() {
             gamelan yang lengkap sering kali terbatas bagi generasi muda dan masyarakat luas.
           </p>
           <p>
-            Museum Digital ini lahir dengan misi:
+            Jirolu hadir dengan visi:
           </p>
           <ul className="list-disc list-inside space-y-2 pl-2 text-gading/85">
             <li>
-              <strong className="text-emas">Edukasi Terbuka:</strong> Mengenalkan nama, anatomi, laras (Pelog & Slendro), dan peran masing-masing instrumen dalam format visual yang elegan.
+              <strong className="text-emas">Edukasi Terbuka:</strong> Mengenalkan nama, anatomi, laras (Pelog & Slendro), dan peran masing-masing instrumen (Saron, Bonang, Gong, Kendang) dalam format visual yang elegan.
             </li>
             <li>
               <strong className="text-emas">Interaktivitas Nyata:</strong> Memberikan pengalaman menabuh langsung instrumen gamelan melalui peramban web tanpa delay (Web Audio API murni).
@@ -61,7 +77,7 @@ export default function TentangPage() {
         </div>
       </section>
 
-      {/* Bagian 2: Ucapan Terima Kasih & Penghormatan */}
+      {/* Bagian 2: Ucapan Terima Kasih */}
       <section className="bg-arang/80 border border-perunggu/30 rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg backdrop-blur-sm">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl bg-perunggu/20 border border-perunggu/50 flex items-center justify-center text-emas">
@@ -104,10 +120,10 @@ export default function TentangPage() {
           <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/20 space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-gading">Audio Sampel Gamelan</span>
-              <span className="text-xs text-emas bg-arang px-2 py-0.5 rounded border border-perunggu/30">Creative Commons / Domain Publik</span>
+              <span className="text-xs text-emas bg-arang px-2 py-0.5 rounded border border-perunggu/30">Web Audio API / Domain Publik</span>
             </div>
             <p className="text-xs text-gading/65">
-              Format audio didesain untuk file terkompresi berkualitas tinggi <code className="text-emas">.webm</code> dengan latensi rendah. Sistem dilengkapi synthesizer perunggu internal sebagai cadangan suara bila file offline belum dimuat.
+              Format audio didesain untuk file terkompresi berkualitas tinggi <code className="text-emas">.webm</code> dengan latensi 0 ms. Jirolu dilengkapi synthesizer perunggu dan membran drum otomatis bila rekaman offline belum dimuat.
             </p>
           </div>
 
@@ -129,7 +145,7 @@ export default function TentangPage() {
           href="/"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emas text-tinta font-semibold text-sm hover:bg-emas-muda transition-all shadow-[0_0_20px_rgba(212,175,55,0.25)] min-h-[44px]"
         >
-          ← Kembali ke Beranda Pameran
+          ← Kembali ke Beranda Jirolu
         </Link>
       </div>
     </div>

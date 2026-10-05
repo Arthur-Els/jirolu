@@ -8,7 +8,8 @@ interface InstrumentCardProps {
 }
 
 export const InstrumentCard: React.FC<InstrumentCardProps> = ({ instrumen }) => {
-  const isPlayable = instrumen.tersediaDiFase === 1;
+  // Di Fase 2, seluruh instrumen (Saron, Bonang, Gong, Kendang) sudah memiliki soundboard aktif
+  const isPlayable = instrumen.tersediaDiFase <= 2;
 
   return (
     <Link
