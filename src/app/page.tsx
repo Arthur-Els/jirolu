@@ -9,72 +9,68 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {/* Bagian Pembuka (Hero Section) dengan Background Video */}
-      <section className="relative w-full min-h-[85vh] sm:min-h-[88vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+      {/* Bagian Pembuka (Hero Section) */}
+      <section className="relative w-full min-h-[92vh] flex items-center justify-center px-4 sm:px-6 pt-[120px] pb-20 overflow-hidden">
         {/* Background Video Looping */}
         <HeroVideoBackground src="/background/bg-home.mp4" />
 
-        {/* Pendaran Cahaya Emas di Latar Belakang */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[620px] h-[340px] sm:h-[620px] bg-emas/15 rounded-full blur-[130px] pointer-events-none" />
-
-        <div className="relative max-w-4xl mx-auto text-center space-y-8 z-10">
-          {/* Badge Jirolu */}
-          <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
-            <span>ꦗꦶꦫꦺꦴꦭꦸ</span>
-            <span>•</span>
-            <span>Museum Gamelan Interaktif</span>
+        {/* Hero Body Layout */}
+        <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
+          {/* Eyebrow Badge */}
+          <div className="font-mono text-[13px] tracking-[0.08em] text-white/60 mb-6 select-none">
+            [ Pengalaman Museum Interaktif ]
           </div>
 
-          {/* Judul Besar Jirolu & Tagline */}
-          <div className="space-y-4">
-            <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl font-bold tracking-tight text-gading">
-              Jirolu
-            </h1>
-            <p className="font-serif text-2xl sm:text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-emas via-emas-muda to-perunggu italic font-medium">
-              &ldquo;Museum gamelan yang bisa kamu mainkan.&rdquo;
-            </p>
-          </div>
+          {/* Headline */}
+          <h1 className="text-[clamp(36px,6vw,68px)] leading-[1.15] text-white text-center mb-6 tracking-tight">
+            <span className="font-sans font-bold block sm:inline">
+              Warisan suara gamelan klasik,{" "}
+            </span>
+            <span className="font-serif italic font-normal block sm:inline">
+              berdenyut lebih dekat.
+            </span>
+          </h1>
 
-          {/* Kalimat Pengantar Singkat */}
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-gading/80 leading-relaxed font-sans font-light">
-            Eksplorasi warisan seni suara gamelan Jawa Tengah di ujung jarimu.
-            Sentuh bilah Saron, dengungkan Bonang dan Gong, atau mainkan denyut irama Kendang
-            secara virtual langsung di peramban web tanpa jeda suara.
+          {/* Subheadline */}
+          <p className="text-[16px] leading-[1.6] text-white/70 text-center max-w-[540px] mb-10 font-sans">
+            Sentuh bilah saron, dengungkan bonang, dan rasakan vibrasi tradisi Jawa langsung dari peramban tanpa jeda nada.
           </p>
 
-          {/* Tombol Aksi */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          {/* CTA Group */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
+              id="btn-primary"
               href="#galeri"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-emas text-tinta font-semibold text-sm sm:text-base tracking-wide shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:bg-emas-muda transition-all duration-200 transform hover:-translate-y-0.5 active:scale-95 flex items-center justify-center min-h-[44px]"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-emas hover:bg-emas-muda text-tinta font-semibold text-[15px] border-none transition-all duration-200 transform hover:scale-[1.02] active:scale-95 flex items-center justify-center min-h-[48px] shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)]"
             >
               Jelajahi Pameran
             </a>
             <Link
+              id="btn-secondary"
               href="/instrumen/saron"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-arang/80 border border-perunggu/50 text-gading hover:text-emas hover:border-emas text-sm sm:text-base tracking-wide transition-all duration-200 flex items-center justify-center min-h-[44px]"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/25 hover:border-emas/60 backdrop-blur-[8px] text-white hover:text-emas-muda font-medium text-[15px] transition-all duration-200 transform hover:scale-[1.02] active:scale-95 flex items-center justify-center min-h-[48px]"
             >
-              Coba Mainkan Soundboard
+              Mainkan Soundboard
             </Link>
           </div>
 
           {/* Statistik Koleksi Jirolu */}
-          <div className="grid grid-cols-3 gap-4 pt-12 border-t border-perunggu/20 max-w-lg mx-auto text-center">
+          <div className="grid grid-cols-3 gap-6 pt-16 border-t border-white/10 max-w-lg mx-auto text-center mt-12 w-full">
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emas">4 Alat</div>
-              <div className="text-[11px] sm:text-xs text-gading/60 uppercase tracking-wider mt-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-white">4 Alat</div>
+              <div className="text-[11px] sm:text-xs text-white/50 uppercase tracking-wider mt-1">
                 Saron, Bonang, Gong, Kendang
               </div>
             </div>
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emas">2 Laras</div>
-              <div className="text-[11px] sm:text-xs text-gading/60 uppercase tracking-wider mt-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-white">2 Laras</div>
+              <div className="text-[11px] sm:text-xs text-white/50 uppercase tracking-wider mt-1">
                 Pelog & Slendro
               </div>
             </div>
             <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-emas">0 ms</div>
-              <div className="text-[11px] sm:text-xs text-gading/60 uppercase tracking-wider mt-1">
+              <div className="font-serif text-2xl sm:text-3xl font-bold text-white">0 ms</div>
+              <div className="text-[11px] sm:text-xs text-white/50 uppercase tracking-wider mt-1">
                 Latensi Suara
               </div>
             </div>

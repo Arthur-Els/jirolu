@@ -67,11 +67,14 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({ src })
         Peramban Anda tidak mendukung pemutaran video.
       </video>
 
-      {/* Lapisan overlay gelap tipis agar visual video tetap jelas bergerak, namun teks tetap kontras */}
-      <div className="absolute inset-0 bg-tinta/50" />
-
-      {/* Gradien transisi halus ke bagian bawah beranda */}
-      <div className="absolute inset-0 bg-gradient-to-b from-tinta/70 via-transparent to-tinta" />
+      {/* Visual Effects: Dark-ambient linear gradient overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%)",
+        }}
+      />
     </div>
   );
 };

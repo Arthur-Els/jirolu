@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-arang/90 border-t border-perunggu/25 text-gading/70 py-12 px-4 sm:px-6">
+    <footer id="kontak" className="w-full bg-arang/90 border-t border-perunggu/25 text-gading/70 py-12 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Kolom Kiri: Identitas Jirolu */}
         <div className="text-center md:text-left space-y-2">
