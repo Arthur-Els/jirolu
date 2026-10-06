@@ -20,22 +20,22 @@ export default function HomePage() {
           <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
           {/* Eyebrow Badge */}
           <div className="font-mono text-[13px] tracking-[0.08em] text-white/60 mb-6 select-none">
-            [ Pengalaman Museum Interaktif ]
+            [ Pengalaman Museum Gamelan Interaktif ]
           </div>
 
           {/* Headline */}
-          <h1 className="text-[clamp(36px,6vw,68px)] leading-[1.15] text-white text-center mb-6 tracking-tight">
+          <h1 className="text-[clamp(36px,7vw,60px)] leading-[1.15] text-white text-center mb-6 tracking-tight">
             <span className="font-sans font-bold block sm:inline">
-              Warisan suara gamelan klasik,{" "}
+              Jelajahi warisan suara gamelan,{" "}
             </span>
             <span className="font-serif italic font-normal block sm:inline">
-              berdenyut lebih dekat.
+              langsung dari layar anda.
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-[16px] leading-[1.6] text-white/70 text-center max-w-[540px] mb-10 font-sans">
-            Sentuh bilah saron, dengungkan bonang, dan rasakan vibrasi tradisi Jawa langsung dari peramban tanpa jeda nada.
+            Sentuh bilah saron, dengungkan bonang, dan rasakan getaran tradisi Jawa langsung di layar anda tanpa jeda sedikitpun.
           </p>
 
           {/* CTA Group */}
@@ -45,14 +45,14 @@ export default function HomePage() {
               href="#galeri"
               className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-emas hover:bg-emas-muda text-tinta font-semibold text-[15px] border-none transition-all duration-200 transform hover:scale-[1.02] active:scale-95 flex items-center justify-center min-h-[48px] shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)]"
             >
-              Jelajahi Pameran
+              Jelajahi Galeri
             </a>
             <Link
               id="btn-secondary"
               href="/instrumen/saron"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/25 hover:border-emas/60 backdrop-blur-[8px] text-white hover:text-emas-muda font-medium text-[15px] transition-all duration-200 transform hover:scale-[1.02] active:scale-95 flex items-center justify-center min-h-[48px]"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/25 hover:border-white/60 backdrop-blur-[8px] text-white hover:text-emas-muda font-medium text-[15px] transition-all duration-200 transform hover:scale-[1.02] active:scale-95 flex items-center justify-center min-h-[48px]"
             >
-              Mainkan Soundboard
+              Mulai Bermain
             </Link>
           </div>
 

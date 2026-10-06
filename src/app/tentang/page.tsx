@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { HeroVideoBackground } from "@/components/ui/HeroVideoBackground";
 
 export const metadata: Metadata = {
   title: "Tentang Jirolu | Museum Gamelan yang Bisa Kamu Mainkan",
@@ -10,7 +11,12 @@ export const metadata: Metadata = {
 
 export default function TentangPage() {
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-12">
+    <div className="relative w-full min-h-screen">
+      {/* Background Video Fixed (Tetap diam di posisi viewport saat halaman di-scroll) */}
+      <HeroVideoBackground src="/background/bg-home.mp4" isFixed={true} />
+
+      {/* Konten Halaman Tentang (Scroll di atas background video) */}
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-16 space-y-12">
       {/* Header Halaman Tentang */}
       <div className="text-center space-y-4">
         <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
@@ -149,5 +155,6 @@ export default function TentangPage() {
         </Link>
       </div>
     </div>
-  );
+  </div>
+);
 }

@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
             <span className="text-[10px] font-semibold text-emas uppercase tracking-widest pb-1 border-b border-perunggu/20">
               Navigasi
             </span>
-            <Link href="/" className="hover:text-emas transition-colors">
+            <Link href="/" className="hover:text-white transition-colors">
               Beranda
             </Link>
             <Link href="/tentang" className="hover:text-white transition-colors">
@@ -75,7 +75,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-perunggu/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gading/40 gap-3">
-        <p>© {new Date().getFullYear()} Jirolu. Dipersembahkan untuk pelestarian budaya gamelan Jawa.</p>
+        <p>© {new Date().getFullYear()} Jirolu. Dipersembahkan sebagai produk pameran alat musik tradisional Jawa.</p>
         <p className="tracking-wide">Format Statis Interaktif • Web Audio API murni</p>
       </div>
     </footer>
