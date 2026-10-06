@@ -8,10 +8,28 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {/* Bagian Pembuka (Hero Section) */}
-      <section className="relative w-full min-h-[84vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+      {/* Bagian Pembuka (Hero Section) dengan Background Video */}
+      <section className="relative w-full min-h-[85vh] sm:min-h-[88vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+        {/* Background Video */}
+        <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-60 scale-105"
+          >
+            <source src="/background/bg-home.mp4" type="video/mp4" />
+          </video>
+          {/* Overlay Gelap & Gradien Halus agar teks kontras dan transisi ke bawah mulus */}
+          <div className="absolute inset-0 bg-tinta/60 backdrop-blur-[0.5px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-tinta/85 via-tinta/40 to-tinta" />
+        </div>
+
         {/* Pendaran Cahaya Emas di Latar Belakang */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[620px] h-[340px] sm:h-[620px] bg-emas/10 rounded-full blur-[130px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[620px] h-[340px] sm:h-[620px] bg-emas/15 rounded-full blur-[130px] pointer-events-none" />
 
         <div className="relative max-w-4xl mx-auto text-center space-y-8 z-10">
           {/* Badge Jirolu */}
