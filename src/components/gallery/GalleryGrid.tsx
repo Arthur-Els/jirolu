@@ -82,9 +82,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
     <section id="galeri" className="w-full py-16 px-4 sm:px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Header Galeri */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-arang border border-perunggu/30 text-emas text-xs uppercase tracking-widest font-medium shadow-md">
-            <span>ꦥꦼꦤ꧀ꦝꦥꦒꦩꦼꦭꦤ꧀</span>
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-arang border border-perunggu/30 text-emas text-xs uppercase tracking-widest font-medium">
+            <span>ꦮꦶꦭꦸꦗꦼꦁꦫꦮꦸꦃ</span>
             <span>•</span>
             <span>Tata Ruang Ansambel Pendopo</span>
           </div>

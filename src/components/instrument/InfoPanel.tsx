@@ -33,7 +33,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ instrumen }) => {
 
         {/* Ringkasan & Deskripsi */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="inline-block px-3 py-1 rounded-full bg-tinta border border-perunggu/40 text-emas text-xs uppercase tracking-widest font-semibold">
+          <div className="inline-block text-emas text-xs uppercase tracking-widest font-semibold">
             Instrumen Karawitan
           </div>
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-gading">

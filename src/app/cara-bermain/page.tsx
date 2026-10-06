@@ -13,7 +13,7 @@ export default function CaraBermainPage() {
     <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-12">
       {/* Header Panduan */}
       <div className="text-center space-y-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-arang border border-perunggu/40 text-emas text-xs uppercase tracking-widest font-medium">
+        <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
           <span>ꦠꦸꦠꦸꦂꦥꦤꦸꦢꦸꦃ</span>
           <span>•</span>
           <span>Panduan Pengunjung</span>
