@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Nada } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 
@@ -23,31 +23,22 @@ interface BilahProps {
 export const Bilah: React.FC<BilahProps> = ({
   nada,
   index,
-  totalBilah,
   isTriggeredByKey = false,
   isTargetLearnNote = false,
   isWrongFeedback = false,
   isPlaybackActive = false,
   onPlay,
 }) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-
-  // Efek visual jika dipicu oleh keyboard atau playback rekaman
-  useEffect(() => {
-    if (isTriggeredByKey || isPlaybackActive) {
-      setIsActive(true);
-      const timer = setTimeout(() => setIsActive(false), 200);
-      return () => clearTimeout(timer);
-    }
-  }, [isTriggeredByKey, isPlaybackActive]);
+  const [isPointerActive, setIsPointerActive] = useState<boolean>(false);
+  const isActive = isPointerActive || isTriggeredByKey || isPlaybackActive;
 
   const handlePointerDown = useCallback(
     (e: React.PointerEvent<HTMLButtonElement>) => {
       e.currentTarget.setPointerCapture?.(e.pointerId);
-      setIsActive(true);
+      setIsPointerActive(true);
       onPlay(nada);
       setTimeout(() => {
-        setIsActive(false);
+        setIsPointerActive(false);
       }, 180);
     },
     [nada, onPlay]

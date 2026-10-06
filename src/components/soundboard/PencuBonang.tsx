@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Nada } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 
@@ -24,22 +24,15 @@ export const PencuBonang: React.FC<PencuBonangProps> = ({
   isPlaybackActive = false,
   onPlay,
 }) => {
-  const [isActive, setIsActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (isTriggeredByKey || isPlaybackActive) {
-      setIsActive(true);
-      const timer = setTimeout(() => setIsActive(false), 200);
-      return () => clearTimeout(timer);
-    }
-  }, [isTriggeredByKey, isPlaybackActive]);
+  const [isPointerActive, setIsPointerActive] = useState<boolean>(false);
+  const isActive = isPointerActive || isTriggeredByKey || isPlaybackActive;
 
   const handlePointerDown = useCallback(
     (e: React.PointerEvent<HTMLButtonElement>) => {
       e.currentTarget.setPointerCapture?.(e.pointerId);
-      setIsActive(true);
+      setIsPointerActive(true);
       onPlay(nada);
-      setTimeout(() => setIsActive(false), 180);
+      setTimeout(() => setIsPointerActive(false), 180);
     },
     [nada, onPlay]
   );

@@ -40,16 +40,10 @@ export function useAudioBuffers(items: AudioTarget[]): UseAudioBuffersResult {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isAudioUnlocked, setIsAudioUnlocked] = useState<boolean>(false);
   const [audioFilesAvailable, setAudioFilesAvailable] = useState<boolean>(false);
-  const [volume, setVolumeState] = useState<number>(0.85);
-  const [isMuted, setIsMutedState] = useState<boolean>(false);
+  const [volume, setVolumeState] = useState<number>(() => getMasterVolume());
+  const [isMuted, setIsMutedState] = useState<boolean>(() => getMuteState());
 
   const bufferCacheRef = useRef<Map<string, AudioBuffer>>(new Map());
-
-  // Inisialisasi status volume & mute saat awal
-  useEffect(() => {
-    setVolumeState(getMasterVolume());
-    setIsMutedState(getMuteState());
-  }, []);
 
   // Muat audio buffer setiap kali daftar items berganti
   useEffect(() => {

@@ -22,14 +22,17 @@ export function useBelajarLagu({
   const [lastWrongNote, setLastWrongNote] = useState<string | null>(null);
   const [justCorrect, setJustCorrect] = useState<boolean>(false);
 
+  const [prevLaguId, setPrevLaguId] = useState<string | null>(lagu?.id ?? null);
+
   // Jika lagu berganti, reset state pembelajaran
-  useEffect(() => {
+  if (lagu?.id !== prevLaguId) {
+    setPrevLaguId(lagu?.id ?? null);
     setStatus("belum_mulai");
     setCurrentStepIndex(0);
     setSalahHitung(0);
     setLastWrongNote(null);
     setJustCorrect(false);
-  }, [lagu]);
+  }
 
   // Sinkronisasi otomatis laras jika berbeda dengan laras lagu
   useEffect(() => {

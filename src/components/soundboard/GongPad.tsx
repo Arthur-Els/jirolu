@@ -20,11 +20,16 @@ export const GongPad: React.FC<GongPadProps> = ({
 
   useEffect(() => {
     if (activeKeyId) {
-      setRipples((prev) => ({ ...prev, [activeKeyId]: true }));
-      const timer = setTimeout(() => {
+      const startTimer = setTimeout(() => {
+        setRipples((prev) => ({ ...prev, [activeKeyId]: true }));
+      }, 0);
+      const endTimer = setTimeout(() => {
         setRipples((prev) => ({ ...prev, [activeKeyId]: false }));
       }, 1600);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(startTimer);
+        clearTimeout(endTimer);
+      };
     }
   }, [activeKeyId]);
 
