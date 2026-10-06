@@ -11,7 +11,7 @@
 
   --font-serif: var(--font-playfair), var(--font-cormorant), "Georgia", serif;
   --font-sans: var(--font-plus-jakarta), var(--font-inter), system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Courier New", monospace;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", "Courier New", monospace;
 
   --shadow-pendar: 0 0 25px rgba(212, 175, 55, 0.45);
 }

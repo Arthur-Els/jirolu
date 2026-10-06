@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond, Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import { Inter, Cormorant_Garamond, Plus_Jakarta_Sans, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/ui/Footer";
@@ -27,6 +27,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
@@ -66,7 +72,8 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${inter.variable} ${cormorant.variable} ${plusJakarta.variable} ${playfair.variable} scroll-smooth`}
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${cormorant.variable} ${plusJakarta.variable} ${playfair.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
       <body className="bg-tinta text-gading bg-batik-pattern flex flex-col min-h-screen">
         {/* Navigasi Utama Jirolu */}

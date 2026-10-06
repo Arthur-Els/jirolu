@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { ItemSuara } from "@/types/instrumen";
-import { KeyboardHint } from "./KeyboardHint";
 
 interface KendangPadProps {
   daftarSuara: ItemSuara[];
@@ -15,22 +14,15 @@ export const KendangPad: React.FC<KendangPadProps> = ({
   activeKeyId,
   onPlay,
 }) => {
-  const [activeArea, setActiveArea] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (activeKeyId) {
-      setActiveArea(activeKeyId);
-      const timer = setTimeout(() => setActiveArea(null), 180);
-      return () => clearTimeout(timer);
-    }
-  }, [activeKeyId]);
+  const [pointerArea, setPointerArea] = useState<string | null>(null);
+  const activeArea = activeKeyId || pointerArea;
 
   const handlePointerDown = useCallback(
     (item: ItemSuara, e: React.PointerEvent) => {
       e.currentTarget.setPointerCapture?.(e.pointerId);
-      setActiveArea(item.id);
+      setPointerArea(item.id);
       onPlay(item);
-      setTimeout(() => setActiveArea(null), 180);
+      setTimeout(() => setPointerArea(null), 180);
     },
     [onPlay]
   );
