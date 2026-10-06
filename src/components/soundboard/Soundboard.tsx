@@ -2,25 +2,44 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Instrumen, Laras, Nada, ItemSuara } from "@/types/instrumen";
+import { Lagu } from "@/types/lagu";
 import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
+import { useRekaman } from "@/lib/rekam/useRekaman";
 import { Bilah } from "./Bilah";
 import { PencuBonang } from "./PencuBonang";
 import { GongPad } from "./GongPad";
 import { KendangPad } from "./KendangPad";
 import { LarasToggle } from "./LarasToggle";
 import { VolumeControl } from "./VolumeControl";
+import { ModeBelajar } from "@/components/belajar/ModeBelajar";
+import { PanelRekaman } from "@/components/rekam/PanelRekaman";
 import { Button } from "@/components/ui/Button";
 
 interface SoundboardProps {
   instrumen: Instrumen;
+  availableSongs?: Lagu[];
+  bilahMenyala?: string | null;
+  onNadaDitekan?: (nadaSimbol: string) => void;
 }
 
-export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
-  // 1. State biasa untuk laras aktif (tidak menggunakan localStorage)
+export const Soundboard: React.FC<SoundboardProps> = ({
+  instrumen,
+  availableSongs = [],
+  bilahMenyala: externalBilahMenyala,
+  onNadaDitekan: externalOnNadaDitekan,
+}) => {
+  // 1. State laras biasa tanpa localStorage
   const [laras, setLaras] = useState<Laras>(instrumen.larasDefault || "pelog");
   const [activeKey, setActiveKey] = useState<string | null>(null);
 
-  // Menentukan daftar item audio yang sedang aktif
+  // Target nada mode belajar lokal jika ModeBelajar terpasang di dalam soundboard
+  const [localBilahMenyala, setLocalBilahMenyala] = useState<string | null>(null);
+  const [wrongFeedbackNote, setWrongFeedbackNote] = useState<string | null>(null);
+
+  // Bilah yang sedang disorot (bisa dari props luar atau lokal)
+  const targetNoteHighlight = externalBilahMenyala || localBilahMenyala;
+
+  // Daftar item audio yang aktif saat ini
   const currentItems = useMemo<AudioTarget[]>(() => {
     if (instrumen.tipe === "bernada") {
       if (!instrumen.laras) return [];
@@ -44,7 +63,67 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
     stopSounds,
   } = useAudioBuffers(currentItems);
 
-  // Pemetaan tombol keyboard dinamis berdasarkan item yang aktif
+  // Hook rekaman & putar ulang
+  const {
+    isRecording,
+    isPlaying,
+    adaRekaman,
+    jumlahKetukan,
+    durasiDetik,
+    pesanInfo: pesanRekaman,
+    activePlayingId,
+    mulaiRekam,
+    berhenti: berhentiRekaman,
+    putar: putarRekaman,
+    hapus: hapusRekaman,
+    catatKetukan,
+  } = useRekaman();
+
+  const isRecordingOrPlaying = isRecording || isPlaying;
+
+  // Fungsi sentral saat nada/suara ditekan
+  const triggerPlay = useCallback(
+    (item: AudioTarget) => {
+      // 1. Putar suara lebih dulu (zero delay)
+      playItem(item);
+
+      // Ambil pengenal nada/suara
+      const itemId = "id" in item ? (item as ItemSuara).id : (item as Nada).nada;
+
+      // 2. Catat ketukan jika sedang merekam
+      if (isRecording) {
+        catatKetukan(itemId);
+      }
+
+      // 3. Berikan callback ke mode belajar jika aktif
+      if (externalOnNadaDitekan) {
+        externalOnNadaDitekan(itemId);
+      }
+
+      // 4. Feedback salah jika di mode belajar menekan nada yang tidak sesuai
+      if (targetNoteHighlight && targetNoteHighlight !== itemId) {
+        setWrongFeedbackNote(itemId);
+        setTimeout(() => setWrongFeedbackNote(null), 250);
+      }
+    },
+    [playItem, isRecording, catatKetukan, externalOnNadaDitekan, targetNoteHighlight]
+  );
+
+  // Mainkan item berdasarkan ID (digunakan saat putar rekaman)
+  const handlePlayById = useCallback(
+    (id: string) => {
+      const target = currentItems.find((item) => {
+        if ("id" in item) return (item as ItemSuara).id === id;
+        return (item as Nada).nada === id;
+      });
+      if (target) {
+        playItem(target);
+      }
+    },
+    [currentItems, playItem]
+  );
+
+  // Tangani masukan keyboard komputer
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -57,11 +136,9 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
       if (e.repeat) return;
 
       const pressed = e.key.toLowerCase();
-
-      // Cari item yang sesuai dengan tombol keyboard
       const matched = currentItems.find((item) => item.key.toLowerCase() === pressed);
       if (matched) {
-        playItem(matched);
+        triggerPlay(matched);
         setActiveKey(matched.key);
         setTimeout(() => setActiveKey(null), 180);
       }
@@ -69,7 +146,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentItems, playItem]);
+  }, [currentItems, triggerPlay]);
 
   // Pergantian laras dengan penghentian suara halus
   const handleLarasChange = useCallback(
@@ -81,10 +158,13 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
   );
 
   const hasSlendro = Boolean(instrumen.laras?.slendro && instrumen.laras.slendro.length > 0);
+  const supportsLearnMode =
+    (instrumen.slug === "saron" || instrumen.slug === "bonang") &&
+    availableSongs.length > 0;
 
   return (
     <div className="w-full bg-arang/90 border border-perunggu/35 rounded-2xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
-      {/* Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
+      {/* 1. Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-perunggu/25">
         <div>
           <div className="flex items-center gap-2">
@@ -99,7 +179,6 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
         </div>
 
         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-          {/* Slider Volume & Mute */}
           <VolumeControl
             volume={volume}
             isMuted={isMuted}
@@ -107,7 +186,6 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
             onToggleMute={handleToggleMute}
           />
 
-          {/* Toggle Laras (Hanya tampil untuk instrumen bernada) */}
           {instrumen.tipe === "bernada" && (
             <LarasToggle
               currentLaras={laras}
@@ -118,7 +196,18 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
         </div>
       </div>
 
-      {/* Pesan Ramah Ketersediaan Audio File */}
+      {/* 2. Mode Belajar Lagu (Khusus Saron dan Bonang) */}
+      {supportsLearnMode && (
+        <ModeBelajar
+          availableSongs={availableSongs}
+          currentLaras={laras}
+          onLarasChange={handleLarasChange}
+          onTargetNoteChange={setLocalBilahMenyala}
+          isRecordingOrPlaying={isRecordingOrPlaying}
+        />
+      )}
+
+      {/* Pesan Ramah Ketersediaan Audio Rekaman Asli */}
       {!isLoading && !audioFilesAvailable && (
         <div className="flex items-start gap-3 p-4 rounded-xl bg-tinta/80 border border-emas/30 text-xs sm:text-sm text-gading/85">
           <div className="text-emas mt-0.5 shrink-0">
@@ -136,7 +225,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
         </div>
       )}
 
-      {/* Buka Kunci Audio untuk iOS Safari / Browser Mobile */}
+      {/* Buka Kunci Audio untuk iOS Safari */}
       {!isAudioUnlocked && (
         <div className="text-center p-3 rounded-lg bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-gading/75">
@@ -148,9 +237,9 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
         </div>
       )}
 
-      {/* RENDER SOUNDBOARD SESUAI ALAT MUSIK */}
+      {/* 3. TAMPILAN INSTRUMEN SOUNDBOARD */}
 
-      {/* 1. SARON: Bilah Perunggu Tradisional */}
+      {/* SARON */}
       {instrumen.slug === "saron" && (
         <div className="relative w-full rounded-2xl bg-gradient-to-b from-[#2a1e14] via-[#1c140d] to-[#120c07] p-3 sm:p-6 border-2 border-[#543b23] shadow-[0_15px_30px_rgba(0,0,0,0.8)]">
           <div className="w-full h-3 rounded-t-lg bg-gradient-to-r from-perunggu/30 via-emas/40 to-perunggu/30 mb-2 border-b border-[#3d2a1b]" />
@@ -162,7 +251,10 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
                 index={index}
                 totalBilah={currentItems.length}
                 isTriggeredByKey={activeKey === item.key}
-                onPlay={(n) => playItem(n)}
+                isTargetLearnNote={targetNoteHighlight === item.nada}
+                isWrongFeedback={wrongFeedbackNote === item.nada}
+                isPlaybackActive={activePlayingId === item.nada}
+                onPlay={() => triggerPlay(item)}
               />
             ))}
           </div>
@@ -172,10 +264,9 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
         </div>
       )}
 
-      {/* 2. BONANG: 2 Baris Pencon (Gong Kecil Bundar) */}
+      {/* BONANG */}
       {instrumen.slug === "bonang" && (
         <div className="relative w-full rounded-2xl bg-gradient-to-b from-[#26190f] via-[#191009] to-[#0f0905] p-4 sm:p-6 border-2 border-[#543b23] shadow-2xl space-y-4">
-          {/* Baris 1: Nada Tinggi (Tombol Q - U) */}
           <div className="space-y-1">
             <span className="text-[11px] uppercase tracking-widest text-emas font-semibold px-2">
               Baris Atas (Nada Tinggi) - Tombol [Q - {laras === "pelog" ? "U" : "T"}]
@@ -188,13 +279,15 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
                     key={`bonang-${laras}-${item.nada}-${item.baris}`}
                     nada={item}
                     isTriggeredByKey={activeKey === item.key}
-                    onPlay={(n) => playItem(n)}
+                    isTargetLearnNote={targetNoteHighlight === item.nada}
+                    isWrongFeedback={wrongFeedbackNote === item.nada}
+                    isPlaybackActive={activePlayingId === item.nada}
+                    onPlay={() => triggerPlay(item)}
                   />
                 ))}
             </div>
           </div>
 
-          {/* Baris 2: Nada Rendah (Tombol A - J) */}
           <div className="space-y-1">
             <span className="text-[11px] uppercase tracking-widest text-emas font-semibold px-2">
               Baris Bawah (Nada Rendah) - Tombol [A - {laras === "pelog" ? "J" : "G"}]
@@ -207,7 +300,10 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
                     key={`bonang-${laras}-${item.nada}-${item.baris}`}
                     nada={item}
                     isTriggeredByKey={activeKey === item.key}
-                    onPlay={(n) => playItem(n)}
+                    isTargetLearnNote={targetNoteHighlight === item.nada}
+                    isWrongFeedback={wrongFeedbackNote === item.nada}
+                    isPlaybackActive={activePlayingId === item.nada}
+                    onPlay={() => triggerPlay(item)}
                   />
                 ))}
             </div>
@@ -215,46 +311,51 @@ export const Soundboard: React.FC<SoundboardProps> = ({ instrumen }) => {
         </div>
       )}
 
-      {/* 3. GONG: 3 Gong Besar Bundar (Gong Ageng, Suwukan, Kempul) */}
+      {/* GONG */}
       {instrumen.slug === "gong" && (
         <div className="w-full rounded-2xl bg-gradient-to-b from-[#211409] via-[#140b05] to-[#0a0502] p-4 sm:p-8 border-2 border-[#543b23] shadow-2xl">
           <GongPad
             daftarSuara={currentItems as ItemSuara[]}
             activeKeyId={
+              activePlayingId ||
               (currentItems as ItemSuara[]).find(
                 (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
               )?.id
             }
-            onPlay={(item) => playItem(item)}
+            onPlay={(item) => triggerPlay(item)}
           />
         </div>
       )}
 
-      {/* 4. KENDANG: Ilustrasi Kendang dengan 4 Area Pukul (Dung, Tak, Tung, Dah) */}
+      {/* KENDANG */}
       {instrumen.slug === "kendang" && (
         <div className="w-full rounded-2xl bg-gradient-to-b from-[#1c120a] via-[#120a05] to-[#0a0502] p-4 sm:p-8 border-2 border-[#543b23] shadow-2xl">
           <KendangPad
             daftarSuara={currentItems as ItemSuara[]}
             activeKeyId={
+              activePlayingId ||
               (currentItems as ItemSuara[]).find(
                 (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
               )?.id
             }
-            onPlay={(item) => playItem(item)}
+            onPlay={(item) => triggerPlay(item)}
           />
         </div>
       )}
 
-      {/* Petunjuk Tambahan Bawah */}
-      <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-gading/50 gap-2 pt-2">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emas" />
-          <span>Mendukung multi-touch tanpa delay & responsivitas layar sentuh penuh</span>
-        </div>
-        <div className="text-emas/70">
-          <span>{instrumen.nama} Siap Dimainkan di Jirolu</span>
-        </div>
-      </div>
+      {/* 4. PANEL REKAMAN & PUTAR ULANG (Tersedia untuk Semua Alat) */}
+      <PanelRekaman
+        isRecording={isRecording}
+        isPlaying={isPlaying}
+        adaRekaman={adaRekaman}
+        jumlahKetukan={jumlahKetukan}
+        durasiDetik={durasiDetik}
+        pesanInfo={pesanRekaman}
+        onMulaiRekam={mulaiRekam}
+        onBerhenti={berhentiRekaman}
+        onPutar={() => putarRekaman(handlePlayById)}
+        onHapus={hapusRekaman}
+      />
     </div>
   );
 };

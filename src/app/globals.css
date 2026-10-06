@@ -32,7 +32,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Pola latar batik kawung halus (opacity rendah agar tidak mengganggu keterbacaan) */
+/* Pola latar batik kawung halus */
 .bg-batik-pattern {
   background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
     radial-gradient(rgba(169, 120, 60, 0.04) 1px, transparent 1px);
@@ -49,6 +49,32 @@ body {
 /* Efek pendar keemasan untuk bilah dan tombol aktif */
 .pendar-emas {
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.25);
+}
+
+/* Efek getar lembut saat salah tekan nada pada mode belajar */
+@keyframes getar-lembut {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+/* Efek denyut emas untuk bilah yang harus ditekan berikutnya */
+@keyframes denyut-emas {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(212, 175, 55, 0.45), inset 0 0 6px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 32px rgba(212, 175, 55, 0.95), inset 0 0 16px rgba(212, 175, 55, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-getar {
+    animation: getar-lembut 0.22s ease-in-out;
+  }
+  .animate-denyut-emas {
+    animation: denyut-emas 1.6s infinite ease-in-out;
+  }
 }
 
 /* Scrollbar elegan */

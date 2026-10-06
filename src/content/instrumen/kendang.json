@@ -6,7 +6,7 @@
   "deskripsiSingkat": "Pemimpin detak ritme dan penjaga tempo yang memberi nyawa serta nafas dinamika gending gamelan.",
   "fungsi": "Kendang adalah instrumen pengatur tempo, irama, dan dinamika (pamurba wirama) dalam ansambel gamelan Jawa. Dimainkan langsung dengan kelenturan telapak tangan dan jemari penabuh (pengendang) tanpa pemukul tambahan. Pengendang memberi aba-aba peralihan irama (irama lancar, dadi, wiled, hingga rangkep) serta memberi isyarat berhenti (suwuk) bagi seluruh pengrawit.",
   "filosofi": "Kendang menyimbolkan hati nurani dan kesadaran rasa manusia yang memimpin setiap gerak tindakan. Sebagai pengendali tempo, kendang mengajarkan kepekaan empati dan tanggung jawab kepemimpinan: tahu kapan harus mempercepat gerak kemajuan, kapan harus menenangkan diri, dan senantiasa menyelaraskan detak hidup pribadi dengan harmoni lingkungan.",
-  "gambar": "/images/instrumen/kendang.svg",
+  "gambar": "/images/instrumen/kendang.jpg",
   "tersediaDiFase": 2,
   "_komentar": "Catatan teknis: Kendang adalah instrumen bersuara ritmis, sehingga strukturnya menggunakan daftarSuara pukulan tangan, bukan daftar tangga nada.",
   "daftarSuara": [

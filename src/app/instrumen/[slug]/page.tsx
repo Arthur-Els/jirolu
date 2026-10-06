@@ -2,7 +2,12 @@ import React from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAllInstruments, getInstrumentBySlug, getNextInstrument } from "@/lib/content";
+import {
+  getAllInstruments,
+  getInstrumentBySlug,
+  getNextInstrument,
+  getSongsByInstrument,
+} from "@/lib/content";
 import { InfoPanel } from "@/components/instrument/InfoPanel";
 import { Soundboard } from "@/components/soundboard/Soundboard";
 import { OtherInstruments } from "@/components/instrument/OtherInstruments";
@@ -49,6 +54,7 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
 
   const allInstruments = getAllInstruments();
   const nextInstrument = getNextInstrument(slug);
+  const availableSongs = getSongsByInstrument(slug);
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
@@ -81,9 +87,9 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         </Link>
       </div>
 
-      {/* Bagian 1: Soundboard Interaktif (Aktif Penuh untuk Semua Alat Musik di Fase 2) */}
+      {/* Bagian 1: Soundboard Interaktif dengan Mode Belajar & Rekaman */}
       <section aria-label={`Soundboard Virtual ${instrumen.nama}`} className="space-y-4">
-        <Soundboard instrumen={instrumen} />
+        <Soundboard instrumen={instrumen} availableSongs={availableSongs} />
       </section>
 
       {/* Bagian 2: Panel Penjelasan Fungsi & Cerita Filosofi */}

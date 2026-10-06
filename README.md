@@ -15,12 +15,14 @@ Nama **Jirolu** terinspirasi dari tiga nada pertama dalam tangga nada gamelan Ja
    - Mendukung **Laras Pelog** (7 nada: ji, ro, lu, pat, mo, nem, pi) dengan tombol keyboard `A, S, D, F, G, H, J`.
    - Mendukung **Laras Slendro** (5 nada: ji, ro, lu, mo, nem) dengan tombol keyboard `A, S, D, F, G`.
    - Fitur pergantian laras dengan peredaman suara halus (*fade out*).
+   - Mendukung **Mode Belajar Lagu** interaktif.
 
 2. **Bonang (Kategori: Bernada)**
    - Disusun dalam **2 baris pencon bundar**:
      - Baris Atas (nada tinggi): Tombol `Q, W, E, R, T, Y, U`
      - Baris Bawah (nada rendah): Tombol `A, S, D, F, G, H, J`
    - Mendukung laras **Pelog** (14 pencon) dan **Slendro** (10 pencon).
+   - Mendukung **Mode Belajar Lagu** interaktif.
 
 3. **Gong Ageng (Kategori: Bersuara)**
    - Menampilkan 3 gong besar dengan karakter suara berbeda:
@@ -39,114 +41,86 @@ Nama **Jirolu** terinspirasi dari tiga nada pertama dalam tangga nada gamelan Ja
 
 ---
 
-## 🎛️ Fitur Tambahan Soundboard
+## 🎓 Mode Belajar Lagu (Saron & Bonang)
 
-- **Slider Volume & Tombol Bisu (Mute)** di semua soundboard.
-- **Kartu "Alat Musik Lainnya"** di bagian bawah halaman tiap instrumen untuk memudahkan navigasi antar-koleksi.
-- **Audio Synthesizer Cadangan**: Jika berkas audio `.webm` belum diisi, Jirolu otomatis mensintesis suara nada perunggu, dentuman gong sub-bass, dan membran kendang sehingga web tetap berbunyi merdu tanpa error.
+Pengunjung dapat belajar memainkan lagu tradisional secara bertahap:
+1. Pilih tab **"Belajar Lagu"** di atas soundboard.
+2. Pilih lagu dari daftar (misal: *Latihan Dasar Slendro*, *Lir-Ilir*, atau *Gundul-Gundul Pacul*).
+3. Bilah nada berikutnya yang harus ditekan akan menyala dengan **cahaya emas berdenyut pelan**.
+4. Tekan bilah tersebut. Jika benar, panduan melangkah ke nada berikutnya. Jika salah, bilah bergetar lembut tanpa menghentikan permainan.
+5. Selesai bermain, sistem menampilkan pesan apresiasi dan jumlah salah tekan.
+
+### Cara Menambah Lagu Baru:
+1. Buat berkas JSON baru di folder `src/content/lagu/` (misalnya `suwe-ora-jamu.json`):
+   ```json
+   {
+     "slug": "suwe-ora-jamu",
+     "judul": "Suwe Ora Jamu",
+     "laras": "pelog",
+     "tingkat": "Mudah",
+     "alat": ["saron", "bonang"],
+     "deskripsi": "Tembang dolanan populer Jawa Tengah tentang kerinduan.",
+     "asalDaerah": "Jawa Tengah",
+     "nada": ["1", "2", "3", "5", "6", "5", "3"]
+   }
+   ```
+2. Impor lagu tersebut di `src/lib/content.ts` dan masukkan ke dalam array `daftarLagu`.
+
+---
+
+## 🔴 Panel Rekam & Putar Ulang (Semua Alat Musik)
+
+Tersedia di bawah soundboard seluruh instrumen:
+- **Rekam**: Mencatat setiap ketukan nada/suara beserta jeda milidetiknya secara presisi (maksimal 60 detik).
+- **Putar**: Memutar ulang permainan secara otomatis melalui Web Audio API dan bilah/pad yang berbunyi ikut menyala.
+- **Berhenti**: Menghentikan perekaman atau membatalkan pemutaran seketika dengan fade-out halus.
+- **Hapus**: Mengosongkan data rekaman saat ini.
+
+---
+
+## 🗂️ Struktur Folder Proyek
+
+```
+src/
+├── app/
+│   ├── layout.tsx, page.tsx, globals.css
+│   ├── cara-bermain/page.tsx     <-- Panduan praktis bermain
+│   ├── instrumen/[slug]/page.tsx <-- Halaman detail & soundboard
+│   └── tentang/page.tsx         <-- Profil Jirolu & filosofi nama
+├── components/
+│   ├── belajar/                 <-- ModeBelajar, DaftarLagu, PanduanLagu
+│   ├── rekam/                   <-- PanelRekaman
+│   ├── soundboard/              <-- Soundboard, Bilah, PencuBonang, GongPad, KendangPad
+│   ├── gallery/                 <-- GalleryGrid, InstrumentCard
+│   ├── instrument/              <-- InfoPanel, OtherInstruments
+│   └── ui/                      <-- Navbar, Footer, Button
+├── content/
+│   ├── instrumen/               <-- saron.json, bonang.json, gong.json, kendang.json
+│   └── lagu/                    <-- latihan-dasar.json, lir-ilir.json, gundul-gundul-pacul.json
+├── lib/
+│   ├── audio/                   <-- audioEngine.ts, useAudioBuffers.ts, keyMaps.ts
+│   ├── belajar/                 <-- useBelajarLagu.ts
+│   ├── rekam/                   <-- useRekaman.ts
+│   └── content.ts
+└── types/
+    ├── instrumen.ts
+    └── lagu.ts
+```
 
 ---
 
 ## 🚀 Cara Menjalankan Proyek
 
-### 1. Pemasangan (*Install*)
 ```bash
+# 1. Pasang dependensi
 npm install
-```
 
-### 2. Jalankan Server Dev (*Localhost*)
-```bash
+# 2. Jalankan server lokal
 npm run dev
-```
-Buka browser di [http://localhost:3000](http://localhost:3000).
 
-### 3. Build Static Export (Siap Deploy)
-```bash
+# 3. Bangun situs statis siap saji
 npm run build
 ```
-Hasil siap saji akan diekspor ke folder `out/`.
 
----
-
-## 🖼️ Cara Mengganti Gambar Placeholder dengan Foto Asli
-
-Jirolu telah menyediakan gambar SVG placeholder etnik yang elegan di `public/images/instrumen/`. Jika kamu sudah memiliki foto asli alat musik, ikuti langkah mudah ini **tanpa perlu mengubah kode komponen**:
-
-1. Letakkan file fotomu (misal format `.webp`, `.jpg`, atau `.png`) di folder:
-   ```
-   public/images/instrumen/
-   ```
-2. Buka file JSON instrumen terkait di folder `src/content/instrumen/`:
-   - `saron.json`
-   - `bonang.json`
-   - `gong.json`
-   - `kendang.json`
-3. Cukup ubah nilai field `"gambar"` ke nama file fotomu, contoh:
-   ```json
-   "gambar": "/images/instrumen/bonang_asli.webp"
-   ```
-4. Simpan, dan foto barumu otomatis tampil di Galeri Beranda, Halaman Detail, dan Kartu Koleksi Lainnya!
-
----
-
-## 📂 Daftar Lengkap File Audio yang Perlu Disiapkan
-
-Jika kamu ingin merekam suara gamelan asli dalam format `.webm`, berikut panduan struktur folder dan nama file persisnya:
-
-```
-public/audio/
-├── saron/
-│   ├── pelog/
-│   │   ├── 1.webm  (nada ji)
-│   │   ├── 2.webm  (nada ro)
-│   │   ├── 3.webm  (nada lu)
-│   │   ├── 4.webm  (nada pat)
-│   │   ├── 5.webm  (nada mo)
-│   │   ├── 6.webm  (nada nem)
-│   │   └── 7.webm  (nada pi)
-│   └── slendro/
-│       ├── 1.webm  (nada ji)
-│       ├── 2.webm  (nada ro)
-│       ├── 3.webm  (nada lu)
-│       ├── 5.webm  (nada mo)
-│       └── 6.webm  (nada nem)
-│
-├── bonang/
-│   ├── pelog/
-│   │   ├── 1_hi.webm s/d 7_hi.webm (baris atas)
-│   │   └── 1.webm s/d 7.webm       (baris bawah)
-│   └── slendro/
-│       ├── 1_hi.webm s/d 6_hi.webm (baris atas)
-│       └── 1.webm s/d 6.webm       (baris bawah)
-│
-├── gong/
-│   ├── gong_ageng.webm
-│   ├── gong_suwukan.webm
-│   └── kempul.webm
-│
-└── kendang/
-    ├── dung.webm
-    ├── tak.webm
-    ├── tung.webm
-    └── dah.webm
-```
-
----
-
-## ➕ Cara Menambah Alat Musik Baru
-
-1. Buat file JSON baru di `src/content/instrumen/` (pilih kategori `"bernada"` atau `"bersuara"`).
-2. Daftarkan di `src/lib/content.ts` pada array `daftarInstrumen`.
-3. Sediakan gambar di `public/images/instrumen/`.
-4. Halaman `/instrumen/[slug]` dan kartu galeri akan terbuat otomatis!
-
----
-
-## 🌐 Cara Deploy ke Vercel
-
-1. Push kode ke repositori GitHub kamu.
-2. Impor proyek di [Vercel](https://vercel.com).
-3. Vercel akan otomatis mengenali konfigurasi:
-   - Build Command: `npm run build`
-   - Output Directory: `out`
-4. Klik **Deploy** dan situs Jirolu akan online dalam sekejap!
+Buka peramban di [http://localhost:3000](http://localhost:3000).
+Hasil ekspor statis HTML murni tersimpan di folder `out/`.

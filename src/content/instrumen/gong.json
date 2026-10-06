@@ -6,7 +6,7 @@
   "deskripsiSingkat": "Pusat spiritual dan pamungkas siklus waktu dalam tata musikal gamelan dengan dengung magis yang dalam.",
   "fungsi": "Gong Ageng merupakan instrumen gamelan dengan ukuran fisik terbesar dan rentang frekuensi paling rendah. Bersama Gong Suwukan dan Kempul, instrumen ini berfungsi sebagai penanda struktural (kolotomik) yang menegaskan akhir dari satu putaran gending besar (gongan) serta mengawali siklus musikal yang baru. Gong ditabuh dengan pemukul kayu berbobot berbusa tebal secara terukur dan penuh keheningan rasa.",
   "filosofi": "Gong Ageng adalah simbol kesempurnaan kosmos dan ajaran 'Sangkan Paraning Dumadi' (asal mula dan tujuan akhir kehidupan). Dentumannya yang dalam, agung, dan bergaung lama menyiratkan bahwa di balik segala riak dan dinamika kehidupan duniawi yang beraneka ragam, segalanya bermuara kembali pada keheningan zat ketuhanan yang Esa.",
-  "gambar": "/images/instrumen/gong.svg",
+  "gambar": "/images/instrumen/gong.jpg",
   "tersediaDiFase": 2,
   "_komentar": "Catatan teknis: Gong adalah instrumen bersuara, sehingga strukturnya menggunakan daftarSuara, bukan daftar tangga nada.",
   "daftarSuara": [

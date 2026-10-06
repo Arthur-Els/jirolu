@@ -52,6 +52,9 @@ export const Footer: React.FC = () => {
           <Link href="/instrumen/kendang" className="hover:text-emas transition-colors">
             Kendang
           </Link>
+          <Link href="/cara-bermain" className="hover:text-emas transition-colors">
+            Cara Bermain
+          </Link>
           <Link href="/tentang" className="hover:text-emas transition-colors">
             Tentang Jirolu
           </Link>

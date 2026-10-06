@@ -78,6 +78,88 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Bagian: Yang Bisa Kamu Lakukan di Jirolu */}
+      <section className="w-full py-12 px-4 sm:px-6 bg-arang/30 border-y border-perunggu/20">
+        <div className="max-w-6xl mx-auto space-y-8">
+          <div className="text-center space-y-2">
+            <span className="text-xs uppercase tracking-widest text-emas font-semibold">
+              Fitur Utama Museum
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-gading">
+              Yang Bisa Kamu Lakukan di Jirolu
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Kartu 1: Jelajahi Pameran */}
+            <div className="p-6 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-3 shadow-lg flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas font-serif font-bold text-lg">
+                  1
+                </div>
+                <h3 className="font-serif text-xl font-bold text-gading">
+                  Jelajahi Pameran
+                </h3>
+                <p className="text-sm text-gading/70 leading-relaxed font-light">
+                  Pelajari anatomi fisik, fungsi ansambel, dan makna filosofis adiluhung Jawa di balik tiap alat musik karawitan.
+                </p>
+              </div>
+              <a
+                href="#galeri"
+                className="text-xs font-semibold text-emas hover:text-emas-muda pt-2 inline-flex items-center gap-1.5"
+              >
+                <span>Lihat Koleksi Galeri</span>
+                <span>→</span>
+              </a>
+            </div>
+
+            {/* Kartu 2: Mainkan Gamelan */}
+            <div className="p-6 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-3 shadow-lg flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas font-serif font-bold text-lg">
+                  2
+                </div>
+                <h3 className="font-serif text-xl font-bold text-gading">
+                  Mainkan Gamelan
+                </h3>
+                <p className="text-sm text-gading/70 leading-relaxed font-light">
+                  Tabuh bilah perunggu, pencon, gong, dan kendang secara bebas tanpa delay lewat sentuhan layar atau tuts keyboard komputer.
+                </p>
+              </div>
+              <Link
+                href="/instrumen/saron"
+                className="text-xs font-semibold text-emas hover:text-emas-muda pt-2 inline-flex items-center gap-1.5"
+              >
+                <span>Mulai Main Bebas</span>
+                <span>→</span>
+              </Link>
+            </div>
+
+            {/* Kartu 3: Belajar Lagu & Rekam */}
+            <div className="p-6 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-3 shadow-lg flex flex-col justify-between">
+              <div className="space-y-3">
+                <div className="w-10 h-10 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas font-serif font-bold text-lg">
+                  3
+                </div>
+                <h3 className="font-serif text-xl font-bold text-gading">
+                  Belajar Lagu & Rekam
+                </h3>
+                <p className="text-sm text-gading/70 leading-relaxed font-light">
+                  Ikuti panduan tuts berdenyut emas untuk memainkan lagu tradisional, serta rekam permainanmu dan putar kembali kreasimu.
+                </p>
+              </div>
+              <Link
+                href="/cara-bermain"
+                className="text-xs font-semibold text-emas hover:text-emas-muda pt-2 inline-flex items-center gap-1.5"
+              >
+                <span>Baca Panduan Lengkap</span>
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Bagian Galeri Koleksi Pameran */}
       <GalleryGrid instruments={instruments} />
 
