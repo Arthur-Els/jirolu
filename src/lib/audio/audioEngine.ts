@@ -315,7 +315,7 @@ export function playSynthesizedGong(
     // Beating frequency (ombak khas dengung gong ageng)
     const beatOsc = ctx.createOscillator();
     beatOsc.type = "sine";
-    beatOsc.frequency.setValueAtTime(frequency + 1.8, now); // gelombang ombak 1.8 Hz
+    beatOsc.frequency.setValueAtTime(frequency + 1.8, now);
 
     subOsc.connect(gainNode);
     beatOsc.connect(gainNode);
@@ -359,7 +359,6 @@ export function playSynthesizedKendang(
     const osc = ctx.createOscillator();
 
     if (jenis === "dah") {
-      // Suara dentum bass terbuka
       osc.type = "sine";
       osc.frequency.setValueAtTime(140, now);
       osc.frequency.exponentialRampToValueAtTime(65, now + 0.18);
@@ -368,7 +367,6 @@ export function playSynthesizedKendang(
       osc.start(now);
       osc.stop(now + 1.0);
     } else if (jenis === "dung") {
-      // Suara bulat bergaung
       osc.type = "sine";
       osc.frequency.setValueAtTime(180, now);
       osc.frequency.exponentialRampToValueAtTime(110, now + 0.15);
@@ -377,7 +375,6 @@ export function playSynthesizedKendang(
       osc.start(now);
       osc.stop(now + 0.8);
     } else if (jenis === "tak") {
-      // Pukulan redam kering (snappy tap)
       osc.type = "triangle";
       osc.frequency.setValueAtTime(320, now);
       osc.frequency.exponentialRampToValueAtTime(120, now + 0.05);
@@ -386,7 +383,6 @@ export function playSynthesizedKendang(
       osc.start(now);
       osc.stop(now + 0.2);
     } else {
-      // Tung / tak-tak: nada tinggi nyaring di tepi
       osc.type = "sine";
       osc.frequency.setValueAtTime(520, now);
       osc.frequency.exponentialRampToValueAtTime(420, now + 0.08);
@@ -404,5 +400,27 @@ export function playSynthesizedKendang(
     }, (decaySeconds + 0.2) * 1000);
   } catch (error) {
     console.warn("Gagal memainkan synthesizer kendang:", error);
+  }
+}
+
+/**
+ * Memainkan suara cuplikan singkat (preview) untuk tiap instrumen di galeri pendopo
+ */
+export function playInstrumentPreview(slug: string): void {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  if (ctx.state === "suspended") {
+    ctx.resume();
+  }
+
+  if (slug === "saron") {
+    playSynthesizedGamelan(ctx, 320, 2.0, "preview-saron");
+  } else if (slug === "bonang") {
+    playSynthesizedGamelan(ctx, 640, 1.8, "preview-bonang");
+  } else if (slug === "gong") {
+    playSynthesizedGong(ctx, 55, 3.8, "preview-gong");
+  } else if (slug === "kendang") {
+    playSynthesizedKendang(ctx, "dah", 0.9, "preview-kendang");
   }
 }
