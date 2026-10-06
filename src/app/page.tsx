@@ -8,14 +8,16 @@ export default function HomePage() {
   const instruments = getAllInstruments();
 
   return (
-    <div className="flex flex-col items-center w-full">
-      {/* Bagian Pembuka (Hero Section) */}
-      <section className="relative w-full min-h-[92vh] flex items-center justify-center px-4 sm:px-6 pt-[120px] pb-20 overflow-hidden">
-        {/* Background Video Looping */}
-        <HeroVideoBackground src="/background/bg-home.mp4" />
+    <div className="relative w-full min-h-screen">
+      {/* Background Video Fixed (Tetap diam di posisi viewport saat halaman di-scroll) */}
+      <HeroVideoBackground src="/background/bg-home.mp4" isFixed={true} />
 
-        {/* Hero Body Layout */}
-        <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
+      {/* Seluruh Konten Halaman Beranda (Scroll ke bawah di atas background video) */}
+      <div className="relative z-10 flex flex-col items-center w-full">
+        {/* Bagian Pembuka (Hero Section) */}
+        <section className="relative w-full min-h-[92vh] flex items-center justify-center px-4 sm:px-6 pt-[120px] pb-20">
+          {/* Hero Body Layout */}
+          <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
           {/* Eyebrow Badge */}
           <div className="font-mono text-[13px] tracking-[0.08em] text-white/60 mb-6 select-none">
             [ Pengalaman Museum Interaktif ]
@@ -180,5 +182,6 @@ export default function HomePage() {
         </div>
       </section>
     </div>
-  );
+  </div>
+);
 }
