@@ -4,9 +4,13 @@ import React, { useEffect, useRef } from "react";
 
 interface HeroVideoBackgroundProps {
   src: string;
+  isFixed?: boolean;
 }
 
-export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({ src }) => {
+export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
+  src,
+  isFixed = true,
+}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -51,8 +55,13 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({ src })
   }, []);
 
   return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-      {/* Elemen Video Asli dari folder public/background yang di-loop */}
+    <div
+      className={`${
+        isFixed ? "fixed inset-0 z-0" : "absolute inset-0"
+      } w-full h-full overflow-hidden pointer-events-none select-none`}
+      aria-hidden="true"
+    >
+      {/* Elemen Video Asli dari folder public/background yang di-loop terus menerus */}
       <video
         ref={videoRef}
         autoPlay
@@ -60,21 +69,26 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({ src })
         muted
         playsInline
         preload="auto"
-        aria-hidden="true"
         className="w-full h-full object-cover"
       >
         <source src={src} type="video/mp4" />
         Peramban Anda tidak mendukung pemutaran video.
       </video>
 
-      {/* Visual Effects: Dark-ambient linear gradient overlay */}
+      {/* Lapisan 1: Dimming sinematik gelap agar teks tetap kontras */}
+      <div className="absolute inset-0 bg-tinta/60 pointer-events-none" />
+
+      {/* Lapisan 2: Gradien radial lembut untuk kedalaman visual */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%)",
+            "radial-gradient(ellipse at center, rgba(11,10,9,0.2) 0%, rgba(11,10,9,0.75) 100%)",
         }}
       />
+
+      {/* Lapisan 3: Tekstur pola batik halus di atas video */}
+      <div className="absolute inset-0 bg-batik-pattern opacity-40 pointer-events-none" />
     </div>
   );
 };
