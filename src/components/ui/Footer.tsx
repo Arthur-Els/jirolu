@@ -4,7 +4,7 @@ import Link from "next/link";
 export const Footer: React.FC = () => {
   return (
     <footer id="kontak" className="relative z-10 w-full bg-arang/90 border-t border-perunggu/25 text-gading/70 py-12 px-4 sm:px-6 backdrop-blur-md">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         {/* Kolom Kiri: Identitas Jirolu */}
         <div className="text-center md:text-left space-y-2">
           <div className="flex items-center justify-center md:justify-start gap-2">
@@ -35,29 +35,42 @@ export const Footer: React.FC = () => {
           </p>
         </div>
 
-        {/* Kolom Kanan: Navigasi Cepat */}
-        <div className="flex flex-wrap justify-center md:justify-end gap-5 text-xs tracking-wider">
-          <Link href="/" className="hover:text-emas transition-colors">
-            Beranda
-          </Link>
-          <Link href="/instrumen/saron" className="hover:text-emas transition-colors">
-            Saron
-          </Link>
-          <Link href="/instrumen/bonang" className="hover:text-emas transition-colors">
-            Bonang
-          </Link>
-          <Link href="/instrumen/gong" className="hover:text-emas transition-colors">
-            Gong
-          </Link>
-          <Link href="/instrumen/kendang" className="hover:text-emas transition-colors">
-            Kendang
-          </Link>
-          <Link href="/cara-bermain" className="hover:text-emas transition-colors">
-            Cara Bermain
-          </Link>
-          <Link href="/tentang" className="hover:text-emas transition-colors">
-            Tentang Jirolu
-          </Link>
+        {/* Kolom Kanan: Navigasi Cepat (2 Kolom Vertikal) */}
+        <div className="flex items-start justify-center md:justify-end gap-8 sm:gap-12 text-xs tracking-wider">
+          {/* Kolom 1 (Kiri): Navigasi Utama */}
+          <div className="flex flex-col gap-2.5">
+            <span className="text-[10px] font-semibold text-emas uppercase tracking-widest pb-1 border-b border-perunggu/20">
+              Navigasi
+            </span>
+            <Link href="/" className="hover:text-emas transition-colors">
+              Beranda
+            </Link>
+            <Link href="/tentang" className="hover:text-white transition-colors">
+              Tentang
+            </Link>
+            <Link href="/cara-bermain" className="hover:text-white transition-colors">
+              Cara Bermain
+            </Link>
+          </div>
+
+          {/* Kolom 2 (Kanan): Alat Musik */}
+          <div className="flex flex-col gap-2.5">
+            <span className="text-[10px] font-semibold text-emas uppercase tracking-widest pb-1 border-b border-perunggu/20">
+              Alat Musik
+            </span>
+            <Link href="/instrumen/saron" className="hover:text-white transition-colors">
+              Saron
+            </Link>
+            <Link href="/instrumen/bonang" className="hover:text-white transition-colors">
+              Bonang
+            </Link>
+            <Link href="/instrumen/gong" className="hover:text-white transition-colors">
+              Gong
+            </Link>
+            <Link href="/instrumen/kendang" className="hover:text-white transition-colors">
+              Kendang
+            </Link>
+          </div>
         </div>
       </div>
 
