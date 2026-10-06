@@ -19,7 +19,7 @@ export default function HomePage() {
 
         <div className="relative max-w-4xl mx-auto text-center space-y-8 z-10">
           {/* Badge Jirolu */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-arang/90 border border-perunggu/40 text-emas text-xs uppercase tracking-widest font-medium shadow-md">
+          <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
             <span>ꦗꦶꦫꦺꦴꦭꦸ</span>
             <span>•</span>
             <span>Museum Gamelan Interaktif</span>
