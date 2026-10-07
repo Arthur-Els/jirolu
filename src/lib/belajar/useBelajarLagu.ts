@@ -22,11 +22,12 @@ export function useBelajarLagu({
   const [lastWrongNote, setLastWrongNote] = useState<string | null>(null);
   const [justCorrect, setJustCorrect] = useState<boolean>(false);
 
-  const [prevLaguId, setPrevLaguId] = useState<string | null>(lagu?.id ?? null);
+  const currentLaguId = lagu?.id ?? null;
+  const [prevLaguId, setPrevLaguId] = useState<string | null>(currentLaguId);
 
   // Jika lagu berganti, reset state pembelajaran
-  if (lagu?.id !== prevLaguId) {
-    setPrevLaguId(lagu?.id ?? null);
+  if (currentLaguId !== prevLaguId) {
+    setPrevLaguId(currentLaguId);
     setStatus("belum_mulai");
     setCurrentStepIndex(0);
     setSalahHitung(0);
