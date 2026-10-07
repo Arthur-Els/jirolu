@@ -46,12 +46,13 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
     },
   });
 
-  // Sinkronisasi targetNote ke komponen luar (Soundboard)
+  // Sinkronisasi targetNote ke komponen luar (Soundboard) hanya jika nilainya berubah
+  const prevTargetRef = React.useRef<string | null>(undefined as unknown as string | null);
   React.useEffect(() => {
-    if (activeTab === "belajar" && status === "berjalan") {
-      onTargetNoteChange(targetNote);
-    } else {
-      onTargetNoteChange(null);
+    const nextVal = activeTab === "belajar" && status === "berjalan" ? targetNote : null;
+    if (prevTargetRef.current !== nextVal) {
+      prevTargetRef.current = nextVal;
+      onTargetNoteChange(nextVal);
     }
   }, [activeTab, status, targetNote, onTargetNoteChange]);
 

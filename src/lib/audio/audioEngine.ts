@@ -424,3 +424,58 @@ export function playInstrumentPreview(slug: string): void {
     playSynthesizedKendang(ctx, "dah", 0.9, "preview-kendang");
   }
 }
+
+/**
+ * Memainkan simulasi rangkaian frasa lagu (gending) multi-nada untuk contoh lagu di galeri
+ */
+export function playInstrumentMelodySample(slug: string, onEnded?: () => void): void {
+  const ctx = getAudioContext();
+  if (!ctx) return;
+
+  if (ctx.state === "suspended") {
+    ctx.resume();
+  }
+
+  if (slug === "saron") {
+    // Frasa balungan saron: 5 nada berurutan (ji - ro - lu - mo - nem)
+    const freqs = [290, 320, 360, 430, 480];
+    freqs.forEach((freq, idx) => {
+      setTimeout(() => {
+        playSynthesizedGamelan(ctx, freq, 1.4, `sample-saron-${idx}`);
+        if (idx === freqs.length - 1 && onEnded) {
+          setTimeout(onEnded, 1400);
+        }
+      }, idx * 360);
+    });
+  } else if (slug === "bonang") {
+    // Pola jalinan mipil bonang: nada kembar lincah
+    const freqs = [580, 640, 580, 640, 720, 860];
+    freqs.forEach((freq, idx) => {
+      setTimeout(() => {
+        playSynthesizedGamelan(ctx, freq, 1.1, `sample-bonang-${idx}`);
+        if (idx === freqs.length - 1 && onEnded) {
+          setTimeout(onEnded, 1100);
+        }
+      }, idx * 230);
+    });
+  } else if (slug === "gong") {
+    // Pola penutup: kempul mendahului, disusul dentum agung Gong Ageng
+    playSynthesizedGong(ctx, 110, 2.2, "sample-kempul");
+    setTimeout(() => {
+      playSynthesizedGong(ctx, 52, 4.5, "sample-gong-ageng");
+      if (onEnded) setTimeout(onEnded, 4500);
+    }, 1100);
+  } else if (slug === "kendang") {
+    // Pola ketukan kendang: dung - tak - tung - dah
+    const beats: ("dung" | "tak" | "tung" | "dah")[] = ["dung", "tak", "tung", "dah", "dah"];
+    beats.forEach((stroke, idx) => {
+      setTimeout(() => {
+        playSynthesizedKendang(ctx, stroke, 0.8, `sample-kendang-${idx}`);
+        if (idx === beats.length - 1 && onEnded) {
+          setTimeout(onEnded, 900);
+        }
+      }, idx * 320);
+    });
+  }
+}
+

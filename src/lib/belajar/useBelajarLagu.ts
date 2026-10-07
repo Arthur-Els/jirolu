@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Lagu } from "@/types/lagu";
 
 export type StatusBelajar = "belum_mulai" | "berjalan" | "selesai";
@@ -22,25 +22,27 @@ export function useBelajarLagu({
   const [lastWrongNote, setLastWrongNote] = useState<string | null>(null);
   const [justCorrect, setJustCorrect] = useState<boolean>(false);
 
-  const currentLaguId = lagu?.id ?? null;
-  const [prevLaguId, setPrevLaguId] = useState<string | null>(currentLaguId);
-
-  // Jika lagu berganti, reset state pembelajaran
-  if (currentLaguId !== prevLaguId) {
-    setPrevLaguId(currentLaguId);
+  // Jika lagu berganti, reset state pembelajaran lewat useEffect
+  useEffect(() => {
     setStatus("belum_mulai");
     setCurrentStepIndex(0);
     setSalahHitung(0);
     setLastWrongNote(null);
     setJustCorrect(false);
-  }
+  }, [lagu?.slug]);
+
+  // Simpan ref onLarasMismatch agar tidak memicu re-render tak berujung
+  const onLarasMismatchRef = useRef(onLarasMismatch);
+  useEffect(() => {
+    onLarasMismatchRef.current = onLarasMismatch;
+  });
 
   // Sinkronisasi otomatis laras jika berbeda dengan laras lagu
   useEffect(() => {
-    if (lagu && larasAktif && lagu.laras !== larasAktif && onLarasMismatch) {
-      onLarasMismatch(lagu.laras);
+    if (lagu && larasAktif && lagu.laras !== larasAktif) {
+      onLarasMismatchRef.current?.(lagu.laras);
     }
-  }, [lagu, larasAktif, onLarasMismatch]);
+  }, [lagu?.slug, lagu?.laras, larasAktif]);
 
   const mulai = useCallback(() => {
     if (!lagu) return;
