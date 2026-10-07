@@ -75,7 +75,7 @@ export const Navbar: React.FC = () => {
             href="/instrumen/saron"
             className="rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] whitespace-nowrap"
           >
-            Mulai Mainkan
+            Mulai Bermain
           </Link>
         </div>
 
@@ -124,7 +124,7 @@ export const Navbar: React.FC = () => {
               onClick={() => setIsMobileMenuOpen(false)}
               className="block text-center w-full py-3 rounded-full bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold shadow-[0_0_20px_rgba(212,175,55,0.35)]"
             >
-              Mulai Mainkan
+              Mulai Bermain
             </Link>
           </div>
         </div>
