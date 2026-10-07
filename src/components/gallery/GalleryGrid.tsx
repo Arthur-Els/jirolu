@@ -372,7 +372,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                           <span className="w-1 bg-emas rounded-full animate-eq-3" />
                           <span className="w-1 bg-emas rounded-full animate-eq-4" />
                         </div>
-                        <span>Jeda Contoh Lagu</span>
+                        <span>Jeda Contoh Permainan</span>
                       </>
                     ) : (
                       <>
