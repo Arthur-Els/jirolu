@@ -16,7 +16,7 @@ export default function HomePage() {
       {/* Seluruh Konten Halaman Beranda (Scroll ke bawah di atas background video) */}
       <div className="relative z-10 flex flex-col items-center w-full">
         {/* Bagian Pembuka (Hero Section) */}
-        <section className="relative w-full min-h-[92vh] flex items-center justify-center px-4 sm:px-6 pt-[120px] pb-20">
+        <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-20">
           {/* Hero Body Layout */}
           <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
           {/* Eyebrow Badge */}
@@ -56,36 +56,15 @@ export default function HomePage() {
               Mainkan Soundboard
             </Link>
           </div>
-
-          {/* Statistik Koleksi Jirolu */}
-          <div className="grid grid-cols-3 gap-6 pt-16 border-t border-white/10 max-w-lg mx-auto text-center mt-12 w-full">
-            <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-white">4 Alat</div>
-              <div className="text-[11px] sm:text-xs text-white/50 uppercase tracking-wider mt-1">
-                Saron, Bonang, Gong, Kendang
-              </div>
-            </div>
-            <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-white">2 Laras</div>
-              <div className="text-[11px] sm:text-xs text-white/50 uppercase tracking-wider mt-1">
-                Pelog & Slendro
-              </div>
-            </div>
-            <div>
-              <div className="font-serif text-2xl sm:text-3xl font-bold text-white">0 ms</div>
-              <div className="text-[11px] sm:text-xs text-white/50 uppercase tracking-wider mt-1">
-                Latensi Suara
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Bagian: Fitur Utama Museum (Features Showcase) */}
-      <FeaturesShowcase />
+        {/* Bagian: Fitur Utama Museum (Features Showcase) */}
+        <FeaturesShowcase />
 
-      {/* Bagian Galeri Koleksi Pameran */}
-      <GalleryGrid instruments={instruments} />
+        {/* Bagian Galeri Koleksi Pameran */}
+        <div id="koleksi-alat" className="scroll-mt-20" />
+        <GalleryGrid instruments={instruments} />
 
       {/* Bagian Sekilas Filosofi Karawitan */}
       <section className="w-full py-16 px-4 sm:px-6 bg-arang/40 border-y border-perunggu/20">
