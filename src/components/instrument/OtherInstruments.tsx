@@ -28,7 +28,7 @@ export const OtherInstruments: React.FC<OtherInstrumentsProps> = ({
         </div>
         <Link
           href="/#galeri"
-          className="text-xs text-emas hover:text-emas-muda font-medium transition-colors"
+          className="text-xs text-gading/70 hover:text-emas-muda font-medium transition-colors"
         >
           Lihat Semua Koleksi Galeri →
         </Link>

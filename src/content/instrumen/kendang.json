@@ -23,8 +23,8 @@
       "id": "tak",
       "nama": "Tak",
       "audio": "/audio/kendang/tak.webm",
-      "key": "v",
-      "keterangan": "Tak = pukulan redam telapak di tebokan kecil, suara kering tegas (tombol V)",
+      "key": "n",
+      "keterangan": "Tak = pukulan redam telapak di tebokan kecil, suara kering tegas (tombol N)",
       "frekuensi": 260,
       "decay": 0.25
     },
@@ -32,8 +32,8 @@
       "id": "tung",
       "nama": "Tung / Tak-tak",
       "audio": "/audio/kendang/tung.webm",
-      "key": "c",
-      "keterangan": "Tung = sentuhan lentik jari di tepi tebokan kecil, suara tinggi nyaring (tombol C)",
+      "key": "m",
+      "keterangan": "Tung = sentuhan lentik jari di tepi tebokan kecil, suara tinggi nyaring (tombol M)",
       "frekuensi": 440,
       "decay": 0.5
     },

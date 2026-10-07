@@ -109,7 +109,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   type="button"
                   onPointerDown={(e) => handlePointerDown(tungItem, e)}
                   style={{ touchAction: "none" }}
-                  aria-label="Pukulan Tung (tombol C)"
+                  aria-label="Pukulan Tung (tombol M)"
                   className={`absolute inset-1 rounded-full flex flex-col items-center justify-start pt-1.5 cursor-pointer transition-all duration-100 ${
                     activeArea === "tung"
                       ? "bg-emas/60 shadow-[0_0_25px_rgba(212,175,55,0.8)] scale-98"
@@ -117,7 +117,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   }`}
                 >
                   <span className="text-[11px] font-bold text-[#3d2716] uppercase mt-0.5">
-                    Tung [C]
+                    Tung [M]
                   </span>
                   <span className="text-[9px] text-[#5c3e26]">Sentuh Tepi</span>
                 </button>
@@ -129,7 +129,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   type="button"
                   onPointerDown={(e) => handlePointerDown(takItem, e)}
                   style={{ touchAction: "none" }}
-                  aria-label="Pukulan Tak (tombol X)"
+                  aria-label="Pukulan Tak (tombol N)"
                   className={`relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#825c34] flex flex-col items-center justify-center cursor-pointer transition-all duration-100 shadow-md ${
                     activeArea === "tak"
                       ? "bg-emas text-tinta shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-95"
@@ -137,7 +137,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   }`}
                 >
                   <span className="font-serif text-base font-bold">Tak</span>
-                  <span className="text-[10px] text-emas-muda font-mono">[V]</span>
+                  <span className="text-[10px] text-emas-muda font-mono">[N]</span>
                 </button>
               )}
             </div>
@@ -152,16 +152,16 @@ export const KendangPad: React.FC<KendangPadProps> = ({
         </h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gading/80">
           <div className="p-2.5 rounded-lg bg-arang/70 border border-perunggu/20">
-            <strong className="text-emas">Dung [Z] :</strong> Pukulan jari bagian dalam sisi besar, bergaung bulat & dalam.
+            <strong className="text-emas">Dah :</strong> Pukulan telapak tangan terbuka sisi besar, dentum bass mantap.
           </div>
           <div className="p-2.5 rounded-lg bg-arang/70 border border-perunggu/20">
-            <strong className="text-emas">Dah / Bem [V] :</strong> Pukulan telapak tangan terbuka sisi besar, dentum bass mantap.
+            <strong className="text-emas">Tak :</strong> Pukulan telapak ditepuk redam di sisi kecil, suara kering tegas.
           </div>
           <div className="p-2.5 rounded-lg bg-arang/70 border border-perunggu/20">
-            <strong className="text-emas">Tak [X] :</strong> Pukulan telapak ditepuk redam di sisi kecil, suara kering tegas.
+            <strong className="text-emas">Tung :</strong> Sentuhan lentik jari di tepi kulit sisi kecil, suara tinggi nyaring.
           </div>
           <div className="p-2.5 rounded-lg bg-arang/70 border border-perunggu/20">
-            <strong className="text-emas">Tung / Tak-tak [C] :</strong> Sentuhan lentik jari di tepi kulit sisi kecil, suara tinggi nyaring.
+            <strong className="text-emas">Dung :</strong> Pukulan jari bagian dalam sisi besar, bergaung bulat & dalam.
           </div>
         </div>
       </div>
