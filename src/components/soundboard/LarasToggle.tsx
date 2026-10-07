@@ -28,7 +28,7 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
               : "text-gading/70 hover:text-emas hover:bg-arang"
           }`}
         >
-          Pelog (7 Nada)
+          Pelog
         </button>
 
         {/* Tombol Slendro */}

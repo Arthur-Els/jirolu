@@ -174,7 +174,7 @@ export default function CaraBermainPage() {
             </p>
           </div>
           <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-2">
-            <h3 className="font-serif text-lg font-bold text-emas">Laras Pelog (7 Nada)</h3>
+            <h3 className="font-serif text-lg font-bold text-emas">Laras Pelog</h3>
             <p>
               Tangga nada heptatonis dengan rentang jarak nada yang berbeda-beda (ada yang renggang dan sempit).
               Terdiri atas 7 nada: <strong>1, 2, 3, 4, 5, 6, dan 7</strong>.

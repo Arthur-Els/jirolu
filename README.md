@@ -26,16 +26,16 @@ Nama **Jirolu** terinspirasi dari tiga nada pertama dalam tangga nada gamelan Ja
 
 3. **Gong Ageng (Kategori: Bersuara)**
    - Menampilkan 3 gong besar dengan karakter suara berbeda:
-     - **Gong Ageng** (tombol `1`): Dentuman paling dalam penutup siklus gongan.
-     - **Gong Suwukan** (tombol `2`): Gong sedang pembagi kalimat lagu.
+     - **Gong Ageng** (tombol `2`): Dentuman paling dalam penutup siklus gongan.
+     - **Gong Suwukan** (tombol `1`): Gong sedang pembagi kalimat lagu.
      - **Kempul** (tombol `3`): Gong gantung aksen yang cerah.
    - Dilengkapi efek animasi **gelombang riak emas melebar pelan** (*ripple effect*) dan durasi dengung panjang (3 - 5 detik). Jika gong yang sama dipukul lagi, suara lama dihentikan dengan cepat agar tidak bising.
 
 4. **Kendang (Kategori: Bersuara / Ritmis)**
    - Menampilkan ilustrasi kendang interaktif dengan **4 area pukul utama**:
-     - **Dung** (tombol `Z`): Pukulan jari dalam sisi besar, bulat & bergaung.
-     - **Dah / Bem** (tombol `V`): Pukulan telapak tangan terbuka sisi besar, bass mantap.
-     - **Tak** (tombol `X`): Pukulan redam telapak sisi kecil, kering & tegas.
+     - **Dung** (tombol `X`): Pukulan jari dalam sisi besar, bulat & bergaung.
+     - **Dah / Bem** (tombol `Z`): Pukulan telapak tangan terbuka sisi besar, bass mantap.
+     - **Tak** (tombol `V`): Pukulan redam telapak sisi kecil, kering & tegas.
      - **Tung / Tak-tak** (tombol `C`): Sentuhan lentik jari di tepi sisi kecil, tinggi & nyaring.
    - Dilengkapi kartu penjelasan karakter pukulan di bawah soundboard.
 

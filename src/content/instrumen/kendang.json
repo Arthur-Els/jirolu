@@ -14,8 +14,8 @@
       "id": "dung",
       "nama": "Dung",
       "audio": "/audio/kendang/dung.webm",
-      "key": "z",
-      "keterangan": "Dung = pukulan dalam dengan jari di tebokan besar, suara bulat bergaung (tombol Z)",
+      "key": "x",
+      "keterangan": "Dung = pukulan dalam dengan jari di tebokan besar, suara bulat bergaung (tombol X)",
       "frekuensi": 130,
       "decay": 0.8
     },
@@ -23,8 +23,8 @@
       "id": "tak",
       "nama": "Tak",
       "audio": "/audio/kendang/tak.webm",
-      "key": "x",
-      "keterangan": "Tak = pukulan redam telapak di tebokan kecil, suara kering tegas (tombol X)",
+      "key": "v",
+      "keterangan": "Tak = pukulan redam telapak di tebokan kecil, suara kering tegas (tombol V)",
       "frekuensi": 260,
       "decay": 0.25
     },
@@ -41,8 +41,8 @@
       "id": "dah",
       "nama": "Dah / Bem",
       "audio": "/audio/kendang/dah.webm",
-      "key": "v",
-      "keterangan": "Dah = pukulan telapak tangan terbuka di tebokan besar, dentum bass mantap (tombol V)",
+      "key": "z",
+      "keterangan": "Dah = pukulan telapak tangan terbuka di tebokan besar, dentum bass mantap (tombol Z)",
       "frekuensi": 85,
       "decay": 1.1
     }

@@ -54,14 +54,14 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   onPointerDown={(e) => handlePointerDown(dahItem, e)}
                   style={{ touchAction: "none" }}
                   aria-label="Pukulan Dah (tombol V)"
-                  className={`absolute inset-3 rounded-full flex flex-col items-center justify-start pt-2 cursor-pointer transition-all duration-100 ${
+                  className={`absolute inset-1 rounded-full flex flex-col items-center justify-start pt-2 cursor-pointer transition-all duration-100 ${
                     activeArea === "dah"
                       ? "bg-emas/50 shadow-[0_0_25px_rgba(212,175,55,0.8)] scale-98"
                       : "bg-[#d9c5a3] hover:bg-[#e4d4b8]"
                   }`}
                 >
                   <span className="text-xs font-bold text-[#3d2716] tracking-wider uppercase mt-1">
-                    Dah [V]
+                    Dah [Z]
                   </span>
                   <span className="text-[10px] text-[#5c3e26]">Pukulan Terbuka</span>
                 </button>
@@ -81,7 +81,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   }`}
                 >
                   <span className="font-serif text-lg font-bold">Dung</span>
-                  <span className="text-[10px] text-emas-muda font-mono">[Z]</span>
+                  <span className="text-[10px] text-emas-muda font-mono">[X]</span>
                 </button>
               )}
             </div>
@@ -110,7 +110,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   onPointerDown={(e) => handlePointerDown(tungItem, e)}
                   style={{ touchAction: "none" }}
                   aria-label="Pukulan Tung (tombol C)"
-                  className={`absolute inset-2.5 rounded-full flex flex-col items-center justify-start pt-1.5 cursor-pointer transition-all duration-100 ${
+                  className={`absolute inset-1 rounded-full flex flex-col items-center justify-start pt-1.5 cursor-pointer transition-all duration-100 ${
                     activeArea === "tung"
                       ? "bg-emas/60 shadow-[0_0_25px_rgba(212,175,55,0.8)] scale-98"
                       : "bg-[#e2d0b3] hover:bg-[#ecdcc2]"
@@ -137,7 +137,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                   }`}
                 >
                   <span className="font-serif text-base font-bold">Tak</span>
-                  <span className="text-[10px] text-emas-muda font-mono">[X]</span>
+                  <span className="text-[10px] text-emas-muda font-mono">[V]</span>
                 </button>
               )}
             </div>

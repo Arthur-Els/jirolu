@@ -14,8 +14,8 @@
       "id": "gong-ageng",
       "nama": "Gong Ageng",
       "audio": "/audio/gong/gong_ageng.webm",
-      "key": "1",
-      "keterangan": "Dentuman terdalam & teragung penutup siklus gongan (tombol 1)",
+      "key": "2",
+      "keterangan": "Dentuman terdalam & teragung penutup siklus gongan (tombol 2)",
       "frekuensi": 55,
       "decay": 4.5
     },
@@ -23,8 +23,8 @@
       "id": "gong-suwukan",
       "nama": "Gong Suwukan",
       "audio": "/audio/gong/gong_suwukan.webm",
-      "key": "2",
-      "keterangan": "Gong berukuran sedang pembagi bagian gending (tombol 2)",
+      "key": "1",
+      "keterangan": "Gong berukuran sedang pembagi bagian gending (tombol 1)",
       "frekuensi": 110,
       "decay": 3.5
     },
