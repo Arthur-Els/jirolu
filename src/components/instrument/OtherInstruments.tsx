@@ -16,7 +16,7 @@ export const OtherInstruments: React.FC<OtherInstrumentsProps> = ({
   const others = allInstruments.filter((item) => item.slug !== currentSlug);
 
   return (
-    <section className="w-full space-y-6 pt-10 border-t border-perunggu/25">
+    <section className="w-full space-y-6 pt-10">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
         <div>
           <span className="text-xs uppercase tracking-widest text-emas font-medium">

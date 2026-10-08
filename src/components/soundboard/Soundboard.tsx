@@ -165,7 +165,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
   return (
     <div className="w-full bg-arang/90 border border-perunggu/35 rounded-2xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
       {/* 1. Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-perunggu/25">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse" />
@@ -229,7 +229,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {!isAudioUnlocked && (
         <div className="text-center p-3 rounded-lg bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-gading/75">
-            Klik tombol di samping untuk memastikan audio aktif optimal di ponsel atau Safari:
+            Klik tombol di samping untuk memastikan audio aktif dengan optimal:
           </span>
           <Button variant="emas" size="sm" onClick={handleUnlock} className="w-full sm:w-auto">
             Aktifkan Suara Audio
@@ -329,33 +329,33 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
       {/* KENDANG */}
       {instrumen.slug === "kendang" && (
-        <div className="w-full rounded-2xl bg-gradient-to-b from-[#1c120a] via-[#120a05] to-[#0a0502] p-4 sm:p-8 border-2 border-[#543b23] shadow-2xl">
-          <KendangPad
-            daftarSuara={currentItems as ItemSuara[]}
-            activeKeyId={
-              activePlayingId ||
-              (currentItems as ItemSuara[]).find(
-                (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
-              )?.id
-            }
-            onPlay={(item) => triggerPlay(item)}
-          />
-        </div>
+        <KendangPad
+          daftarSuara={currentItems as ItemSuara[]}
+          activeKeyId={
+            activePlayingId ||
+            (currentItems as ItemSuara[]).find(
+              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
+            )?.id
+          }
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
-      {/* 4. PANEL REKAMAN & PUTAR ULANG (Tersedia untuk Semua Alat) */}
-      <PanelRekaman
-        isRecording={isRecording}
-        isPlaying={isPlaying}
-        adaRekaman={adaRekaman}
-        jumlahKetukan={jumlahKetukan}
-        durasiDetik={durasiDetik}
-        pesanInfo={pesanRekaman}
-        onMulaiRekam={mulaiRekam}
-        onBerhenti={berhentiRekaman}
-        onPutar={() => putarRekaman(handlePlayById)}
-        onHapus={hapusRekaman}
-      />
+      {/* 4. PANEL REKAMAN & PUTAR ULANG (Hanya untuk instrumen selain kendang) */}
+      {instrumen.slug !== "kendang" && (
+        <PanelRekaman
+          isRecording={isRecording}
+          isPlaying={isPlaying}
+          adaRekaman={adaRekaman}
+          jumlahKetukan={jumlahKetukan}
+          durasiDetik={durasiDetik}
+          pesanInfo={pesanRekaman}
+          onMulaiRekam={mulaiRekam}
+          onBerhenti={berhentiRekaman}
+          onPutar={() => putarRekaman(handlePlayById)}
+          onHapus={hapusRekaman}
+        />
+      )}
     </div>
   );
 };

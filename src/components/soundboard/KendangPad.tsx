@@ -807,8 +807,8 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       {/* 2. AREA STAGE 3D THREE.JS DENGAN ORBIT & TOMBOL FULLSCREEN*/}
       {/* ========================================================= */}
       <div
-        className={`relative w-full max-w-4xl rounded-3xl bg-gradient-to-b from-[#1b120a] via-[#110a05] to-[#070402] border-2 border-[#543b23]/80 shadow-[0_20px_60px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(212,175,55,0.2)] overflow-hidden ${
-          isFullscreen ? "flex-1 my-2" : "h-[360px] sm:h-[420px] md:h-[460px]"
+        className={`relative w-full rounded-2xl bg-gradient-to-b from-[#1b120a] via-[#110a05] to-[#070402] border border-perunggu/35 shadow-2xl overflow-hidden ${
+          isFullscreen ? "flex-1 my-2" : "h-[380px] sm:h-[440px] md:h-[480px]"
         }`}
       >
         {/* Spotlight Ambient Belakang */}
@@ -856,7 +856,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       {/* ========================================================= */}
       {/* 3. DEDICATED UI DECK TOMBOL PUKUL (RINGKAS & TEPAT SASARAN)*/}
       {/* ========================================================= */}
-      <div className="w-full max-w-4xl flex flex-col items-center gap-3">
+      <div className="w-full flex flex-col items-center gap-3">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 w-full">
           {/* Tombol 1: DAH */}
           {dahItem && (
