@@ -114,7 +114,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
             aria-label="Putar Ulang Permainan"
             className="gap-2"
           >
-            <svg className="w-3.5 h-3.5 fill-current text-emas" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 fill-current text-emas" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
             <span>Putar</span>
@@ -141,7 +141,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
           onClick={onHapus}
           disabled={!adaRekaman || isRecording || isPlaying}
           aria-label="Hapus Rekaman"
-          className="text-gading/60 hover:text-red-300 hover:border-red-500/40"
+          className="hover:bg-red-500/10 text-red-500 hover:text-red-500 border-red-500/40 hover:border-red-500"
         >
           Hapus
         </Button>
