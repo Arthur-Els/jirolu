@@ -6,6 +6,7 @@ import { Lagu } from "@/types/lagu";
 import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
 import { useRekaman } from "@/lib/rekam/useRekaman";
 import { Bilah } from "./Bilah";
+import { Saron3DPad } from "./Saron3DPad";
 import { PencuBonang } from "./PencuBonang";
 import { GongPad } from "./GongPad";
 import { KendangPad } from "./KendangPad";
@@ -239,29 +240,21 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
       {/* 3. TAMPILAN INSTRUMEN SOUNDBOARD */}
 
-      {/* SARON */}
+      {/* SARON 3D */}
       {instrumen.slug === "saron" && (
-        <div className="relative w-full rounded-2xl bg-gradient-to-b from-[#2a1e14] via-[#1c140d] to-[#120c07] p-3 sm:p-6 border-2 border-[#543b23] shadow-[0_15px_30px_rgba(0,0,0,0.8)]">
-          <div className="w-full h-3 rounded-t-lg bg-gradient-to-r from-perunggu/30 via-emas/40 to-perunggu/30 mb-2 border-b border-[#3d2a1b]" />
-          <div className="flex items-end justify-center gap-1.5 sm:gap-3 md:gap-4 overflow-x-auto py-2 px-1 select-none">
-            {(currentItems as Nada[]).map((item, index) => (
-              <Bilah
-                key={`${laras}-${item.nada}`}
-                nada={item}
-                index={index}
-                totalBilah={currentItems.length}
-                isTriggeredByKey={activeKey === item.key}
-                isTargetLearnNote={targetNoteHighlight === item.nada}
-                isWrongFeedback={wrongFeedbackNote === item.nada}
-                isPlaybackActive={activePlayingId === item.nada}
-                onPlay={() => triggerPlay(item)}
-              />
-            ))}
-          </div>
-          <div className="w-full h-4 rounded-b-lg bg-gradient-to-r from-[#170f09] via-[#382618] to-[#170f09] mt-3 border-t border-[#4a3423] flex items-center justify-center">
-            <div className="w-24 h-1 rounded-full bg-emas/30" />
-          </div>
-        </div>
+        <Saron3DPad
+          laras={laras}
+          daftarNada={currentItems as Nada[]}
+          activeKeyId={
+            activePlayingId ||
+            (currentItems as Nada[]).find(
+              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
+            )?.nada
+          }
+          targetLearnNote={targetNoteHighlight}
+          wrongFeedbackNote={wrongFeedbackNote}
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
       {/* BONANG */}
@@ -341,21 +334,19 @@ export const Soundboard: React.FC<SoundboardProps> = ({
         />
       )}
 
-      {/* 4. PANEL REKAMAN & PUTAR ULANG (Hanya untuk instrumen selain kendang) */}
-      {instrumen.slug !== "kendang" && (
-        <PanelRekaman
-          isRecording={isRecording}
-          isPlaying={isPlaying}
-          adaRekaman={adaRekaman}
-          jumlahKetukan={jumlahKetukan}
-          durasiDetik={durasiDetik}
-          pesanInfo={pesanRekaman}
-          onMulaiRekam={mulaiRekam}
-          onBerhenti={berhentiRekaman}
-          onPutar={() => putarRekaman(handlePlayById)}
-          onHapus={hapusRekaman}
-        />
-      )}
+      {/* 4. PANEL REKAMAN & PUTAR ULANG (Tersedia untuk Semua Alat) */}
+      <PanelRekaman
+        isRecording={isRecording}
+        isPlaying={isPlaying}
+        adaRekaman={adaRekaman}
+        jumlahKetukan={jumlahKetukan}
+        durasiDetik={durasiDetik}
+        pesanInfo={pesanRekaman}
+        onMulaiRekam={mulaiRekam}
+        onBerhenti={berhentiRekaman}
+        onPutar={() => putarRekaman(handlePlayById)}
+        onHapus={hapusRekaman}
+      />
     </div>
   );
 };

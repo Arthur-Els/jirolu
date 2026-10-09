@@ -16,34 +16,34 @@ interface FeatureCard {
 
 const FEATURE_CARDS: FeatureCard[] = [
   {
-    index: "[01]",
-    title: "Jelajahi Pameran",
+    index: "[1]",
+    title: "Jelajahi Alat Musik",
     description:
       "Pelajari anatomi fisik, fungsi ansambel, dan makna filosofis adiluhung Jawa di balik instrumen karawitan.",
     cta: {
-      text: "Lihat Koleksi Galeri",
+      text: "Lihat Galeri",
       icon: "arrow-right",
       action_url: "/galeri",
     },
   },
   {
-    index: "[02]",
+    index: "[2]",
     title: "Mainkan Gamelan",
     description:
       "Tabuh bilah perunggu, pencon, gong, dan kendang secara bebas tanpa jeda nada langsung di peramban web.",
     cta: {
-      text: "Mulai Main Bebas",
+      text: "Mulai Bermain",
       icon: "arrow-right",
       action_url: "/soundboard",
     },
   },
   {
-    index: "[03]",
-    title: "Belajar Lagu & Rekam",
+    index: "[3]",
+    title: "Belajar Lagu dan Rekam",
     description:
       "Ikuti panduan tuts berdenyut emas untuk melagukan tembang tradisional dan simpan rekaman kreasimu.",
     cta: {
-      text: "Baca Panduan Lengkap",
+      text: "Baca Panduan",
       icon: "arrow-right",
       action_url: "/tutorial",
     },
@@ -98,17 +98,7 @@ export const FeaturesShowcase: React.FC = () => {
                 fontWeight: 700,
               }}
             >
-              Yang Bisa Kamu Lakukan di{" "}
-            </span>
-            <span
-              className="font-serif italic font-normal"
-              style={{
-                fontFamily: "var(--font-playfair), 'Playfair Display', serif",
-                fontStyle: "italic",
-                fontWeight: 400,
-              }}
-            >
-              Jirolu
+              Yang Bisa Kamu Lakukan di Jirolu
             </span>
           </h2>
         </header>

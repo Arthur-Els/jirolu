@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
 
       <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-perunggu/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gading/40 gap-3">
         <p>© {new Date().getFullYear()} Jirolu. Dipersembahkan sebagai produk pameran alat musik tradisional Jawa.</p>
-        <p className="tracking-wide">Format Statis Interaktif • Web Audio API murni</p>
+        <p className="tracking-wide">By PPLG Website Development Team</p>
       </div>
     </footer>
   );
