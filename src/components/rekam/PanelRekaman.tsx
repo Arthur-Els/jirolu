@@ -40,17 +40,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Sisi Kiri: Label & Tombol Aksi */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2 pr-2 sm:border-r border-perunggu/25">
-            <div className="w-6 h-6 rounded-md bg-tinta border border-emas/30 flex items-center justify-center text-emas">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="3" strokeWidth="2" />
-                <path strokeWidth="2" d="M19 12a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <span className="font-serif text-sm font-bold text-gading">
-              Rekam
-            </span>
-          </div>
+          
 
           <div className="flex items-center gap-2">
             {/* Tombol Rekam */}

@@ -7,7 +7,7 @@ import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
 import { useRekaman } from "@/lib/rekam/useRekaman";
 import { Bilah } from "./Bilah";
 import { Saron3DPad } from "./Saron3DPad";
-import { PencuBonang } from "./PencuBonang";
+import { Bonang3DPad } from "./Bonang3DPad";
 import { GongPad } from "./GongPad";
 import { KendangPad } from "./KendangPad";
 import { LarasToggle } from "./LarasToggle";
@@ -257,51 +257,21 @@ export const Soundboard: React.FC<SoundboardProps> = ({
         />
       )}
 
-      {/* BONANG */}
+      {/* BONANG 3D MODEL */}
       {instrumen.slug === "bonang" && (
-        <div className="relative w-full rounded-2xl bg-gradient-to-b from-[#26190f] via-[#191009] to-[#0f0905] p-4 sm:p-6 border-2 border-[#543b23] shadow-2xl space-y-4">
-          <div className="space-y-1">
-            <span className="text-[11px] uppercase tracking-widest text-emas font-semibold px-2">
-              Baris Atas (Nada Tinggi) - Tombol [Q - {laras === "pelog" ? "U" : "T"}]
-            </span>
-            <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 bg-tinta/50 p-3 rounded-xl border border-perunggu/25 overflow-x-auto">
-              {(currentItems as Nada[])
-                .filter((item) => item.baris === 1)
-                .map((item) => (
-                  <PencuBonang
-                    key={`bonang-${laras}-${item.nada}-${item.baris}`}
-                    nada={item}
-                    isTriggeredByKey={activeKey === item.key}
-                    isTargetLearnNote={targetNoteHighlight === item.nada}
-                    isWrongFeedback={wrongFeedbackNote === item.nada}
-                    isPlaybackActive={activePlayingId === item.nada}
-                    onPlay={() => triggerPlay(item)}
-                  />
-                ))}
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-[11px] uppercase tracking-widest text-emas font-semibold px-2">
-              Baris Bawah (Nada Rendah) - Tombol [A - {laras === "pelog" ? "J" : "G"}]
-            </span>
-            <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 bg-tinta/50 p-3 rounded-xl border border-perunggu/25 overflow-x-auto">
-              {(currentItems as Nada[])
-                .filter((item) => item.baris === 2)
-                .map((item) => (
-                  <PencuBonang
-                    key={`bonang-${laras}-${item.nada}-${item.baris}`}
-                    nada={item}
-                    isTriggeredByKey={activeKey === item.key}
-                    isTargetLearnNote={targetNoteHighlight === item.nada}
-                    isWrongFeedback={wrongFeedbackNote === item.nada}
-                    isPlaybackActive={activePlayingId === item.nada}
-                    onPlay={() => triggerPlay(item)}
-                  />
-                ))}
-            </div>
-          </div>
-        </div>
+        <Bonang3DPad
+          laras={laras}
+          daftarNada={currentItems as Nada[]}
+          activeKeyId={
+            activeKey ||
+            (activePlayingId
+              ? (currentItems as Nada[]).find((item) => item.nada === activePlayingId)?.key
+              : null)
+          }
+          targetLearnNote={targetNoteHighlight}
+          wrongFeedbackNote={wrongFeedbackNote}
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
       {/* GONG */}
