@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "emas" | "arang" | "garis";
+  variant?: "emas" | "arang" | "garis" | "merah";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
 }
@@ -22,6 +22,8 @@ export const Button: React.FC<ButtonProps> = ({
       "bg-arang text-gading border border-perunggu/40 hover:border-emas/60 hover:bg-[#211c18] active:scale-[0.98]",
     garis:
       "border border-emas/70 text-emas hover:bg-emas/10 hover:border-emas active:scale-[0.98]",
+    merah:
+      "border border-merah/70 text-merah hover:bg-merah/15 hover:border-merah hover:text-red-300 active:scale-[0.98]",
   };
 
   const sizeStyles = {

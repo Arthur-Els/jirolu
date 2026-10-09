@@ -78,7 +78,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
               <Button variant="arang" size="sm" onClick={onUlangi}>
                 Ulangi
               </Button>
-              <Button variant="garis" size="sm" onClick={onKeluar}>
+              <Button variant="merah" size="sm" onClick={onKeluar}>
                 Keluar
               </Button>
             </>
