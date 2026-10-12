@@ -6,7 +6,8 @@ import { Lagu } from "@/types/lagu";
 import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
 import { useRekaman } from "@/lib/rekam/useRekaman";
 import { Bilah } from "./Bilah";
-import { PencuBonang } from "./PencuBonang";
+import { Saron3DPad } from "./Saron3DPad";
+import { Bonang3DPad } from "./Bonang3DPad";
 import { GongPad } from "./GongPad";
 import { KendangPad } from "./KendangPad";
 import { LarasToggle } from "./LarasToggle";
@@ -165,7 +166,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
   return (
     <div className="w-full bg-arang/90 border border-perunggu/35 rounded-2xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
       {/* 1. Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-perunggu/25">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse" />
@@ -229,7 +230,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {!isAudioUnlocked && (
         <div className="text-center p-3 rounded-lg bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-gading/75">
-            Klik tombol di samping untuk memastikan audio aktif optimal di ponsel atau Safari:
+            Klik tombol di samping untuk memastikan audio aktif dengan optimal:
           </span>
           <Button variant="emas" size="sm" onClick={handleUnlock} className="w-full sm:w-auto">
             Aktifkan Suara Audio
@@ -239,76 +240,38 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
       {/* 3. TAMPILAN INSTRUMEN SOUNDBOARD */}
 
-      {/* SARON */}
+      {/* SARON 3D */}
       {instrumen.slug === "saron" && (
-        <div className="relative w-full rounded-2xl bg-gradient-to-b from-[#2a1e14] via-[#1c140d] to-[#120c07] p-3 sm:p-6 border-2 border-[#543b23] shadow-[0_15px_30px_rgba(0,0,0,0.8)]">
-          <div className="w-full h-3 rounded-t-lg bg-gradient-to-r from-perunggu/30 via-emas/40 to-perunggu/30 mb-2 border-b border-[#3d2a1b]" />
-          <div className="flex items-end justify-center gap-1.5 sm:gap-3 md:gap-4 overflow-x-auto py-2 px-1 select-none">
-            {(currentItems as Nada[]).map((item, index) => (
-              <Bilah
-                key={`${laras}-${item.nada}`}
-                nada={item}
-                index={index}
-                totalBilah={currentItems.length}
-                isTriggeredByKey={activeKey === item.key}
-                isTargetLearnNote={targetNoteHighlight === item.nada}
-                isWrongFeedback={wrongFeedbackNote === item.nada}
-                isPlaybackActive={activePlayingId === item.nada}
-                onPlay={() => triggerPlay(item)}
-              />
-            ))}
-          </div>
-          <div className="w-full h-4 rounded-b-lg bg-gradient-to-r from-[#170f09] via-[#382618] to-[#170f09] mt-3 border-t border-[#4a3423] flex items-center justify-center">
-            <div className="w-24 h-1 rounded-full bg-emas/30" />
-          </div>
-        </div>
+        <Saron3DPad
+          laras={laras}
+          daftarNada={currentItems as Nada[]}
+          activeKeyId={
+            activePlayingId ||
+            (currentItems as Nada[]).find(
+              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
+            )?.nada
+          }
+          targetLearnNote={targetNoteHighlight}
+          wrongFeedbackNote={wrongFeedbackNote}
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
-      {/* BONANG */}
+      {/* BONANG 3D MODEL */}
       {instrumen.slug === "bonang" && (
-        <div className="relative w-full rounded-2xl bg-gradient-to-b from-[#26190f] via-[#191009] to-[#0f0905] p-4 sm:p-6 border-2 border-[#543b23] shadow-2xl space-y-4">
-          <div className="space-y-1">
-            <span className="text-[11px] uppercase tracking-widest text-emas font-semibold px-2">
-              Baris Atas (Nada Tinggi) - Tombol [Q - {laras === "pelog" ? "U" : "T"}]
-            </span>
-            <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 bg-tinta/50 p-3 rounded-xl border border-perunggu/25 overflow-x-auto">
-              {(currentItems as Nada[])
-                .filter((item) => item.baris === 1)
-                .map((item) => (
-                  <PencuBonang
-                    key={`bonang-${laras}-${item.nada}-${item.baris}`}
-                    nada={item}
-                    isTriggeredByKey={activeKey === item.key}
-                    isTargetLearnNote={targetNoteHighlight === item.nada}
-                    isWrongFeedback={wrongFeedbackNote === item.nada}
-                    isPlaybackActive={activePlayingId === item.nada}
-                    onPlay={() => triggerPlay(item)}
-                  />
-                ))}
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <span className="text-[11px] uppercase tracking-widest text-emas font-semibold px-2">
-              Baris Bawah (Nada Rendah) - Tombol [A - {laras === "pelog" ? "J" : "G"}]
-            </span>
-            <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 bg-tinta/50 p-3 rounded-xl border border-perunggu/25 overflow-x-auto">
-              {(currentItems as Nada[])
-                .filter((item) => item.baris === 2)
-                .map((item) => (
-                  <PencuBonang
-                    key={`bonang-${laras}-${item.nada}-${item.baris}`}
-                    nada={item}
-                    isTriggeredByKey={activeKey === item.key}
-                    isTargetLearnNote={targetNoteHighlight === item.nada}
-                    isWrongFeedback={wrongFeedbackNote === item.nada}
-                    isPlaybackActive={activePlayingId === item.nada}
-                    onPlay={() => triggerPlay(item)}
-                  />
-                ))}
-            </div>
-          </div>
-        </div>
+        <Bonang3DPad
+          laras={laras}
+          daftarNada={currentItems as Nada[]}
+          activeKeyId={
+            activeKey ||
+            (activePlayingId
+              ? (currentItems as Nada[]).find((item) => item.nada === activePlayingId)?.key
+              : null)
+          }
+          targetLearnNote={targetNoteHighlight}
+          wrongFeedbackNote={wrongFeedbackNote}
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
       {/* GONG */}
@@ -329,18 +292,16 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
       {/* KENDANG */}
       {instrumen.slug === "kendang" && (
-        <div className="w-full rounded-2xl bg-gradient-to-b from-[#1c120a] via-[#120a05] to-[#0a0502] p-4 sm:p-8 border-2 border-[#543b23] shadow-2xl">
-          <KendangPad
-            daftarSuara={currentItems as ItemSuara[]}
-            activeKeyId={
-              activePlayingId ||
-              (currentItems as ItemSuara[]).find(
-                (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
-              )?.id
-            }
-            onPlay={(item) => triggerPlay(item)}
-          />
-        </div>
+        <KendangPad
+          daftarSuara={currentItems as ItemSuara[]}
+          activeKeyId={
+            activePlayingId ||
+            (currentItems as ItemSuara[]).find(
+              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
+            )?.id
+          }
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
       {/* 4. PANEL REKAMAN & PUTAR ULANG (Tersedia untuk Semua Alat) */}

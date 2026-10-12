@@ -36,115 +36,105 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
   };
 
   return (
-    <div className="w-full bg-tinta/85 border border-perunggu/35 rounded-2xl p-4 sm:p-5 shadow-lg space-y-3">
-      {/* Baris Atas: Judul Panel & Indikator Status */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-perunggu/20">
-        <div className="flex items-center gap-2">
-          {/* Ikon Kaset / Disk Pita Sederhana */}
-          <div className="w-6 h-6 rounded-md bg-arang border border-emas/40 flex items-center justify-center text-emas">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3" strokeWidth="2" />
-              <path strokeWidth="2" d="M19 12a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+    <div className="w-full pt-4 border-t border-perunggu/25 flex flex-col gap-2.5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        {/* Sisi Kiri: Label & Tombol Aksi */}
+        <div className="flex flex-wrap items-center gap-3">
+          
+
+          <div className="flex items-center gap-2">
+            {/* Tombol Rekam */}
+            {!isRecording ? (
+              <Button
+                variant="emas"
+                size="sm"
+                onClick={onMulaiRekam}
+                disabled={isPlaying}
+                aria-label="Mulai Merekam Permainan"
+                className="gap-1.5 h-8 text-xs px-3"
+              >
+                <span className="w-2 h-2 rounded-full bg-tinta" />
+                <span>Rekam</span>
+              </Button>
+            ) : (
+              <Button
+                variant="garis"
+                size="sm"
+                onClick={onBerhenti}
+                aria-label="Berhenti Merekam"
+                className="gap-1.5 h-8 text-xs px-3 border-red-400 text-red-300 hover:bg-red-900/20"
+              >
+                <span className="w-2 h-2 rounded-sm bg-red-400" />
+                <span>Berhenti</span>
+              </Button>
+            )}
+
+            {/* Tombol Putar */}
+            {!isPlaying ? (
+              <Button
+                variant="arang"
+                size="sm"
+                onClick={onPutar}
+                disabled={!adaRekaman || isRecording}
+                aria-label="Putar Ulang Permainan"
+                className="gap-1.5 h-8 text-xs px-3"
+              >
+                <svg className="w-3.5 h-3.5 fill-current text-emas" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span>Putar</span>
+              </Button>
+            ) : (
+              <Button
+                variant="garis"
+                size="sm"
+                onClick={onBerhenti}
+                aria-label="Berhenti Memutar"
+                className="gap-1.5 h-8 text-xs px-3"
+              >
+                <svg className="w-3 h-3 fill-current text-emas" viewBox="0 0 24 24">
+                  <path d="M6 6h12v12H6z" />
+                </svg>
+                <span>Berhenti</span>
+              </Button>
+            )}
+
+            {/* Tombol Hapus */}
+            <Button
+              variant="garis"
+              size="sm"
+              onClick={onHapus}
+              disabled={!adaRekaman || isRecording || isPlaying}
+              aria-label="Hapus Rekaman"
+              className="h-8 text-xs px-2.5 hover:bg-red-500/10 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-500/60"
+            >
+              Hapus
+            </Button>
           </div>
-          <span className="font-serif text-base font-bold text-gading">
-            Rekam Permainan
-          </span>
         </div>
 
-        {/* Status Timer / Indikator */}
-        <div className="flex items-center gap-2 text-xs font-mono">
+        {/* Sisi Kanan: Status & Indikator Timer */}
+        <div className="flex items-center gap-3 text-xs">
           {isRecording ? (
-            <span className="inline-flex items-center gap-2 text-red-400 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-full">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+            <span className="inline-flex items-center gap-2 text-red-400 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-full font-mono text-xs">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               Merekam ({formatTimer(durasiDetik)} / 01:00)
             </span>
           ) : isPlaying ? (
-            <span className="inline-flex items-center gap-2 text-emas bg-arang border border-emas/30 px-2.5 py-1 rounded-full">
-              <span className="w-2.5 h-2.5 rounded-full bg-emas animate-ping" />
+            <span className="inline-flex items-center gap-2 text-emas bg-tinta border border-emas/30 px-2.5 py-1 rounded-full font-mono text-xs">
+              <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
               Memutar Ulang
             </span>
           ) : adaRekaman ? (
-            <span className="text-gading/70 bg-arang/60 px-2.5 py-1 rounded-md border border-perunggu/25">
+            <span className="text-gading/80 bg-tinta/60 px-2.5 py-1 rounded-md border border-perunggu/30 font-mono text-xs">
               Tersimpan: {jumlahKetukan} ketukan
             </span>
           ) : (
-            <span className="text-gading/40 italic font-sans text-[11px]">
-              Belum ada rekaman
+            <span className="text-gading/40 italic text-xs">
+              *Maksimal 60 detik rekaman
             </span>
           )}
         </div>
-      </div>
-
-      {/* Baris Tombol Aksi */}
-      <div className="flex flex-wrap items-center gap-2.5">
-        {/* Tombol Rekam */}
-        {!isRecording ? (
-          <Button
-            variant="emas"
-            size="sm"
-            onClick={onMulaiRekam}
-            disabled={isPlaying}
-            aria-label="Mulai Merekam Permainan"
-            className="gap-2"
-          >
-            <span className="w-2.5 h-2.5 rounded-full bg-tinta" />
-            <span>Rekam</span>
-          </Button>
-        ) : (
-          <Button
-            variant="garis"
-            size="sm"
-            onClick={onBerhenti}
-            aria-label="Berhenti Merekam"
-            className="gap-2 border-red-400 text-red-300 hover:bg-red-900/20"
-          >
-            <span className="w-2.5 h-2.5 rounded-sm bg-red-400" />
-            <span>Berhenti</span>
-          </Button>
-        )}
-
-        {/* Tombol Putar */}
-        {!isPlaying ? (
-          <Button
-            variant="arang"
-            size="sm"
-            onClick={onPutar}
-            disabled={!adaRekaman || isRecording}
-            aria-label="Putar Ulang Permainan"
-            className="gap-2"
-          >
-            <svg className="w-3.5 h-3.5 fill-current text-emas" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            <span>Putar</span>
-          </Button>
-        ) : (
-          <Button
-            variant="garis"
-            size="sm"
-            onClick={onBerhenti}
-            aria-label="Berhenti Memutar"
-            className="gap-2"
-          >
-            <svg className="w-3.5 h-3.5 fill-current text-emas" viewBox="0 0 24 24">
-              <path d="M6 6h12v12H6z" />
-            </svg>
-            <span>Berhenti</span>
-          </Button>
-        )}
-
-        {/* Tombol Hapus */}
-        <Button
-          variant="garis"
-          size="sm"
-          onClick={onHapus}
-          disabled={!adaRekaman || isRecording || isPlaying}
-          aria-label="Hapus Rekaman"
-          className="text-gading/60 hover:text-red-300 hover:border-red-500/40"
-        >
-          Hapus
-        </Button>
       </div>
 
       {/* Pesan Ramah Batas Waktu */}
@@ -153,12 +143,6 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
           {pesanInfo}
         </div>
       )}
-
-      {/* Catatan Kecil Penyimpanan */}
-      <div className="text-[11px] text-gading/45 flex items-center justify-between">
-        <span>* Rekaman hilang jika halaman dimuat ulang (refresh).</span>
-        <span>Maksimal 60 detik</span>
-      </div>
     </div>
   );
 };

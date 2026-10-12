@@ -59,10 +59,10 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
       {/* Bar Navigasi Atas Halaman */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-perunggu/25">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mt-8 border-b border-perunggu/25">
         <Link
           href="/#galeri"
-          className="inline-flex items-center gap-2 text-sm text-gading/70 hover:text-emas transition-colors min-h-[44px]"
+          className="inline-flex items-center gap-2 text-sm text-gading/70 hover:text-emas-muda transition-colors min-h-[44px]"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -73,7 +73,7 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         {/* Tautan Alat Musik Berikutnya */}
         <Link
           href={`/instrumen/${nextInstrument.slug}`}
-          className="inline-flex items-center gap-2 text-sm text-emas hover:text-emas-muda transition-colors group min-h-[44px]"
+          className="inline-flex items-center text-sm text-gading hover:text-emas transition-colors group min-h-[44px]"
         >
           <span>Alat Musik Selanjutnya: <strong>{nextInstrument.nama}</strong></span>
           <svg
@@ -103,19 +103,32 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         allInstruments={allInstruments}
       />
 
-      {/* Bar Navigasi Bawah */}
-      <div className="pt-6 border-t border-perunggu/25 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Bar Navigasi Bawah Halaman */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-perunggu/25">
         <Link
           href="/#galeri"
-          className="text-sm text-gading/70 hover:text-emas transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-gading/70 hover:text-emas-muda transition-colors min-h-[44px]"
         >
-          ← Kembali ke Galeri
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>Kembali ke Galeri Pameran</span>
         </Link>
+
+        {/* Tautan Alat Musik Berikutnya */}
         <Link
           href={`/instrumen/${nextInstrument.slug}`}
-          className="text-sm text-emas hover:text-emas-muda font-semibold transition-colors"
+          className="inline-flex items-center text-sm text-gading hover:text-emas transition-colors group min-h-[44px]"
         >
-          Lanjut ke {nextInstrument.nama} →
+          <span>Alat Musik Selanjutnya: <strong>{nextInstrument.nama}</strong></span>
+          <svg
+            className="w-4 h-4 transition-transform group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+          </svg>
         </Link>
       </div>
     </div>

@@ -122,7 +122,7 @@ export default function CaraBermainPage() {
                 <td className="py-3 px-3 font-semibold text-gading">Saron</td>
                 <td className="py-3 px-3">Pelog</td>
                 <td className="py-3 px-3 font-mono font-bold text-emas">A S D F G H J</td>
-                <td className="py-3 px-3">Nada 1 s/d 7 (ji, ro, lu, pat, mo, nem, pi)</td>
+                <td className="py-3 px-3">Nada 1 - 7 (ji, ro, lu, pat, mo, nem, pi)</td>
               </tr>
               <tr>
                 <td className="py-3 px-3 font-semibold text-gading">Saron</td>
@@ -187,11 +187,11 @@ export default function CaraBermainPage() {
       {/* Bagian 4: Fitur Mode Belajar & Rekaman */}
       <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
         <h2 className="font-serif text-2xl font-bold text-gading">
-          Fitur Mode Belajar & Rekam-Putar
+          Fitur Mode Belajar dan Rekam
         </h2>
         <div className="space-y-4 text-sm text-gading/80 leading-relaxed font-light">
           <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
-            <h3 className="font-serif text-base font-bold text-emas">1. Mode Belajar Lagu (Saron & Bonang)</h3>
+            <h3 className="font-serif text-base font-bold text-emas">1. Mode Belajar Lagu (Saron dan Bonang)</h3>
             <p>
               Pilih tab <strong>&ldquo;Belajar Lagu&rdquo;</strong> di atas soundboard. Pilih lagu yang ingin kamu pelajari.
               Bilah nada yang harus kamu tekan berikutnya akan menyala dengan <em>pendar emas berdenyut</em>.
@@ -200,7 +200,7 @@ export default function CaraBermainPage() {
           </div>
 
           <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
-            <h3 className="font-serif text-base font-bold text-emas">2. Panel Rekam & Putar Ulang (Semua Alat)</h3>
+            <h3 className="font-serif text-base font-bold text-emas">2. Panel Rekam dan Putar Ulang</h3>
             <p>
               Gunakan panel di bawah soundboard. Klik <strong>&ldquo;Rekam&rdquo;</strong> lalu mainkan alat musikmu.
               Setelah selesai, klik <strong>&ldquo;Berhenti&rdquo;</strong> dan dengarkan kembali kreasimu dengan menekan <strong>&ldquo;Putar&rdquo;</strong>.

@@ -359,7 +359,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                     aria-label={`Putar contoh lagu permainan ${selectedInstrument.nama}`}
                     className={`w-full sm:w-auto px-5 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-3 min-h-[46px] cursor-pointer shadow-lg ${
                       isPlayingSong
-                        ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.6)]"
+                        ? "text-emas border-emas shadow-[0_0_25px_rgba(212,175,55,0.6)]"
                         : "bg-tinta border-emas/40 text-gading hover:text-emas hover:border-emas hover:bg-arang"
                     }`}
                   >
@@ -367,20 +367,20 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       <>
                         {/* Batang equalizer yang bergerak dinamis */}
                         <div className="flex items-end gap-1 h-4">
-                          <span className="w-1 bg-tinta rounded-full animate-eq-1" />
-                          <span className="w-1 bg-tinta rounded-full animate-eq-2" />
-                          <span className="w-1 bg-tinta rounded-full animate-eq-3" />
-                          <span className="w-1 bg-tinta rounded-full animate-eq-4" />
+                          <span className="w-1 bg-emas rounded-full animate-eq-1" />
+                          <span className="w-1 bg-emas rounded-full animate-eq-2" />
+                          <span className="w-1 bg-emas rounded-full animate-eq-3" />
+                          <span className="w-1 bg-emas rounded-full animate-eq-4" />
                         </div>
-                        <span>Jeda Contoh Lagu</span>
+                        <span>Jeda Contoh Permainan</span>
                       </>
                     ) : (
                       <>
-                        <svg className="w-4 h-4 text-emas" fill="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-emas" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z" />
                         </svg>
                         <div className="text-left">
-                          <span className="block leading-tight font-semibold">Dengarkan Contoh Lagu</span>
+                          <span className="block leading-tight font-semibold">Contoh Permainan Alat Musik</span>
                           <span className="text-[10px] text-gading/60 block leading-tight font-normal">
                             Permainan {selectedInstrument.nama}
                           </span>
