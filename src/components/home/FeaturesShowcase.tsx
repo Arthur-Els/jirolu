@@ -83,16 +83,6 @@ export const FeaturesShowcase: React.FC = () => {
       <div className="relative z-10 max-w-[1200px] mx-auto w-full">
         {/* Header Section */}
         <header className="flex flex-col items-center text-center">
-          {/* Eyebrow */}
-          <div
-            className="font-mono text-[13px] tracking-[0.12em] text-[#D4AF37] mb-[16px] text-center select-none"
-            style={{
-              fontFamily: "var(--font-jetbrains-mono), 'JetBrains Mono', monospace",
-              letterSpacing: "0.12em",
-            }}
-          >
-            [ FITUR UTAMA MUSEUM ]
-          </div>
 
           {/* Headline */}
           <h2

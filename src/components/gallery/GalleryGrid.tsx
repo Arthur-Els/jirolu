@@ -148,9 +148,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Header Galeri */}
         <div className="text-center space-y-3 max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
-            <span>ꦮꦶꦭꦸꦗꦼꦁꦫꦮꦸꦃ</span>
-          </div>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-gading">
             Denah Panggung Karawitan
           </h2>
