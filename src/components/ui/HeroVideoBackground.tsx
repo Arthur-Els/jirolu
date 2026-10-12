@@ -72,6 +72,8 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
         className="w-full h-full object-cover"
       >
         <source src={src} type="video/mp4" />
+        <source src="/background/new-bg.mp4" type="video/mp4" />
+        <source src="/background/bg-home.mp4" type="video/mp4" />
         Peramban Anda tidak mendukung pemutaran video.
       </video>
 

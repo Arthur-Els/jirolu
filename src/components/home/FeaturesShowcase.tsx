@@ -68,10 +68,19 @@ export const FeaturesShowcase: React.FC = () => {
   return (
     <section
       id="features_showcase"
-      className="w-full bg-[#0d0c0a] py-[96px] px-[24px]"
-      style={{ backgroundColor: "#0d0c0a" }}
+      className="relative w-full py-[100px] px-[24px] overflow-hidden"
     >
-      <div className="max-w-[1200px] mx-auto w-full">
+      {/* Background layer dengan gradasi lembut di tepi atas & bawah agar membaur menyatu dengan background video */}
+      <div
+        className="absolute inset-0 pointer-events-none select-none"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent 0%, rgba(13, 12, 10, 0.4) 40px, rgba(13, 12, 10, 0.85) 90px, #0d0c0a 150px, #0d0c0a calc(100% - 150px), rgba(13, 12, 10, 0.85) calc(100% - 90px), rgba(13, 12, 10, 0.4) calc(100% - 40px), transparent 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-[1200px] mx-auto w-full">
         {/* Header Section */}
         <header className="flex flex-col items-center text-center">
           {/* Eyebrow */}
