@@ -1,10 +1,12 @@
 import React from "react";
 import Link from "next/link";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export const Footer: React.FC = () => {
   return (
     <footer id="kontak" className="relative z-10 w-full bg-arang/90 border-t border-perunggu/25 text-gading/70 py-12 px-4 sm:px-6 backdrop-blur-md">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+      <ScrollReveal direction="up" distance={20} duration={0.65} scale={0.98}>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         {/* Kolom Kiri: Identitas Jirolu */}
         <div className="text-center md:text-left space-y-2">
           <div className="flex items-center justify-center md:justify-start gap-2">
@@ -74,10 +76,11 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-perunggu/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gading/40 gap-3">
-        <p>© {new Date().getFullYear()} Jirolu. Dipersembahkan sebagai produk pameran alat musik tradisional Jawa.</p>
-        <p className="tracking-wide">By PPLG Website Development Team</p>
-      </div>
+        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-perunggu/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gading/40 gap-3">
+          <p>© {new Date().getFullYear()} Jirolu. Dipersembahkan sebagai produk pameran alat musik tradisional Jawa.</p>
+          <p className="tracking-wide">By PPLG Website Development Team</p>
+        </div>
+      </ScrollReveal>
     </footer>
   );
 };
