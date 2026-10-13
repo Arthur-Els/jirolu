@@ -4,6 +4,7 @@ import { getAllInstruments } from "@/lib/content";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { HeroVideoBackground } from "@/components/ui/HeroVideoBackground";
 import { FeaturesShowcase } from "@/components/home/FeaturesShowcase";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export default function HomePage() {
   const instruments = getAllInstruments();
@@ -16,27 +17,34 @@ export default function HomePage() {
       {/* Seluruh Konten Halaman Beranda (Scroll ke bawah di atas background video) */}
       <div className="relative z-10 flex flex-col items-center w-full">
         {/* Bagian Pembuka (Hero Section) */}
-        <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-20">
+        <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-16">
           {/* Hero Body Layout */}
           <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
+            {/* Eyebrow Badge */}
+            <ScrollReveal direction="up" distance={20} duration={0.6} delay={0.1}>
+              <div className="inline-flex items-center gap-2 text-emas text-sm uppercase tracking-widest font-medium mb-6">
+                <span>ꦮꦶꦭꦸꦗꦼꦁꦫꦮꦸꦃ</span>
+              </div>
+            </ScrollReveal>
 
-          {/* Headline */}
-          <div className="inline-flex items-center gap-2 text-emas text-s uppercase tracking-widest font-medium">
-            <span>ꦮꦶꦭꦸꦗꦼꦁꦫꦮꦸꦃ</span>
-          </div>
-          <h1 className="text-[clamp(36px,7vw,60px)] leading-[1.15] text-white text-center mb-6 tracking-tight">
-            <span className="font-sans font-bold block sm:inline">
-              Jelajahi warisan suara gamelan,{" "}
-            </span>
-            <span className="font-serif italic font-normal block sm:inline">
-              langsung dari layar anda.
-            </span>
-          </h1>
+            {/* Headline */}
+            <ScrollReveal direction="up" distance={26} duration={0.7} delay={0.25} scale={0.96}>
+              <h1 className="text-[clamp(36px,7vw,60px)] leading-[1.15] text-white text-center mb-6 tracking-tight">
+                <span className="font-sans font-bold block sm:inline">
+                  Jelajahi warisan suara gamelan,{" "}
+                </span>
+                <span className="font-serif italic font-normal block sm:inline">
+                  langsung dari layar anda.
+                </span>
+              </h1>
+            </ScrollReveal>
 
-          {/* Subheadline */}
-          <p className="text-[16px] leading-[1.6] text-white/70 text-center max-w-[540px] mb-10 font-sans">
-            Sentuh bilah saron, dengungkan bonang, dan rasakan getaran tradisi Jawa langsung di layar anda tanpa jeda sedikitpun.
-          </p>
+            {/* Subheadline */}
+            <ScrollReveal direction="up" distance={24} duration={0.7} delay={0.4} scale={0.97}>
+              <p className="text-[16px] leading-[1.6] text-white/70 text-center max-w-[540px] mb-10 font-sans">
+                Sentuh bilah saron, dengungkan bonang, dan rasakan getaran tradisi Jawa langsung di layar anda tanpa jeda sedikitpun.
+              </p>
+            </ScrollReveal>
 
           {/* CTA Group */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -66,23 +74,25 @@ export default function HomePage() {
         <div id="koleksi-alat" className="scroll-mt-20" />
         <GalleryGrid instruments={instruments} />
 
-      {/* Bagian Sekilas Filosofi Karawitan */}
-      <section className="w-full py-16 px-4 sm:px-6 bg-arang/40 border-y border-perunggu/20">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          <span className="text-xs uppercase tracking-widest text-emas font-medium">
-            Nilai Adiluhung Jawa
-          </span>
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-gading">
-            &ldquo;Laras, Raras, Rancak&rdquo;
-          </h2>
-          <p className="text-sm sm:text-base text-gading/75 leading-relaxed max-w-2xl mx-auto">
-            Nama <strong>Jirolu</strong> mengingatkan kita bahwa musik gamelan bermula dari kesederhanaan langkah awal:
-            <strong> ji (1), ro (2), dan lu (3)</strong>. Dari keselarasan nada dasar ini, lahirlah jalinan irama agung
-            yang menyatukan rasa, cipta, dan budi pekerti manusia.
-          </p>
-        </div>
-      </section>
+        {/* Bagian Sekilas Filosofi Karawitan */}
+        <section className="w-full py-16 px-4 sm:px-6 bg-arang/40 border-y border-perunggu/20">
+          <ScrollReveal direction="up" distance={30} scale={0.96} duration={0.75}>
+            <div className="max-w-4xl mx-auto text-center space-y-6">
+              <span className="text-xs uppercase tracking-widest text-emas font-medium">
+                Nilai Adiluhung Jawa
+              </span>
+              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-gading">
+                &ldquo;Laras, Raras, Rancak&rdquo;
+              </h2>
+              <p className="text-sm sm:text-base text-gading/75 leading-relaxed max-w-2xl mx-auto">
+                Nama <strong>Jirolu</strong> mengingatkan kita bahwa musik gamelan bermula dari kesederhanaan langkah awal:
+                <strong> ji (1), ro (2), dan lu (3)</strong>. Dari keselarasan nada dasar ini, lahirlah jalinan irama agung
+                yang menyatukan rasa, cipta, dan budi pekerti manusia.
+              </p>
+            </div>
+          </ScrollReveal>
+        </section>
+      </div>
     </div>
-  </div>
-);
+  );
 }
