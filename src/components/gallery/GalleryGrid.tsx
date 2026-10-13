@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { Instrumen } from "@/types/instrumen";
 import {
   playInstrumentPreview,
@@ -89,8 +88,6 @@ const INSTRUMENT_AREAS: InstrumentPolygonArea[] = [
 ];
 
 export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
-  const router = useRouter();
-
   // State instrumen aktif dan hover
   const [selectedSlug, setSelectedSlug] = useState<string>("saron");
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
@@ -100,9 +97,8 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
   const [isMouseInsideStage, setIsMouseInsideStage] = useState<boolean>(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
 
-  // State Modal Transisi Simulator
-  const [modalInstrument, setModalInstrument] = useState<Instrumen | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // Ref untuk auto-scroll ke bagian card penjelasan di bawah
+  const explanationCardRef = useRef<HTMLDivElement | null>(null);
 
   // State pemutar audio contoh lagu
   const [isPlayingSong, setIsPlayingSong] = useState<boolean>(false);
@@ -125,13 +121,12 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
     ? instruments.find((item) => item.slug === hoveredSlug)
     : null;
 
-  const activeInstrumentForCard = hoveredInstrument || selectedInstrument;
-
+  // Konten card penjelasan di bawah HANYA berubah saat alat musik diklik (selectedInstrument)
   const infoPanggung =
-    METADATA_PANGGUNG[activeInstrumentForCard.slug] || {
+    METADATA_PANGGUNG[selectedInstrument.slug] || {
       zona: "Panggung Ansambel",
       peranSpasial: "Instrumen Karawitan",
-      alasanPenempatan: activeInstrumentForCard.fungsi,
+      alasanPenempatan: selectedInstrument.fungsi,
       posisiLabel: "Panggung Gamelan",
     };
 
@@ -179,17 +174,21 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
     setHoveredSlug(null);
   };
 
-  // Handler klik pada area alat musik: putar suara preview dan buka modal transisi
+  // Handler klik pada area alat musik: ganti instrumen terpilih, putar suara preview, dan scroll ke card penjelasan
   const handleInstrumentClick = (slug: string) => {
     const instrumen = instruments.find((i) => i.slug === slug);
     if (!instrumen) return;
 
     setSelectedSlug(slug);
-    setModalInstrument(instrumen);
-    setIsModalOpen(true);
 
     // Mainkan audio sampel instrumen
     playAudioPreview(slug);
+
+    // Otomatis scroll halus ke card penjelasan di bawah
+    explanationCardRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   // Handler toggle audio contoh lagu di panel detail
@@ -302,12 +301,8 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             <div className="absolute top-4 left-6 z-10 flex items-center gap-2 pointer-events-none">
               <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
               <span className="text-[11px] font-mono tracking-widest text-emas/80 uppercase font-semibold">
-                Panggung Pendopo • Karawitan Live
+                Panggung Pendopo
               </span>
-            </div>
-
-            <div className="absolute top-4 right-6 z-10 hidden sm:flex items-center gap-2 text-[11px] font-mono tracking-wider text-gading/60 pointer-events-none">
-              <span>▲ Baris Belakang (Gong)</span>
             </div>
 
             {/* SVG OVERLAY MAP PRESISI SESUAI BENTUK ALAT MUSIK */}
@@ -451,9 +446,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                   <div className="pt-1.5 flex items-center justify-between text-[11px] font-semibold text-emas">
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-emas animate-ping" />
-                      Klik untuk memainkan
+                      Klik untuk melihat
                     </span>
-                    <span>→</span>
+                    <span>↓</span>
                   </div>
                 </div>
               </div>
@@ -463,24 +458,26 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             <div className="absolute bottom-3 left-3 right-3 z-20 md:hidden p-3 rounded-xl bg-[#0B0A09]/90 backdrop-blur-md border border-emas/40 shadow-xl flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-emas font-serif text-sm font-bold">
-                    {activeInstrumentForCard.namaJawa}
-                  </span>
+                  {selectedInstrument.namaJawa && (
+                    <span className="text-emas font-serif text-sm font-bold">
+                      {selectedInstrument.namaJawa}
+                    </span>
+                  )}
                   <span className="text-white text-xs font-semibold truncate">
-                    {activeInstrumentForCard.nama}
+                    {selectedInstrument.nama}
                   </span>
                 </div>
                 <p className="text-[10px] text-gading/70 truncate">
-                  {METADATA_PANGGUNG[activeInstrumentForCard.slug]?.posisiLabel} &bull;{" "}
-                  {METADATA_PANGGUNG[activeInstrumentForCard.slug]?.peranSpasial}
+                  {METADATA_PANGGUNG[selectedInstrument.slug]?.posisiLabel} &bull;{" "}
+                  {METADATA_PANGGUNG[selectedInstrument.slug]?.peranSpasial}
                 </p>
               </div>
               <button
                 type="button"
-                onClick={() => handleInstrumentClick(activeInstrumentForCard.slug)}
-                className="shrink-0 px-3 py-1.5 rounded-lg bg-emas text-tinta text-xs font-bold shadow-[0_0_12px_rgba(212,175,55,0.4)]"
+                onClick={() => handleInstrumentClick(selectedInstrument.slug)}
+                className="shrink-0 px-3 py-1.5 rounded-lg bg-emas text-tinta text-xs font-bold shadow-[0_0_12px_rgba(212,175,55,0.4)] cursor-pointer"
               >
-                Mainkan →
+                Lihat Detail ↓
               </button>
             </div>
           </div>
@@ -517,7 +514,11 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
 
         {/* 2. PANEL DETAIL SOROTAN PANGGUNG (SPOTLIGHT SHOWCASE) */}
         <ScrollReveal direction="up" distance={32} duration={0.75} scale={0.96} delay={0.15}>
-          <div className="w-full bg-arang/95 border-2 border-emas/40 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md transition-all duration-300">
+          <div
+            ref={explanationCardRef}
+            id="penjelasan-instrumen"
+            className="scroll-mt-24 w-full bg-arang/95 border-2 border-emas/40 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md transition-all duration-300"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Kolom Kiri: Visual Gambar Beresolusi Tinggi & Penanda Spasial */}
               <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-perunggu/50 shadow-2xl bg-tinta">
@@ -657,89 +658,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
           </div>
         </ScrollReveal>
       </div>
-
-      {/* 3. MODAL TRANSISI KE SIMULATOR INSTRUMEN */}
-      {isModalOpen && modalInstrument && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-          <div
-            className="relative w-full max-w-lg rounded-3xl bg-[#0B0A09] border-2 border-emas/60 p-6 sm:p-8 shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_40px_rgba(212,175,55,0.3)] space-y-6 text-center animate-in zoom-in-95 duration-200"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-title"
-          >
-            {/* Tombol Tutup X */}
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 p-2 text-white/60 hover:text-white transition-colors cursor-pointer rounded-full hover:bg-white/10"
-              aria-label="Tutup"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Gambar Miniatur & Efek Pendar */}
-            <div className="relative w-28 h-28 mx-auto rounded-2xl overflow-hidden border-2 border-emas shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-              <Image
-                src={modalInstrument.gambar}
-                alt={modalInstrument.nama}
-                fill
-                className="object-cover"
-                sizes="112px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            </div>
-
-            {/* Info Teks Modal */}
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emas/15 border border-emas/40 text-emas text-xs font-mono font-medium">
-                <span>📍 {METADATA_PANGGUNG[modalInstrument.slug]?.posisiLabel}</span>
-              </div>
-              <h3 id="modal-title" className="font-serif text-3xl font-bold text-gading">
-                {modalInstrument.namaJawa && (
-                  <span className="block text-emas text-2xl mb-1">{modalInstrument.namaJawa}</span>
-                )}
-                {modalInstrument.nama}
-              </h3>
-              <p className="text-xs sm:text-sm text-gading/80 max-w-sm mx-auto leading-relaxed">
-                {modalInstrument.fungsi}
-              </p>
-            </div>
-
-            {/* Audio Wave Feedback */}
-            <div className="p-3 rounded-xl bg-tinta/80 border border-perunggu/30 flex items-center justify-center gap-3 text-xs text-emas-muda">
-              <div className="flex items-end gap-1 h-3.5">
-                <span className="w-1 bg-emas rounded-full animate-eq-1" />
-                <span className="w-1 bg-emas rounded-full animate-eq-2" />
-                <span className="w-1 bg-emas rounded-full animate-eq-3" />
-                <span className="w-1 bg-emas rounded-full animate-eq-4" />
-              </div>
-              <span>Pratinjau audio sedang dimainkan...</span>
-            </div>
-
-            {/* Tombol Aksi Modal */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => setIsModalOpen(false)}
-                className="w-full sm:w-1/2 py-3.5 rounded-xl border border-white/20 hover:border-white/40 text-gading/80 hover:text-white font-medium text-xs transition-colors cursor-pointer"
-              >
-                Kembali ke Denah
-              </button>
-
-              <Link
-                href={`/instrumen/${modalInstrument.slug}`}
-                onClick={() => setIsModalOpen(false)}
-                className="w-full sm:w-1/2 py-3.5 rounded-xl bg-emas hover:bg-emas-muda text-tinta font-bold text-xs shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all flex items-center justify-center gap-2"
-              >
-                <span>Masuk Simulator</span>
-                <span>→</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 };
