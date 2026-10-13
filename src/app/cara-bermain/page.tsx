@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { HeroVideoBackground } from "@/components/ui/HeroVideoBackground";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Cara Bermain Gamelan di Jirolu | Panduan Interaktif",
@@ -18,8 +17,7 @@ export default function CaraBermainPage() {
 
       {/* Konten Halaman Cara Bermain (Scroll di atas background video) */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-16 space-y-12">
-      {/* Header Panduan */}
-      <ScrollReveal direction="up" distance={24} duration={0.65}>
+        {/* Header Panduan */}
         <div className="text-center space-y-4">
           <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
             <span>ꦠꦸꦠꦸꦂꦥꦤꦸꦢꦸꦃ</span>
@@ -34,10 +32,8 @@ export default function CaraBermainPage() {
           </p>
           <div className="w-20 h-0.5 bg-emas mx-auto rounded-full" />
         </div>
-      </ScrollReveal>
 
-      {/* Bagian 1: Bermain di HP vs Laptop */}
-      <ScrollReveal direction="up" distance={30} duration={0.7} delay={0.1}>
+        {/* Bagian 1: Bermain di HP vs Laptop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Bermain di HP / Tablet */}
           <div className="p-6 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg backdrop-blur-sm">
@@ -99,10 +95,8 @@ export default function CaraBermainPage() {
             </ul>
           </div>
         </div>
-      </ScrollReveal>
 
-      {/* Bagian 2: Tabel Pemetaan Tombol Keyboard Per Alat */}
-      <ScrollReveal direction="up" distance={30} duration={0.7} delay={0.15}>
+        {/* Bagian 2: Tabel Pemetaan Tombol Keyboard Per Alat */}
         <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-6 shadow-lg">
           <div className="space-y-1">
             <h2 className="font-serif text-2xl font-bold text-gading flex items-center gap-2">
@@ -164,10 +158,8 @@ export default function CaraBermainPage() {
             </table>
           </div>
         </section>
-      </ScrollReveal>
 
-      {/* Bagian 3: Mengenal Laras Slendro & Pelog */}
-      <ScrollReveal direction="up" distance={30} duration={0.7} delay={0.15}>
+        {/* Bagian 3: Mengenal Laras Slendro & Pelog */}
         <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
           <h2 className="font-serif text-2xl font-bold text-gading">
             Mengenal Laras: Slendro & Pelog
@@ -191,10 +183,8 @@ export default function CaraBermainPage() {
             </div>
           </div>
         </section>
-      </ScrollReveal>
 
-      {/* Bagian 4: Fitur Mode Belajar & Rekaman */}
-      <ScrollReveal direction="up" distance={30} duration={0.7} delay={0.15}>
+        {/* Bagian 4: Fitur Mode Belajar & Rekaman */}
         <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
           <h2 className="font-serif text-2xl font-bold text-gading">
             Fitur Mode Belajar dan Rekam
@@ -219,10 +209,8 @@ export default function CaraBermainPage() {
             </div>
           </div>
         </section>
-      </ScrollReveal>
 
-      {/* Tombol Aksi Coba Sekarang */}
-      <ScrollReveal direction="up" distance={20} duration={0.6} delay={0.2}>
+        {/* Tombol Aksi Coba Sekarang */}
         <div className="text-center pt-4">
           <Link
             href="/instrumen/saron"
@@ -231,8 +219,7 @@ export default function CaraBermainPage() {
             Coba Mainkan Saron Sekarang →
           </Link>
         </div>
-      </ScrollReveal>
+      </div>
     </div>
-  </div>
-);
+  );
 }
