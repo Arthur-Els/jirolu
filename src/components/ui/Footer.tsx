@@ -1,17 +1,23 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export const Footer: React.FC = () => {
   return (
     <footer id="kontak" className="relative z-10 w-full bg-arang/90 border-t border-perunggu/25 text-gading/70 py-12 px-4 sm:px-6 backdrop-blur-md">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
         {/* Kolom Kiri: Identitas Jirolu */}
-        <div className="text-center md:text-left space-y-2">
-          <div className="flex items-center justify-center md:justify-start gap-2">
-            <span className="text-emas font-serif text-xl font-bold">ꦗꦶ</span>
-            <span className="font-serif text-xl font-bold text-gading tracking-wide">
-              Jirolu
-            </span>
+        <div className="text-center md:text-left space-y-3">
+          <div className="flex items-center justify-center md:justify-start">
+            <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
+              <Image
+                src="/jirolu-logo.png"
+                alt="Jirolu Logo"
+                width={150}
+                height={84}
+                className="h-10 sm:h-12 w-auto object-contain"
+              />
+            </Link>
           </div>
           <p className="text-xs text-emas-muda font-serif italic">
             &ldquo;Museum gamelan yang bisa kamu mainkan.&rdquo;

@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const lastScrollYRef = useRef(0);
   const pathname = usePathname();
 
   const navLinks = [
@@ -20,26 +19,8 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // 1. Aktifkan efek liquid glass saat sudah scroll lumayan jauh (> 40px)
-      setIsScrolled(currentScrollY > 40);
-
-      // 2. Logika sembunyi saat scroll ke bawah, muncul saat scroll ke atas
-      if (currentScrollY > 80) {
-        if (currentScrollY > lastScrollYRef.current) {
-          // Sedang scroll ke bawah -> sembunyikan navbar
-          setIsVisible(false);
-        } else {
-          // Sedang scroll ke atas -> munculkan kembali navbar
-          setIsVisible(true);
-        }
-      } else {
-        // Masih di area paling atas -> selalu tampilkan
-        setIsVisible(true);
-      }
-
-      lastScrollYRef.current = currentScrollY;
+      // Aktifkan efek liquid glass saat sudah scroll lumayan jauh (> 40px)
+      setIsScrolled(window.scrollY > 40);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -57,25 +38,27 @@ export const Navbar: React.FC = () => {
     }
   };
 
-  // Jangan sembunyikan navbar saat menu mobile sedang terbuka
-  const shouldShowNavbar = isVisible || isMobileMenuOpen;
-
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between px-6 sm:px-12 transition-all duration-300 ease-in-out select-none ${
-        shouldShowNavbar ? "translate-y-0" : "-translate-y-full"
-      } ${
         isScrolled || isMobileMenuOpen
-          ? "py-4 sm:py-4.5 bg-[#0B0A09]/65 backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.37)]"
-          : "py-5 sm:py-6 bg-transparent backdrop-blur-none border-b border-transparent"
+          ? "py-3 sm:py-3.5 bg-[#0B0A09]/75 backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.37)]"
+          : "py-4 sm:py-5 bg-transparent backdrop-blur-none border-b border-transparent"
       }`}
     >
-      {/* Brand Jirolu */}
+      {/* Brand Jirolu (Logo Image) */}
       <Link
         href="/"
-        className="font-sans text-[18px] font-semibold text-white tracking-tight hover:opacity-90 transition-opacity select-none"
+        className="flex items-center gap-2 hover:opacity-80 transition-opacity select-none group"
       >
-        Jirolu
+        <Image
+          src="/jirolu-logo.png"
+          alt="Jirolu Logo"
+          width={130}
+          height={72}
+          priority
+          className="h-8 sm:h-12 w-auto object-contain transition-transform duration-200"
+        />
       </Link>
 
       {/* Navigasi Desktop */}
@@ -97,7 +80,7 @@ export const Navbar: React.FC = () => {
         {/* Tombol Desktop */}
         <Link
           href="/instrumen/saron"
-          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform hover:scale-[1.02] active:scale-95 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] whitespace-nowrap"
+          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform active:scale-95 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] whitespace-nowrap"
         >
           Mulai Bermain
         </Link>
