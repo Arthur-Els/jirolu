@@ -4,12 +4,15 @@ import Image from "next/image";
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="kontak" className="relative z-10 w-full bg-arang/90 border-t border-perunggu/25 text-gading/70 py-12 px-4 sm:px-6 backdrop-blur-md">
+    <footer id="kontak" className="relative z-10 w-full bg-tinta text-gading/70 py-14 px-4 sm:px-6 overflow-hidden">
+      {/* Garis batas gradasi halus mengalir di tepi atas footer */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emas/30 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-12 bg-emas/5 blur-2xl pointer-events-none" />
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
           {/* Kolom Kiri: Identitas Jirolu */}
           <div className="text-center md:text-left space-y-3">
             <div className="flex items-center justify-center md:justify-start">
-              <Link href="/" className="inline-block hover:opacity-90 transition-opacity">
+              <Link href="/" className="inline-block hover:opacity-80 transition-opacity">
                 <Image
                   src="/jirolu-logo.png"
                   alt="Jirolu Logo"

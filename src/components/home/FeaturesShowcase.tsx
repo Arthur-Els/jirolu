@@ -69,14 +69,24 @@ export const FeaturesShowcase: React.FC = () => {
   return (
     <section
       id="features_showcase"
-      className="relative w-full py-[100px] px-[24px] overflow-hidden"
+      className="relative w-full pt-[90px] pb-[110px] px-[24px] overflow-hidden"
     >
-      {/* Background layer dengan gradasi lembut di tepi atas & bawah agar membaur menyatu dengan background video */}
+      {/* Background layer dengan gradasi multi-stop ultra-halus agar mengalir menyatu dari Hero video ke panggung galeri */}
       <div
         className="absolute inset-0 pointer-events-none select-none"
         style={{
           background:
-            "linear-gradient(180deg, transparent 0%, rgba(13, 12, 10, 0.4) 40px, rgba(13, 12, 10, 0.85) 90px, #0d0c0a 150px, #0d0c0a calc(100% - 150px), rgba(13, 12, 10, 0.85) calc(100% - 90px), rgba(13, 12, 10, 0.4) calc(100% - 40px), transparent 100%)",
+            "linear-gradient(180deg, transparent 0%, rgba(11, 10, 9, 0.12) 60px, rgba(11, 10, 9, 0.45) 130px, rgba(11, 10, 9, 0.82) 210px, #0B0A09 300px, #0B0A09 100%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Ambience pendaran emas lembut di tengah agar latar belakang mengalir dinamis */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[520px] pointer-events-none select-none opacity-20"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(212, 175, 55, 0.16) 0%, transparent 70%)",
         }}
         aria-hidden="true"
       />

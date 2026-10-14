@@ -74,10 +74,20 @@ export default function HomePage() {
         <div id="koleksi-alat" className="scroll-mt-20" />
         <GalleryGrid instruments={instruments} />
 
-        {/* Bagian Sekilas Filosofi Karawitan */}
-        <section className="w-full py-16 px-4 sm:px-6 bg-arang/40 border-y border-perunggu/20">
+        {/* Bagian Sekilas Filosofi Karawitan (Mengalir Mulus dari Galeri ke Footer) */}
+        <section className="relative w-full py-20 sm:py-28 px-4 sm:px-6 bg-tinta overflow-hidden">
+          {/* Ambience pendaran emas meditatif di tengah latar belakang */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[360px] pointer-events-none select-none opacity-20"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(212, 175, 55, 0.22) 0%, transparent 70%)",
+            }}
+            aria-hidden="true"
+          />
+
           <ScrollReveal direction="up" distance={30} scale={0.96} duration={0.75}>
-            <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
               <span className="text-xs uppercase tracking-widest text-emas font-medium">
                 Nilai Adiluhung Jawa
               </span>

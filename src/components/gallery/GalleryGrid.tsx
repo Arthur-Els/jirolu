@@ -97,6 +97,10 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
   const [isMouseInsideStage, setIsMouseInsideStage] = useState<boolean>(false);
   const stageRef = useRef<HTMLDivElement | null>(null);
 
+  // Ref container section galeri untuk efek scroll-driven kamera masuk ke panggung (Konsep A)
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+
   // Ref untuk auto-scroll ke bagian card penjelasan di bawah
   const explanationCardRef = useRef<HTMLDivElement | null>(null);
 
@@ -104,6 +108,34 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
   const [isPlayingSong, setIsPlayingSong] = useState<boolean>(false);
   const [songNotice, setSongNotice] = useState<string | null>(null);
   const audioSongRef = useRef<HTMLAudioElement | null>(null);
+
+  // Efek kamera melangkah masuk panggung saat scroll (Scroll-Driven Cinematic Step-In)
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (sectionRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            // Progress dimulai saat bagian atas panggung memasuki 90% layar sampai 10%
+            const start = windowHeight * 0.9;
+            const end = windowHeight * 0.1;
+            const progress = Math.min(Math.max((start - rect.top) / (start - end), 0), 1);
+            setScrollProgress(progress);
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Bersihkan pemutaran audio saat unmount
   useEffect(() => {
@@ -251,61 +283,85 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
     return `translate(${translateX}, ${translateY})`;
   };
 
-  return (
-    <section id="galeri" className="w-full py-16 px-4 sm:px-6 relative overflow-hidden">
-      <div className="max-w-6xl mx-auto space-y-10">
-        {/* Header Galeri */}
-        <ScrollReveal direction="up" distance={24} duration={0.65} scale={0.96}>
-          <div className="text-center space-y-3 max-w-2xl mx-auto">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-gading">
-              Denah Panggung Karawitan
-            </h2>
-            <div className="w-24 h-0.5 bg-emas mx-auto rounded-full" />
-            <p className="text-sm sm:text-base text-gading/75 leading-relaxed pt-1">
-              Arahkan kursor atau sentuh alat musik di atas panggung pendopo untuk melihat perannya dalam karawitan dan mendengarkan alunan bunyinya.
-            </p>
-          </div>
-        </ScrollReveal>
+  // Parameter zoom & atmosfer kamera melangkah masuk (Konsep A)
+  const cameraScale = 1 + scrollProgress * 0.08;
+  const cameraShiftY = scrollProgress * 12;
+  const stageAmbientWarmth = 0.16 + scrollProgress * 0.22;
 
-        {/* 1. ARENA PANGGUNG PENDOPO INTERAKTIF (STAGE-BG FULL DENGAN DARK OVERLAY & SVG MAP) */}
-        <ScrollReveal direction="up" distance={32} duration={0.75} scale={0.96} delay={0.1}>
+  return (
+    <section
+      id="galeri"
+      ref={sectionRef}
+      className="w-full py-16 sm:py-24 relative overflow-hidden"
+    >
+      {/* Background Ambience Dasar Panggung Menghubungkan Secara Mengalir */}
+      <div className="absolute inset-0 bg-[#0B0A09] pointer-events-none" />
+
+      {/* Cahaya temaram lembut di bagian atas galeri menghubungkan dari Features Showcase */}
+      <div
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-64 pointer-events-none select-none opacity-25"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.22) 0%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* 1. HEADER PENGANTAR PANGGUNG (Megah & Menyatu) */}
+      <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-8 sm:mb-14">
+        <ScrollReveal direction="up" distance={24} duration={0.65} scale={0.96}>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-emas text-sm font-mono font-medium mb-1">
+            <span>ꦥꦁꦒꦸꦁꦏꦫꦮꦶꦠꦤ꧀</span>
+          </div>
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-gading tracking-tight">
+            Denah Panggung Karawitan
+          </h2>
+          <div className="w-[50%] h-0.5 bg-emas mx-auto rounded-full my-3" />
+          <p className="text-sm sm:text-base text-gading/75 leading-relaxed max-w-2xl mx-auto font-light">
+            Arahkan kursor atau sentuh alat musik di atas panggung pendopo untuk melihat perannya dalam karawitan dan mendengarkan alunan bunyinya.
+          </p>
+        </ScrollReveal>
+      </div>
+
+      {/* 2. PANGGUNG PENDOPO FULL-BLEED (EDGE-TO-EDGE SEAMLESS IMMERSION) */}
+      <div className="relative w-full overflow-hidden">
+        {/* Arena Panggung: Tanpa Kotak Pembatas Kaku */}
+        <div
+          ref={stageRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          className="relative w-full aspect-[1531/704] min-h-[340px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[680px] select-none"
+        >
+          {/* Layer Kamera Sinematik (Efek Zoom Masuk Saat Scroll) */}
           <div
-            ref={stageRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            className="relative w-full aspect-[1531/704] min-h-[290px] sm:min-h-[420px] md:min-h-[500px] rounded-3xl overflow-hidden border-2 border-emas/40 shadow-[0_25px_60px_rgba(0,0,0,0.85)] bg-black select-none group"
+            className="relative w-full h-full will-change-transform transition-transform duration-300 ease-out"
+            style={{
+              transform: `scale(${cameraScale}) translateY(${cameraShiftY}px)`,
+              transformOrigin: "center 42%",
+            }}
           >
-            {/* Background Penuh Gambar Panggung Pendopo */}
+            {/* Foto Panggung Pendopo Karawitan Penuh */}
             <Image
               src="/background/stage-bg.jpg"
               alt="Panggung Pendopo Karawitan Jawa"
               fill
               priority
-              sizes="(max-width: 1280px) 100vw, 1200px"
-              className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.01]"
+              sizes="100vw"
+              className="object-cover object-center"
             />
 
-            {/* Dark Overlay Suasana Panggung Pendopo Redup */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09]/90 via-[#0B0A09]/45 to-[#0B0A09]/60 pointer-events-none" />
+            {/* Dark Overlay Suasana Temaram Pentas */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09]/92 via-[#0B0A09]/45 to-[#0B0A09]/65 pointer-events-none" />
 
-            {/* Pencahayaan Lembut Emas Khas Pendopo */}
+            {/* Lampu Sorot Emas Hangat yang Menguat Saat Pengunjung Melangkah Masuk */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute inset-0 pointer-events-none transition-opacity duration-500"
               style={{
-                background:
-                  "radial-gradient(ellipse at 50% 30%, rgba(212,175,55,0.18) 0%, rgba(11,10,9,0) 70%)",
+                background: `radial-gradient(ellipse at 50% 35%, rgba(212,175,55,${stageAmbientWarmth}) 0%, rgba(11,10,9,0) 70%)`,
               }}
             />
 
-            {/* Penanda Visual Sisi Panggung */}
-            <div className="absolute top-4 left-6 z-10 flex items-center gap-2 pointer-events-none">
-              <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
-              <span className="text-[11px] font-mono tracking-widest text-emas/80 uppercase font-semibold">
-                Panggung Pendopo
-              </span>
-            </div>
-
-            {/* SVG OVERLAY MAP PRESISI SESUAI BENTUK ALAT MUSIK */}
+            {/* SVG OVERLAY MAP PRESISI SESUAI BENTUK ALAT MUSIK (Ikut Ter-Zoom Tanpa Meleset) */}
             <svg
               viewBox="0 0 1531 704"
               preserveAspectRatio="xMidYMid meet"
@@ -322,11 +378,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                     <feMergeNode in="SourceGraphic" />
                   </feMerge>
                 </filter>
-
-                {/* Pola Arsiran Lembut Emas */}
-                <pattern id="gold-grid" width="16" height="16" patternUnits="userSpaceOnUse">
-                  <path d="M 16 0 L 0 16 M 0 0 L 16 16" fill="none" stroke="rgba(212,175,55,0.15)" strokeWidth="0.8" />
-                </pattern>
               </defs>
 
               {INSTRUMENT_AREAS.map((area) => {
@@ -346,7 +397,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       className="transition-all duration-300 ease-out"
                       fill={
                         isHovered
-                          ? "rgba(212, 175, 55, 0.35)"
+                          ? "rgba(212, 175, 55, 0.25)"
                           : isSelected
                           ? "rgba(212, 175, 55, 0.22)"
                           : "rgba(212, 175, 55, 0.05)"
@@ -373,22 +424,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       className="pointer-events-none transition-opacity duration-300"
                       style={{ opacity: isDimmed ? 0.2 : 1 }}
                     >
-                      {/* Cincin Luar Berdenyut */}
-                      <circle
-                        r="14"
-                        fill="none"
-                        stroke="#D4AF37"
-                        strokeWidth="1.5"
-                        className="animate-ping opacity-60"
-                      />
-                      {/* Lingkaran Pijar Tengah */}
-                      <circle
-                        r="8"
-                        fill={isHovered ? "#FFF2B2" : "#D4AF37"}
-                        className="transition-colors duration-200"
-                      />
-                      <circle r="3" fill="#0B0A09" />
-
                       {/* Label Mini Singkat saat Tidak Dihover */}
                       {!isHovered && (
                         <text
@@ -408,83 +443,122 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                 );
               })}
             </svg>
+          </div>
 
-            {/* 2. FLOATING CARD TOOLTIP (MENGIKUTI PERGERAKAN KURSOR MOUSE SECARA HALUS) */}
-            {isMouseInsideStage && hoveredInstrument && (
-              <div
-                className="absolute z-30 pointer-events-none hidden md:block transition-transform duration-75 ease-out"
-                style={{
-                  left: `${mousePos.x}px`,
-                  top: `${mousePos.y}px`,
-                  transform: getTooltipTransform(),
-                }}
-              >
-                <div className="w-[280px] p-4 rounded-2xl bg-[#0B0A09]/92 backdrop-blur-xl border border-emas/60 shadow-[0_16px_36px_rgba(0,0,0,0.85),0_0_24px_rgba(212,175,55,0.3)] space-y-2 text-left animate-in fade-in zoom-in-95 duration-150">
-                  {/* Header Tooltip: Aksara Jawa & Nama */}
-                  <div className="flex items-center justify-between gap-2 border-b border-perunggu/30 pb-2">
-                    <div className="flex items-center gap-2">
-                      {hoveredInstrument.namaJawa && (
-                        <span className="text-emas font-serif text-lg leading-none font-bold">
-                          {hoveredInstrument.namaJawa}
-                        </span>
-                      )}
-                      <h4 className="font-serif font-bold text-white text-base">
-                        {hoveredInstrument.nama}
-                      </h4>
-                    </div>
-                    <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emas/15 text-emas-muda border border-emas/30 whitespace-nowrap">
-                      {METADATA_PANGGUNG[hoveredInstrument.slug]?.posisiLabel || "Panggung"}
-                    </span>
+          {/* VIGNETTE GRADASI ALAMI DI SEMUA TEPI (Menghilangkan kesan 'kotak/card biasa' dengan kurva multi-stop) */}
+          {/* Tepi Atas: Transisi Halus dari Latar Belakang Luar */}
+          <div
+            className="absolute top-0 left-0 right-0 h-36 sm:h-56 pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(180deg, #0B0A09 0%, rgba(11,10,9,0.96) 20%, rgba(11,10,9,0.75) 45%, rgba(11,10,9,0.3) 75%, transparent 100%)",
+            }}
+          />
+
+          {/* Tepi Bawah: Transisi Menuju Lantai Kurasi Penjelasan */}
+          <div
+            className="absolute bottom-0 left-0 right-0 h-44 sm:h-64 pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(0deg, #0B0A09 0%, rgba(11,10,9,0.97) 22%, rgba(11,10,9,0.8) 48%, rgba(11,10,9,0.35) 78%, transparent 100%)",
+            }}
+          />
+
+          {/* Sisi Kiri & Kanan: Bayangan Sayap Pendopo yang Luas */}
+          <div
+            className="absolute top-0 bottom-0 left-0 w-20 sm:w-48 pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(90deg, #0B0A09 0%, rgba(11,10,9,0.93) 22%, rgba(11,10,9,0.6) 55%, transparent 100%)",
+            }}
+          />
+          <div
+            className="absolute top-0 bottom-0 right-0 w-20 sm:w-48 pointer-events-none z-10"
+            style={{
+              background:
+                "linear-gradient(270deg, #0B0A09 0%, rgba(11,10,9,0.93) 22%, rgba(11,10,9,0.6) 55%, transparent 100%)",
+            }}
+          />
+
+          {/* FLOATING CARD TOOLTIP (Mengikuti Kursor Mouse Secara Halus) */}
+          {isMouseInsideStage && hoveredInstrument && (
+            <div
+              className="absolute z-30 pointer-events-none hidden md:block transition-transform duration-75 ease-out"
+              style={{
+                left: `${mousePos.x}px`,
+                top: `${mousePos.y}px`,
+                transform: getTooltipTransform(),
+              }}
+            >
+              <div className="w-[280px] p-4 rounded-2xl bg-[#0B0A09]/92 backdrop-blur-xl border border-emas/60 shadow-[0_16px_36px_rgba(0,0,0,0.85),0_0_24px_rgba(212,175,55,0.3)] space-y-2 text-left animate-in fade-in zoom-in-95 duration-150">
+                {/* Header Tooltip: Aksara Jawa & Nama */}
+                <div className="flex items-center justify-between gap-2 border-b border-perunggu/30 pb-2">
+                  <div className="flex items-center gap-2">
+                    {hoveredInstrument.namaJawa && (
+                      <span className="text-emas font-serif text-lg leading-none font-bold">
+                        {hoveredInstrument.namaJawa}
+                      </span>
+                    )}
+                    <h4 className="font-serif font-bold text-white text-base">
+                      {hoveredInstrument.nama}
+                    </h4>
                   </div>
-
-                  {/* Peran Singkat */}
-                  <p className="text-xs text-gading/85 leading-snug font-light italic">
-                    &ldquo;{METADATA_PANGGUNG[hoveredInstrument.slug]?.peranSpasial}&rdquo;
-                  </p>
-
-                  {/* Petunjuk Aksi Klik */}
-                  <div className="pt-1.5 flex items-center justify-between text-[11px] font-semibold text-emas">
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emas animate-ping" />
-                      Klik untuk melihat
-                    </span>
-                    <span>↓</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Fallback Informasi Mobile (Bottom Floating Bar di Layar Sentuh) */}
-            <div className="absolute bottom-3 left-3 right-3 z-20 md:hidden p-3 rounded-xl bg-[#0B0A09]/90 backdrop-blur-md border border-emas/40 shadow-xl flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  {selectedInstrument.namaJawa && (
-                    <span className="text-emas font-serif text-sm font-bold">
-                      {selectedInstrument.namaJawa}
-                    </span>
-                  )}
-                  <span className="text-white text-xs font-semibold truncate">
-                    {selectedInstrument.nama}
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emas/15 text-emas-muda border border-emas/30 whitespace-nowrap">
+                    {METADATA_PANGGUNG[hoveredInstrument.slug]?.posisiLabel || "Panggung"}
                   </span>
                 </div>
-                <p className="text-[10px] text-gading/70 truncate">
-                  {METADATA_PANGGUNG[selectedInstrument.slug]?.posisiLabel} &bull;{" "}
-                  {METADATA_PANGGUNG[selectedInstrument.slug]?.peranSpasial}
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleInstrumentClick(selectedInstrument.slug)}
-                className="shrink-0 px-3 py-1.5 rounded-lg bg-emas text-tinta text-xs font-bold shadow-[0_0_12px_rgba(212,175,55,0.4)] cursor-pointer"
-              >
-                Lihat Detail ↓
-              </button>
-            </div>
-          </div>
-        </ScrollReveal>
 
-        {/* Quick Selector Chips (Memudahkan Navigasi Cepat Pengguna Mobile / Tablet) */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 pt-2">
+                {/* Peran Singkat */}
+                <p className="text-xs text-gading/85 leading-snug font-light italic">
+                  &ldquo;{METADATA_PANGGUNG[hoveredInstrument.slug]?.peranSpasial}&rdquo;
+                </p>
+
+                {/* Petunjuk Aksi Klik */}
+                <div className="pt-1.5 flex items-center justify-between text-[11px] font-semibold text-emas">
+                  <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emas animate-ping" />
+                    Klik untuk melihat
+                  </span>
+                  <span>↓</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Fallback Informasi Mobile (Bottom Floating Bar di Layar Sentuh) */}
+          <div className="absolute bottom-4 left-4 right-4 z-20 md:hidden p-3.5 rounded-2xl bg-[#0B0A09]/92 backdrop-blur-md border border-emas/40 shadow-2xl flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                {selectedInstrument.namaJawa && (
+                  <span className="text-emas font-serif text-sm font-bold">
+                    {selectedInstrument.namaJawa}
+                  </span>
+                )}
+                <span className="text-white text-xs font-semibold truncate">
+                  {selectedInstrument.nama}
+                </span>
+              </div>
+              <p className="text-[10px] text-gading/70 truncate">
+                {METADATA_PANGGUNG[selectedInstrument.slug]?.posisiLabel} &bull;{" "}
+                {METADATA_PANGGUNG[selectedInstrument.slug]?.peranSpasial}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => handleInstrumentClick(selectedInstrument.slug)}
+              className="shrink-0 px-3 py-1.5 rounded-xl bg-emas text-tinta text-xs font-bold shadow-[0_0_12px_rgba(212,175,55,0.4)] cursor-pointer"
+            >
+              Lihat Detail ↓
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. ORNAMEN PENGHUBUNG & QUICK SELECTOR CHIPS */}
+      <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6 my-6 sm:my-8 flex flex-col items-center">
+
+        {/* Quick Selector Chips */}
+        <div className="flex flex-wrap items-center justify-center gap-2.5">
           {instruments.map((inst) => {
             const isSelected = selectedSlug === inst.slug;
             return (
@@ -497,7 +571,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                 className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   isSelected
                     ? "bg-emas text-tinta shadow-[0_0_20px_rgba(212,175,55,0.4)] scale-105"
-                    : "bg-arang/80 text-gading/80 border border-perunggu/40 hover:border-emas/60 hover:text-white"
+                    : "bg-[#140F0B]/90 text-gading/80 border border-perunggu/40 hover:border-emas/60 hover:text-white"
                 }`}
               >
                 {inst.namaJawa && (
@@ -511,13 +585,15 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             );
           })}
         </div>
+      </div>
 
-        {/* 2. PANEL DETAIL SOROTAN PANGGUNG (SPOTLIGHT SHOWCASE) */}
+      {/* 4. PANEL DETAIL BILIK PENGHAYATAN / MEJA KURATOR (Menyatu Alami dengan Panggung) */}
+      <div className="relative z-20 max-w-6xl mx-auto px-4 sm:px-6">
         <ScrollReveal direction="up" distance={32} duration={0.75} scale={0.96} delay={0.15}>
           <div
             ref={explanationCardRef}
             id="penjelasan-instrumen"
-            className="scroll-mt-24 w-full bg-arang/95 border-2 border-emas/40 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl backdrop-blur-md transition-all duration-300"
+            className="scroll-mt-28 w-full bg-gradient-to-b from-[#140F0B]/95 via-[#0E0C0A]/95 to-[#080706]/98 border border-emas/40 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(212,175,55,0.12)] backdrop-blur-2xl transition-all duration-300"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Kolom Kiri: Visual Gambar Beresolusi Tinggi & Penanda Spasial */}
@@ -551,9 +627,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
               {/* Kolom Kanan: Narasi Kurasi, Fungsi Gamelan, dan Tombol Interaktif */}
               <div className="lg:col-span-7 space-y-5">
                 <div className="space-y-1.5">
-                  <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-tinta border border-perunggu/35 text-[11px] text-emas-muda font-mono">
-                    <span>{infoPanggung.zona}</span>
-                  </div>
                   <h3 className="font-serif text-3xl sm:text-4xl font-bold text-gading">
                     {selectedInstrument.nama}
                   </h3>
@@ -625,24 +698,20 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                             <path d="M8 5v14l11-7z" />
                           </svg>
                           <div className="text-left">
-                            <span className="block leading-tight font-semibold">Contoh Permainan Lagu</span>
-                            <span className="text-[10px] text-gading/60 block leading-tight font-normal">
-                              Permainan {selectedInstrument.nama}
-                            </span>
+                            <span className="block leading-tight font-semibold">Contoh Permainan {selectedInstrument.nama}</span>
                           </div>
                         </>
                       )}
                     </button>
 
-                    {/* Tombol CTA: Buka Modal / Masuk Simulator */}
-                    <button
-                      type="button"
-                      onClick={() => handleInstrumentClick(selectedInstrument.slug)}
-                      className="w-full sm:w-auto px-7 py-3 rounded-xl bg-emas text-tinta font-semibold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] hover:bg-emas-muda transition-all flex items-center justify-center gap-2 min-h-[46px] cursor-pointer"
+                    {/* Tombol CTA: Mulai Memainkan Alat Musik di Soundboard */}
+                    <Link
+                      href={`/instrumen/${selectedInstrument.slug}`}
+                      className="w-full sm:w-auto px-7 py-3 rounded-xl bg-emas text-tinta font-semibold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] hover:bg-emas-muda transition-all flex items-center justify-center gap-2 min-h-[46px]"
                     >
-                      <span>Mulai Mainkan {selectedInstrument.nama}</span>
+                      <span>Mainkan {selectedInstrument.nama}</span>
                       <span>→</span>
-                    </button>
+                    </Link>
                   </div>
 
                   {/* Notifikasi info status audio */}
