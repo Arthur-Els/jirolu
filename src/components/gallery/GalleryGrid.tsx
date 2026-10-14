@@ -635,19 +635,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                   {/* Gradasi Vignette Organik: Melebur Lembut dengan Ruang Panggung */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0A09] via-transparent to-transparent opacity-90 pointer-events-none" />
                   <div className="absolute inset-0 bg-gradient-to-r from-[#0B0A09]/40 via-transparent to-[#0B0A09]/40 pointer-events-none" />
-
-                  {/* Penanda Spasial Terintegrasi Elegan di Dasar Gambar */}
-                  <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between text-xs text-gading/80 pointer-events-none">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
-                      <span className="font-mono uppercase tracking-widest text-[11px] text-emas font-semibold">
-                        {infoPanggung.posisiLabel}
-                      </span>
-                    </div>
-                    <span className="text-[11px] font-serif italic text-gading/65">
-                      {infoPanggung.zona}
-                    </span>
-                  </div>
                 </div>
 
                 {/* Bayangan Refleksi Lantai Pendopo */}
@@ -704,7 +691,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                 </div>
 
                 {/* 4. Konsol Aksi Kuratorial: Pemutar Alunan & Akses Soundboard */}
-                <div className="border-t border-perunggu/25 pt-6 space-y-4">
+                <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                     {/* Tombol Khusus: Putar Audio Contoh Permainan Lagu */}
                     <button
