@@ -42,7 +42,7 @@ export default function HomePage() {
             {/* Subheadline */}
             <ScrollReveal direction="up" distance={24} duration={0.7} delay={0.4} scale={0.97}>
               <p className="text-[16px] leading-[1.6] text-white/70 text-center max-w-[540px] mb-10 font-sans">
-                Sentuh bilah saron, dengungkan bonang, dan rasakan getaran tradisi Jawa langsung di layar anda tanpa jeda sedikitpun.
+                Simulasi alat musik tradisional Gamelan Jawa dengan model 3D interaktif yang bisa anda mainkan.
               </p>
             </ScrollReveal>
 

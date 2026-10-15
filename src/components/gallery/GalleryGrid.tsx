@@ -24,29 +24,29 @@ interface PosisiPanggungInfo {
 
 const METADATA_PANGGUNG: Record<string, PosisiPanggungInfo> = {
   gong: {
-    zona: "Baris Belakang • Pusat Kosmik",
-    peranSpasial: "Penutup Siklus Gendhing & Pemangku Irama",
+    zona: "Baris Belakang",
+    peranSpasial: "Penanda Awal dan Akhir Lagu",
     alasanPenempatan:
       "Diletakkan paling belakang karena ukurannya yang agung dan rentang gelombang suaranya yang sangat dalam, membungkus seluruh getaran nada instrumen di depannya.",
     posisiLabel: "Belakang Tengah",
   },
   kendang: {
-    zona: "Tengah Panggung • Pamurba Wirama",
-    peranSpasial: "Konduktor Irama & Denyut Tempo",
+    zona: "Tengah",
+    peranSpasial: "Pengatur Dinamika",
     alasanPenempatan:
       "Berada tepat di titik pusat agar pengendang dapat mendengar seluruh kelompok instrumen dan memberi aba-aba pergantian tempo secara visual maupun audio ke seluruh pengrawit.",
     posisiLabel: "Pusat Panggung",
   },
   bonang: {
-    zona: "Baris Depan Sisi Kiri • Pengembang Melodi",
-    peranSpasial: "Pembuka Gending & Pola Jalinan Mipil",
+    zona: "Baris Depan Kiri",
+    peranSpasial: "Penghias Melodi",
     alasanPenempatan:
       "Ditempatkan di baris depan mendatar agar jalinan melodi lincah dari sepasang tabuh bindi terdengar jernih menyatu dengan kerangka dasar balungan.",
     posisiLabel: "Depan Kiri",
   },
   saron: {
-    zona: "Baris Depan Sisi Kanan • Kerangka Melodi",
-    peranSpasial: "Pembawa Kerangka Pokok (Balungan)",
+    zona: "Baris Depan Kanan",
+    peranSpasial: "Kerangka Utama Melodi",
     alasanPenempatan:
       "Berada sejajar di baris depan agar denting lugas bilah perunggu dapat disimak jelas oleh semua penabuh sebagai patokan harmoni lagu.",
     posisiLabel: "Depan Kanan",
@@ -316,9 +316,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-gading tracking-tight">
             Denah Panggung Karawitan
           </h2>
-          <div className="w-[50%] h-0.5 bg-emas mx-auto rounded-full my-3" />
+          <div className="w-[25%] h-0.5 bg-emas mx-auto rounded-full my-3" />
           <p className="text-sm sm:text-base text-gading/75 leading-relaxed max-w-2xl mx-auto font-light">
-            Arahkan kursor atau sentuh alat musik di atas panggung pendopo untuk melihat perannya dalam karawitan dan mendengarkan alunan bunyinya.
+            Arahkan kursor atau sentuh alat musik pada gambar di bawah untuk melihat informasi mengenai alat musik dan mulai memainkannya.
           </p>
         </ScrollReveal>
       </div>
@@ -556,13 +556,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
 
       {/* 3. KURASI NAVIGASI INSTRUMEN (Minimalist Gallery Tab Bar - Zero Pill Buttons) */}
       <div className="relative z-20 max-w-5xl mx-auto px-4 sm:px-6 my-10 sm:my-14 flex flex-col items-center">
-        <div className="flex items-center gap-3 mb-6 select-none pointer-events-none">
-          <span className="w-8 h-px bg-gradient-to-r from-transparent to-emas/40" />
-          <span className="text-[11px] font-mono tracking-widest text-emas/70 uppercase">
-            PILIH INSTRUMEN UNTUK MENGHAYATI
-          </span>
-          <span className="w-8 h-px bg-gradient-to-l from-transparent to-emas/40" />
-        </div>
 
         {/* Tab Minimalis Bergaris Emas (Bukan Tombol Pill) */}
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 border-b border-perunggu/20 pb-4 w-full">

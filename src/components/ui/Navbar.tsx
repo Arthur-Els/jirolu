@@ -12,7 +12,7 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { href: "/tentang", label: "Tentang" },
-    { href: "/#galeri", label: "Koleksi Alat" },
+    { href: "/#galeri", label: "Galeri Musik" },
     { href: "/cara-bermain", label: "Cara Bermain" },
     { href: "/#kontak", label: "Kontak" },
   ];
