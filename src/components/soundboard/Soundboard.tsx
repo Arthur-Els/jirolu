@@ -42,8 +42,12 @@ export const Soundboard: React.FC<SoundboardProps> = ({
   const [localBilahMenyala, setLocalBilahMenyala] = useState<string | null>(null);
   const [wrongFeedbackNote, setWrongFeedbackNote] = useState<string | null>(null);
 
-  // Bilah yang sedang disorot (bisa dari props luar atau lokal)
-  const targetNoteHighlight = externalBilahMenyala || localBilahMenyala;
+  // State untuk animasi dan visual demonstrasi contoh permainan lagu
+  const [demoActiveKey, setDemoActiveKey] = useState<string | null>(null);
+  const [demoTargetNote, setDemoTargetNote] = useState<string | null>(null);
+
+  // Bilah yang sedang disorot (bisa dari props luar, lokal, atau contoh permainan)
+  const targetNoteHighlight = externalBilahMenyala || localBilahMenyala || demoTargetNote;
 
   // Daftar item audio yang aktif saat ini
   const currentItems = useMemo<AudioTarget[]>(() => {
@@ -132,6 +136,36 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       });
       if (target) {
         playItem(target);
+      }
+    },
+    [currentItems, playItem]
+  );
+
+  // Mainkan nada otomatis untuk contoh permainan lagu (dengan efek visual 3D & getar)
+  const handlePlayDemoNote = useCallback(
+    (noteSymbol: string, baris?: number) => {
+      const target = currentItems.find((item) => {
+        if (!("nada" in item)) return false;
+        const nadaItem = item as Nada;
+        if (baris !== undefined && nadaItem.baris !== undefined) {
+          return nadaItem.nada === noteSymbol && nadaItem.baris === baris;
+        }
+        if (nadaItem.baris !== undefined) {
+          return nadaItem.nada === noteSymbol && nadaItem.baris === 2;
+        }
+        return nadaItem.nada === noteSymbol;
+      });
+
+      if (target) {
+        playItem(target);
+        const keyVal = target.key.toLowerCase();
+        setDemoActiveKey(keyVal);
+        setDemoTargetNote(noteSymbol);
+
+        setTimeout(() => {
+          setDemoActiveKey((prev) => (prev === keyVal ? null : prev));
+          setDemoTargetNote((prev) => (prev === noteSymbol ? null : prev));
+        }, 240);
       }
     },
     [currentItems, playItem]
@@ -230,6 +264,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
               handleLarasChange("pelog");
             }
           }}
+          onPlayDemoNote={handlePlayDemoNote}
         />
       )}
 
@@ -271,6 +306,10 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           laras={laras}
           daftarNada={currentItems as Nada[]}
           activeKeyId={
+            (demoActiveKey &&
+              (currentItems as Nada[]).find(
+                (item) => item.key.toLowerCase() === demoActiveKey.toLowerCase()
+              )?.nada) ||
             activePlayingId ||
             (currentItems as Nada[]).find(
               (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
@@ -288,6 +327,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           laras={laras}
           daftarNada={currentItems as Nada[]}
           activeKeyId={
+            demoActiveKey ||
             activeKey ||
             (activePlayingId
               ? (currentItems as Nada[]).find((item) => item.nada === activePlayingId)?.key

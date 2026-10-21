@@ -4,13 +4,20 @@
  */
 
 export const KEY_TO_NOTE_INDEX: Record<string, number> = {
-  a: 0, // Nada 1 (ji)
-  s: 1, // Nada 2 (ro)
-  d: 2, // Nada 3 (lu)
-  f: 3, // Nada 4 (pat)
-  g: 4, // Nada 5 (mo)
-  h: 5, // Nada 6 (nem)
-  j: 6, // Nada 7 (pi)
+  "1": 0, // Nada 1 (ji)
+  "2": 1, // Nada 2 (ro)
+  "3": 2, // Nada 3 (lu)
+  "4": 3, // Nada 4 (pat)
+  "5": 4, // Nada 5 (mo)
+  "6": 5, // Nada 6 (nem)
+  "7": 6, // Nada 7 (pi)
+  a: 0, // Fallback huruf (A-J)
+  s: 1,
+  d: 2,
+  f: 3,
+  g: 4,
+  h: 5,
+  j: 6,
 };
 
 /**

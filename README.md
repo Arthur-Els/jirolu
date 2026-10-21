@@ -12,8 +12,8 @@ Nama **Jirolu** terinspirasi dari tiga nada pertama dalam tangga nada gamelan Ja
 ## 🎵 Alat Musik yang Tersedia di Jirolu
 
 1. **Saron (Kategori: Bernada)**
-   - Mendukung **Laras Pelog** (7 nada: ji, ro, lu, pat, mo, nem, pi) dengan tombol keyboard `A, S, D, F, G, H, J`.
-   - Mendukung **Laras Slendro** (5 nada: ji, ro, lu, mo, nem) dengan tombol keyboard `A, S, D, F, G`.
+   - Mendukung **Laras Pelog** (7 nada: ji, ro, lu, pat, mo, nem, pi) dengan tombol keyboard `1, 2, 3, 4, 5, 6, 7`.
+   - Mendukung **Laras Slendro** (5 nada: ji, ro, lu, mo, nem) dengan tombol keyboard `1, 2, 3, 5, 6`.
    - Fitur pergantian laras dengan peredaman suara halus (*fade out*).
    - Mendukung **Mode Belajar Lagu** interaktif.
 

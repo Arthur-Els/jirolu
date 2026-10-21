@@ -15,49 +15,49 @@
         "nada": "1",
         "label": "ji",
         "audio": "/audio/saron/pelog/1.webm",
-        "key": "a",
+        "key": "1",
         "frekuensi": 275
       },
       {
         "nada": "2",
         "label": "ro",
         "audio": "/audio/saron/pelog/2.webm",
-        "key": "s",
+        "key": "2",
         "frekuensi": 290
       },
       {
         "nada": "3",
         "label": "lu",
         "audio": "/audio/saron/pelog/3.webm",
-        "key": "d",
+        "key": "3",
         "frekuensi": 320
       },
       {
         "nada": "4",
         "label": "pat",
         "audio": "/audio/saron/pelog/4.webm",
-        "key": "f",
+        "key": "4",
         "frekuensi": 360
       },
       {
         "nada": "5",
         "label": "mo",
         "audio": "/audio/saron/pelog/5.webm",
-        "key": "g",
+        "key": "5",
         "frekuensi": 390
       },
       {
         "nada": "6",
         "label": "nem",
         "audio": "/audio/saron/pelog/6.webm",
-        "key": "h",
+        "key": "6",
         "frekuensi": 420
       },
       {
         "nada": "7",
         "label": "pi",
         "audio": "/audio/saron/pelog/7.webm",
-        "key": "j",
+        "key": "7",
         "frekuensi": 465
       }
     ],
@@ -66,35 +66,35 @@
         "nada": "1",
         "label": "ji",
         "audio": "/audio/saron/slendro/1.webm",
-        "key": "a",
+        "key": "1",
         "frekuensi": 280
       },
       {
         "nada": "2",
         "label": "ro",
         "audio": "/audio/saron/slendro/2.webm",
-        "key": "s",
+        "key": "2",
         "frekuensi": 315
       },
       {
         "nada": "3",
         "label": "lu",
         "audio": "/audio/saron/slendro/3.webm",
-        "key": "d",
+        "key": "3",
         "frekuensi": 355
       },
       {
         "nada": "5",
         "label": "mo",
         "audio": "/audio/saron/slendro/5.webm",
-        "key": "f",
+        "key": "5",
         "frekuensi": 405
       },
       {
         "nada": "6",
         "label": "nem",
         "audio": "/audio/saron/slendro/6.webm",
-        "key": "g",
+        "key": "6",
         "frekuensi": 455
       }
     ]

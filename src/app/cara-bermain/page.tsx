@@ -121,13 +121,13 @@ export default function CaraBermainPage() {
                 <tr>
                   <td className="py-3 px-3 font-semibold text-gading">Saron</td>
                   <td className="py-3 px-3">Pelog</td>
-                  <td className="py-3 px-3 font-mono font-bold text-emas">A S D F G H J</td>
+                  <td className="py-3 px-3 font-mono font-bold text-emas">1 2 3 4 5 6 7</td>
                   <td className="py-3 px-3">Nada 1 - 7 (ji, ro, lu, pat, mo, nem, pi)</td>
                 </tr>
                 <tr>
                   <td className="py-3 px-3 font-semibold text-gading">Saron</td>
                   <td className="py-3 px-3">Slendro</td>
-                  <td className="py-3 px-3 font-mono font-bold text-emas">A S D F G</td>
+                  <td className="py-3 px-3 font-mono font-bold text-emas">1 2 3 5 6</td>
                   <td className="py-3 px-3">Nada 1, 2, 3, 5, 6 (ji, ro, lu, mo, nem)</td>
                 </tr>
                 <tr>

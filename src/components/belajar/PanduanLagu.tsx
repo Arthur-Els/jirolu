@@ -17,6 +17,11 @@ interface PanduanLaguProps {
   onUlangi: () => void;
   onKeluar: () => void;
   onPilihLaguLain: () => void;
+  // Fitur Contoh Permainan
+  isDemoPlaying?: boolean;
+  demoStepIndex?: number | null;
+  onMulaiDemo?: () => void;
+  onHentikanDemo?: () => void;
 }
 
 export const PanduanLagu: React.FC<PanduanLaguProps> = ({
@@ -31,6 +36,10 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
   onUlangi,
   onKeluar,
   onPilihLaguLain,
+  isDemoPlaying = false,
+  demoStepIndex = null,
+  onMulaiDemo,
+  onHentikanDemo,
 }) => {
   return (
     <div className="p-4 sm:p-5 rounded-2xl bg-tinta/80 border border-emas/40 shadow-xl space-y-4">
@@ -61,13 +70,55 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
         </div>
 
         {/* Tombol Aksi Sesuai Status */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {status === "belum_mulai" && (
             <>
-              <Button variant="emas" size="sm" onClick={onMulai}>
+              {/* Tombol Contoh Permainan */}
+              <button
+                type="button"
+                onClick={isDemoPlaying ? onHentikanDemo : onMulaiDemo}
+                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer min-h-[44px] border ${
+                  isDemoPlaying
+                    ? "bg-red-950/80 border-red-500 text-red-200 hover:bg-red-900 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
+                    : "bg-arang border-emas/50 text-emas hover:bg-emas/10 hover:border-emas shadow-sm"
+                }`}
+              >
+                {isDemoPlaying ? (
+                  <>
+                    <span className="w-2.5 h-2.5 rounded-sm bg-red-400 animate-pulse" />
+                    <span>Hentikan Contoh</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4 text-emas" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                    <span>Contoh Permainan</span>
+                  </>
+                )}
+              </button>
+
+              <Button
+                variant="emas"
+                size="sm"
+                onClick={() => {
+                  if (isDemoPlaying) onHentikanDemo?.();
+                  onMulai();
+                }}
+                className="min-h-[44px]"
+              >
                 Mulai Belajar
               </Button>
-              <Button variant="arang" size="sm" onClick={onPilihLaguLain}>
+
+              <Button
+                variant="arang"
+                size="sm"
+                onClick={() => {
+                  if (isDemoPlaying) onHentikanDemo?.();
+                  onPilihLaguLain();
+                }}
+                className="min-h-[44px]"
+              >
                 Pilih Lagu Lain
               </Button>
             </>
@@ -88,68 +139,35 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
 
       {/* Kondisi 1: Belum Mulai */}
       {status === "belum_mulai" && (
-        <div className="text-center py-4 space-y-2">
-          <p className="text-sm text-gading/75">
-            Klik tombol <strong>&ldquo;Mulai Belajar&rdquo;</strong> di atas. Perhatikan bilah yang menyala berdenyut emas, lalu tekan bilah tersebut secara berurutan.
-          </p>
-          <div className="flex items-center justify-center gap-2 text-xs text-gading/50 pt-1">
-            <span>Total: {totalNotes} ketukan nada</span>
-          </div>
+        <div className="space-y-2">
+          {isDemoPlaying ? (
+            <div className="py-1 text-center animate-in fade-in duration-200">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emas/15 border border-emas/40 text-xs text-emas-muda font-medium shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
+                Memainkan contoh melodi... Ikuti sorotan pada alat musik di bawah.
+              </span>
+            </div>
+          ) : (
+            <div className="text-center py-2">
+              <p className="text-xs sm:text-sm text-gading/75">
+                Dengarkan contoh dengan tombol <strong>&ldquo;Contoh Permainan&rdquo;</strong>, atau klik <strong>&ldquo;Mulai Belajar&rdquo;</strong> untuk langsung bermain mengikuti sorotan bilah/pencon.
+              </p>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Kondisi 2: Sedang Berjalan */}
+      {/* Kondisi 2: Sedang Berjalan (Minimalis: petunjuk murni dari sorotan bilah/pencon) */}
       {status === "berjalan" && (
-        <div className="space-y-3">
-          {/* Progress Bar & Indikator */}
-          <div className="flex items-center justify-between text-xs text-gading/70">
-            <span className="font-semibold text-emas">
-              Nada {currentStepIndex + 1} dari {totalNotes}
-            </span>
-            <span className="text-gading/50">
-              Salah tekan: {salahHitung} kali
-            </span>
-          </div>
-
-          <div className="w-full h-2 rounded-full bg-arang overflow-hidden border border-perunggu/30">
-            <div
-              className="h-full bg-gradient-to-r from-perunggu to-emas transition-all duration-300 rounded-full"
-              style={{
-                width: `${Math.round(((currentStepIndex) / totalNotes) * 100)}%`,
-              }}
-            />
-          </div>
-
-          {/* Deretan Notasi Lagu dengan Penanda Nada Saat Ini */}
-          <div className="flex items-center justify-center gap-2 sm:gap-3 overflow-x-auto py-3 px-2 bg-arang/60 rounded-xl border border-perunggu/20">
-            {lagu.nada.map((nd, idx) => {
-              const isPast = idx < currentStepIndex;
-              const isCurrent = idx === currentStepIndex;
-              return (
-                <div
-                  key={`${nd}-${idx}`}
-                  className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg flex flex-col items-center justify-center font-serif transition-all duration-200 select-none ${
-                    isCurrent
-                      ? "bg-emas text-tinta font-extrabold text-lg sm:text-xl shadow-[0_0_15px_rgba(212,175,55,0.7)] scale-110"
-                      : isPast
-                      ? "bg-arang border border-perunggu/40 text-gading/40 text-sm"
-                      : "bg-tinta/80 border border-perunggu/20 text-gading/70 text-sm"
-                  }`}
-                >
-                  <span>{nd}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <p className="text-center text-xs text-gading/60 pt-1">
+        <div className="text-center py-1 animate-in fade-in duration-200">
+          <p className="text-xs sm:text-sm text-gading/80">
             {lagu.alat.includes("bonang") ? (
               <>
-                Tekan pencon nada <strong className="text-emas font-serif text-sm">[{targetNote}]</strong> di <span className="text-emas-muda font-semibold">baris bawah (tuts A-J)</span> yang menyala berdenyut pada soundboard.
+                Tekan pencon <span className="text-emas font-semibold">baris bawah (tuts A-J)</span> yang sedang menyala berdenyut pada alat musik di bawah.
               </>
             ) : (
               <>
-                Tekan bilah nada <strong className="text-emas font-serif text-sm">[{targetNote}]</strong> (tuts A-J) yang sedang menyala berdenyut pada soundboard.
+                Tekan bilah perunggu <span className="text-emas font-semibold">(tuts angka 1-7)</span> yang sedang menyala berdenyut pada alat musik di bawah.
               </>
             )}
           </p>
