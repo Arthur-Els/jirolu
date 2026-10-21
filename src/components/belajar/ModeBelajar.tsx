@@ -13,6 +13,8 @@ interface ModeBelajarProps {
   // Callback untuk memberikan target nada yang sedang harus ditekan ke Soundboard
   onTargetNoteChange: (noteSymbol: string | null) => void;
   isRecordingOrPlaying?: boolean;
+  onRegisterInputHandler?: (handler: ((noteSymbol: string, baris?: number) => boolean) | null) => void;
+  onActiveTabChange?: (tab: "bebas" | "belajar") => void;
 }
 
 export const ModeBelajar: React.FC<ModeBelajarProps> = ({
@@ -21,6 +23,8 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
   onLarasChange,
   onTargetNoteChange,
   isRecordingOrPlaying = false,
+  onRegisterInputHandler,
+  onActiveTabChange,
 }) => {
   const [activeTab, setActiveTab] = useState<"bebas" | "belajar">("bebas");
   const [selectedSong, setSelectedSong] = useState<Lagu | null>(null);
@@ -36,6 +40,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
     mulai,
     ulangi,
     keluar,
+    handleInputNote,
   } = useBelajarLagu({
     lagu: selectedSong,
     larasAktif: currentLaras,
@@ -45,6 +50,18 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
       setTimeout(() => setLarasAutoChanged(false), 4000);
     },
   });
+
+  // Daftarkan input handler ke Soundboard saat mode belajar sedang aktif & berjalan
+  React.useEffect(() => {
+    if (activeTab === "belajar" && status === "berjalan") {
+      onRegisterInputHandler?.(handleInputNote);
+    } else {
+      onRegisterInputHandler?.(null);
+    }
+    return () => {
+      onRegisterInputHandler?.(null);
+    };
+  }, [activeTab, status, handleInputNote, onRegisterInputHandler]);
 
   // Sinkronisasi targetNote ke komponen luar (Soundboard) hanya jika nilainya berubah
   const prevTargetRef = React.useRef<string | null>(undefined as unknown as string | null);
@@ -74,6 +91,15 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
     keluar();
     setSelectedSong(null);
     setActiveTab("bebas");
+    onActiveTabChange?.("bebas");
+  };
+
+  const handleBukaModeBelajar = () => {
+    setActiveTab("belajar");
+    onActiveTabChange?.("belajar");
+    if (currentLaras !== "pelog") {
+      onLarasChange("pelog");
+    }
   };
 
   return (
@@ -85,7 +111,10 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
             type="button"
             onClick={() => {
               if (activeTab === "belajar") handleKeluarMode();
-              setActiveTab("bebas");
+              else {
+                setActiveTab("bebas");
+                onActiveTabChange?.("bebas");
+              }
             }}
             disabled={isRecordingOrPlaying}
             className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all min-h-[44px] cursor-pointer ${
@@ -99,7 +128,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
 
           <button
             type="button"
-            onClick={() => setActiveTab("belajar")}
+            onClick={handleBukaModeBelajar}
             disabled={isRecordingOrPlaying}
             className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all min-h-[44px] cursor-pointer ${
               activeTab === "belajar"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { Instrumen, Laras, Nada, ItemSuara } from "@/types/instrumen";
 import { Lagu } from "@/types/lagu";
 import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
@@ -32,6 +32,11 @@ export const Soundboard: React.FC<SoundboardProps> = ({
   // 1. State laras biasa tanpa localStorage
   const [laras, setLaras] = useState<Laras>(instrumen.larasDefault || "pelog");
   const [activeKey, setActiveKey] = useState<string | null>(null);
+
+  // Status apakah Mode Belajar sedang aktif
+  const [isLearnModeActive, setIsLearnModeActive] = useState<boolean>(false);
+  // Handler masukan nada dari ModeBelajar yang sedang berjalan
+  const modeBelajarInputRef = useRef<((noteSymbol: string, baris?: number) => boolean) | null>(null);
 
   // Target nada mode belajar lokal jika ModeBelajar terpasang di dalam soundboard
   const [localBilahMenyala, setLocalBilahMenyala] = useState<string | null>(null);
@@ -88,23 +93,31 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       // 1. Putar suara lebih dulu (zero delay)
       playItem(item);
 
-      // Ambil pengenal nada/suara
+      // Ambil pengenal nada/suara dan baris (khusus Bonang)
       const itemId = "id" in item ? (item as ItemSuara).id : (item as Nada).nada;
+      const itemBaris = "baris" in item ? (item as Nada).baris : undefined;
 
       // 2. Catat ketukan jika sedang merekam
       if (isRecording) {
         catatKetukan(itemId);
       }
 
-      // 3. Berikan callback ke mode belajar jika aktif
-      if (externalOnNadaDitekan) {
-        externalOnNadaDitekan(itemId);
-      }
-
-      // 4. Feedback salah jika di mode belajar menekan nada yang tidak sesuai
-      if (targetNoteHighlight && targetNoteHighlight !== itemId) {
+      // 3. Masukan ke mode belajar jika sedang aktif & berjalan
+      if (modeBelajarInputRef.current) {
+        const isCorrect = modeBelajarInputRef.current(itemId, itemBaris);
+        if (!isCorrect) {
+          setWrongFeedbackNote(itemId);
+          setTimeout(() => setWrongFeedbackNote(null), 250);
+        }
+      } else if (targetNoteHighlight && targetNoteHighlight !== itemId) {
+        // Feedback salah jika di mode belajar ada target tapi belum dimulai/input lain
         setWrongFeedbackNote(itemId);
         setTimeout(() => setWrongFeedbackNote(null), 250);
+      }
+
+      // 4. Berikan callback ke props luar jika disediakan
+      if (externalOnNadaDitekan) {
+        externalOnNadaDitekan(itemId);
       }
     },
     [playItem, isRecording, catatKetukan, externalOnNadaDitekan, targetNoteHighlight]
@@ -192,6 +205,8 @@ export const Soundboard: React.FC<SoundboardProps> = ({
               currentLaras={laras}
               onLarasChange={handleLarasChange}
               hasSlendro={hasSlendro}
+              disabled={isLearnModeActive}
+              disabledMessage="Laras dikunci ke Pelog saat Mode Belajar aktif"
             />
           )}
         </div>
@@ -205,6 +220,16 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           onLarasChange={handleLarasChange}
           onTargetNoteChange={setLocalBilahMenyala}
           isRecordingOrPlaying={isRecordingOrPlaying}
+          onRegisterInputHandler={(handler) => {
+            modeBelajarInputRef.current = handler;
+          }}
+          onActiveTabChange={(tab) => {
+            const isBelajar = tab === "belajar";
+            setIsLearnModeActive(isBelajar);
+            if (isBelajar && laras !== "pelog") {
+              handleLarasChange("pelog");
+            }
+          }}
         />
       )}
 

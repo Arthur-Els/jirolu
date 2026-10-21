@@ -143,7 +143,15 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
           </div>
 
           <p className="text-center text-xs text-gading/60 pt-1">
-            Tekan bilah nada <strong className="text-emas font-serif text-sm">[{targetNote}]</strong> yang sedang menyala berdenyut pada soundboard.
+            {lagu.alat.includes("bonang") ? (
+              <>
+                Tekan pencon nada <strong className="text-emas font-serif text-sm">[{targetNote}]</strong> di <span className="text-emas-muda font-semibold">baris bawah (tuts A-J)</span> yang menyala berdenyut pada soundboard.
+              </>
+            ) : (
+              <>
+                Tekan bilah nada <strong className="text-emas font-serif text-sm">[{targetNote}]</strong> (tuts A-J) yang sedang menyala berdenyut pada soundboard.
+              </>
+            )}
           </p>
         </div>
       )}

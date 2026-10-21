@@ -748,8 +748,8 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
         } else {
           item.mesh.position.y = item.baseY;
 
-          // Visual Feedback Mode Belajar: Denyut Lembut Emas
-          if (currentLearn === item.nadaSymbol) {
+          // Visual Feedback Mode Belajar: Denyut Lembut Emas khusus baris 2 (baris bawah)
+          if (currentLearn === item.nadaSymbol && item.baris === 2) {
             const learnPulse = Math.sin(time * 4.5) * 0.35 + 0.45;
             mat.emissive.setHex(0xd4af37);
             mat.emissiveIntensity = learnPulse;
@@ -937,7 +937,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
             }`}
           >
             {row1Items.map((item) => {
-              const isTarget = targetLearnNote === item.nada;
+              const isTarget = targetLearnNote === item.nada && item.baris === 2;
               const isWrong = wrongFeedbackNote === item.nada;
               const isActive = activeKeyString === item.key.toLowerCase();
 
@@ -989,7 +989,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
             }`}
           >
             {row2Items.map((item) => {
-              const isTarget = targetLearnNote === item.nada;
+              const isTarget = targetLearnNote === item.nada && (item.baris === 2 || !item.baris);
               const isWrong = wrongFeedbackNote === item.nada;
               const isActive = activeKeyString === item.key.toLowerCase();
 

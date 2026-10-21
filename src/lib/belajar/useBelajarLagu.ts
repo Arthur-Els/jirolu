@@ -77,10 +77,18 @@ export function useBelajarLagu({
 
   // Tangani masukan nada dari soundboard (klik/keyboard)
   const handleInputNote = useCallback(
-    (noteSymbol: string) => {
-      if (status !== "berjalan" || !lagu) return;
+    (noteSymbol: string, baris?: number): boolean => {
+      if (status !== "berjalan" || !lagu) return false;
 
       const expectedNote = lagu.nada[currentStepIndex];
+
+      // Jika instrumen bonang, pastikan pencon yang ditekan adalah baris 2 (baris bawah)
+      if (lagu.alat.includes("bonang") && baris !== undefined && baris !== 2) {
+        setSalahHitung((prev) => prev + 1);
+        setLastWrongNote(noteSymbol);
+        setTimeout(() => setLastWrongNote(null), 250);
+        return false;
+      }
 
       if (noteSymbol === expectedNote) {
         // Nada Benar!
@@ -94,11 +102,13 @@ export function useBelajarLagu({
           // Lanjut ke nada berikutnya
           setCurrentStepIndex((prev) => prev + 1);
         }
+        return true;
       } else {
         // Nada Salah: hitung salah dan berikan getaran mikro tanpa menghentikan permainan
         setSalahHitung((prev) => prev + 1);
         setLastWrongNote(noteSymbol);
         setTimeout(() => setLastWrongNote(null), 250);
+        return false;
       }
     },
     [status, lagu, currentStepIndex]
