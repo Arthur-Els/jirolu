@@ -5,6 +5,7 @@ import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { HeroVideoBackground } from "@/components/ui/HeroVideoBackground";
 import { FeaturesShowcase } from "@/components/home/FeaturesShowcase";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { HeroWayangSilhouettes } from "@/components/ui/HeroWayangSilhouettes";
 
 export default function HomePage() {
   const instruments = getAllInstruments();
@@ -17,7 +18,10 @@ export default function HomePage() {
       {/* Seluruh Konten Halaman Beranda (Scroll ke bawah di atas background video) */}
       <div className="relative z-10 flex flex-col items-center w-full">
         {/* Bagian Pembuka (Hero Section) */}
-        <section className="relative w-full min-h-[90vh] flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-16">
+        <section className="relative w-full min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-16 overflow-hidden">
+          {/* Siluet Wayang Kulit Intro (Memudar saat di-scroll) */}
+          <HeroWayangSilhouettes />
+
           {/* Hero Body Layout */}
           <div className="relative max-w-[860px] mx-auto text-center flex flex-col items-center z-10 w-full">
             {/* Eyebrow Badge */}
@@ -46,30 +50,29 @@ export default function HomePage() {
               </p>
             </ScrollReveal>
 
-          {/* CTA Group */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              id="btn-primary"
-              href="#galeri"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/25 hover:border-white/60 backdrop-blur-[8px] text-white hover:text-emas-muda font-medium text-[15px] transition-all duration-200 transform active:scale-95 flex items-center justify-center min-h-[48px]"
-            >
-              Jelajahi Galeri
-            </a>
-            <Link
-              id="btn-secondary"
-              href="/instrumen/saron"
-              className="
-              w-full sm:w-auto px-8 py-3.5 rounded-full bg-emas hover:bg-emas-muda text-tinta font-semibold text-[15px] border-none transition-all duration-200 transform active:scale-95 flex items-center justify-center min-h-[48px] shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)]"
-            >
-              Mulai Bermain
-            </Link>
+            {/* CTA Group */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                id="btn-primary"
+                href="#galeri"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.14] border border-white/25 hover:border-white/60 backdrop-blur-[8px] text-white hover:text-emas-muda font-medium text-[15px] transition-all duration-200 transform active:scale-95 flex items-center justify-center min-h-[48px]"
+              >
+                Jelajahi Galeri
+              </a>
+              <Link
+                id="btn-secondary"
+                href="/instrumen/saron"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-emas hover:bg-emas-muda text-tinta font-semibold text-[15px] border-none transition-all duration-200 transform active:scale-95 flex items-center justify-center min-h-[48px] shadow-[0_0_25px_rgba(212,175,55,0.4)] hover:shadow-[0_0_35px_rgba(212,175,55,0.6)]"
+              >
+                Mulai Bermain
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
         {/* Bagian: Fitur Utama Museum (Features Showcase) */}
         <FeaturesShowcase />
-
+    
         {/* Bagian Galeri Koleksi Pameran */}
         <div id="koleksi-alat" className="scroll-mt-20" />
         <GalleryGrid instruments={instruments} />
