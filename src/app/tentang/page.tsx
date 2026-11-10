@@ -1,160 +1,217 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { HeroVideoBackground } from "@/components/ui/HeroVideoBackground";
 
 export const metadata: Metadata = {
   title: "Tentang Jirolu | Museum Gamelan yang Bisa Kamu Mainkan",
   description:
-    "Mengenal asal usul nama Jirolu, tujuan pelestarian karawitan, ucapan terima kasih, dan lisensi sumber daya Museum Digital Gamelan Jawa Tengah.",
+    "Cerita di balik pembuatan Jirolu, arti nama ji-ro-lu, cara kerja simulasi, dan sumber rekaman audio gamelan.",
 };
 
 export default function TentangPage() {
   return (
-    <div className="relative w-full min-h-screen">
-      {/* Background Video Fixed (Tetap diam di posisi viewport saat halaman di-scroll) */}
+    <div className="relative w-full min-h-dvh bg-paper text-ink">
+      {/* Background Video Fixed */}
       <HeroVideoBackground src="/background/bg-home.mp4" isFixed={true} />
 
-      {/* Konten Halaman Tentang (Scroll di atas background video) */}
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-16 space-y-12">
-      {/* Header Halaman Tentang */}
-      <div className="text-center space-y-4">
-        <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
-          <span>ꦗꦶꦫꦺꦴꦭꦸ</span>
-          <span>•</span>
-          <span>Tentang Museum</span>
-        </div>
-        <h1 className="font-serif text-3xl sm:text-5xl font-bold text-gading">
-          Tentang Jirolu
-        </h1>
-        <p className="font-serif text-lg sm:text-xl text-emas italic">
-          &ldquo;Museum gamelan yang bisa kamu mainkan.&rdquo;
-        </p>
-        <div className="w-20 h-0.5 bg-emas mx-auto rounded-full" />
-      </div>
-
-      {/* Bagian Asal-Usul Nama Jirolu */}
-      <section className="bg-arang/80 border border-emas/40 rounded-2xl p-6 sm:p-8 space-y-3 shadow-lg backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-emas/20 border border-emas/50 flex items-center justify-center text-emas font-serif font-bold text-lg">
-            ꦗꦶ
-          </div>
-          <h2 className="font-serif text-2xl font-bold text-gading">Makna Nama Jirolu</h2>
-        </div>
-        <p className="text-sm sm:text-base text-gading/85 leading-relaxed font-light">
-          Nama <strong>Jirolu</strong> diambil dari tiga nada pertama dalam tangga nada gamelan Jawa, yaitu{" "}
-          <strong className="text-emas">ji</strong> (nada 1), <strong className="text-emas">ro</strong> (nada 2), dan{" "}
-          <strong className="text-emas">lu</strong> (nada 3). Ketiga nada dasar ini melambangkan langkah awal dalam belajar
-          dan menghayati keindahan seni karawitan, di mana setiap orang memulai dari ketukan pertama yang sederhana sebelum
-          menemukan keharmonisan dalam gending yang agung.
-        </p>
-      </section>
-
-      {/* Bagian 1: Tujuan Jirolu */}
-      <section className="bg-arang/80 border border-perunggu/30 rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <h2 className="font-serif text-2xl font-bold text-gading">Tujuan Website</h2>
-        </div>
-        <div className="space-y-3 text-sm sm:text-base text-gading/80 leading-relaxed font-light">
-          <p>
-            Gamelan Jawa Tengah adalah salah satu mahakarya agung warisan dunia (UNESCO Intangible Cultural Heritage)
-            yang menyimpan keindahan musikal sekaligus filsafat hidup luhur. Namun, akses terhadap perangkat fisik
-            gamelan yang lengkap sering kali terbatas bagi generasi muda dan masyarakat luas.
-          </p>
-          <p>
-            Jirolu hadir dengan visi:
-          </p>
-          <ul className="list-disc list-inside space-y-2 pl-2 text-gading/85">
-            <li>
-              <strong className="text-emas">Edukasi Terbuka:</strong> Mengenalkan nama, anatomi, laras (Pelog & Slendro), dan peran masing-masing instrumen (Saron, Bonang, Gong, Kendang) dalam format visual yang elegan.
-            </li>
-            <li>
-              <strong className="text-emas">Interaktivitas Nyata:</strong> Memberikan pengalaman menabuh langsung instrumen gamelan melalui peramban web tanpa delay (Web Audio API murni).
-            </li>
-            <li>
-              <strong className="text-emas">Penghayatan Filosofis:</strong> Membuka wawasan anak muda bahwa tiap ketukan bilah perunggu mengandung ajaran kesabaran, kerendahan hati, dan harmoni sosial.
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      {/* Bagian 2: Ucapan Terima Kasih */}
-      <section className="bg-arang/80 border border-perunggu/30 rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-perunggu/20 border border-perunggu/50 flex items-center justify-center text-emas">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-          </div>
-          <h2 className="font-serif text-2xl font-bold text-gading">Ucapan Terima Kasih</h2>
-        </div>
-        <p className="text-sm sm:text-base text-gading/80 leading-relaxed font-light">
-          Apresiasi dan rasa hormat yang mendalam kami haturkan kepada:
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div className="p-4 rounded-xl bg-tinta/50 border border-perunggu/20 space-y-1">
-            <h3 className="font-serif text-lg font-bold text-emas">Para Empu & Pengrajin Gamelan</h3>
-            <p className="text-xs text-gading/70 leading-relaxed">
-              Pusat kerajinan gamelan Besalen di Wirun Sukoharjo dan Klaten yang terus melestarikan teknik pengecoran perunggu leluhur.
+      <main className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-40 pb-24 space-y-24 sm:space-y-32">
+        {/* 1. HERO EDITORIAL SPLIT: Judul & Foto Panggung Pendopo */}
+        <header className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="lg:col-span-6 space-y-6">
+            <span className="font-serif text-xl sm:text-2xl text-accent/80 block" aria-hidden="true">
+              ꦗꦶꦫꦺꦴꦭꦸ
+            </span>
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-ink tracking-tight leading-[1.08]">
+              Tentang Jirolu
+            </h1>
+            <p className="font-serif text-xl sm:text-2xl text-accent italic leading-snug">
+              Museum gamelan yang bisa kamu mainkan.
+            </p>
+            <p className="font-sans text-base sm:text-lg text-ink-2 leading-relaxed max-w-xl">
+              Kenali suara gamelan Jawa, pelajari ketukannya, dan mainkan langsung dari browsermu.
             </p>
           </div>
-          <div className="p-4 rounded-xl bg-tinta/50 border border-perunggu/20 space-y-1">
-            <h3 className="font-serif text-lg font-bold text-emas">Institusi Karawitan & Seniman</h3>
-            <p className="text-xs text-gading/70 leading-relaxed">
-              Institut Seni Indonesia (ISI) Surakarta, ISI Yogyakarta, dan para abdi dalem pengrawit Kraton Surakarta & Mangkunegaran.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Bagian 3: Sumber & Lisensi Aset */}
-      <section className="bg-arang/80 border border-perunggu/30 rounded-2xl p-6 sm:p-8 space-y-4 shadow-lg backdrop-blur-sm">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <h2 className="font-serif text-2xl font-bold text-gading">Sumber & Lisensi</h2>
-        </div>
-        <div className="space-y-3 text-sm text-gading/80 leading-relaxed">
-          <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/20 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-gading">Audio Sampel Gamelan</span>
-              <span className="text-xs text-emas bg-arang px-2 py-0.5 rounded border border-perunggu/30">Web Audio API / Domain Publik</span>
+          <div className="lg:col-span-6">
+            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-rule bg-paper-2 shadow-card">
+              <Image
+                src="/background/stage-bg.jpg"
+                alt="Susunan panggung gamelan Jawa di pendopo"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 48vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper/75 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-4 left-5 right-5 flex items-center justify-between text-xs text-ink-2">
+                <span>Panggung Gamelan</span>
+                <span className="text-accent">Jawa Tengah</span>
+              </div>
             </div>
-            <p className="text-xs text-gading/65">
-              Format audio didesain untuk file terkompresi berkualitas tinggi <code className="text-emas">.webm</code> dengan latensi 0 ms. Jirolu dilengkapi synthesizer perunggu dan membran drum otomatis bila rekaman offline belum dimuat.
-            </p>
           </div>
+        </header>
 
-          <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/20 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="font-semibold text-gading">Dokumentasi Visual & Tipografi</span>
-              <span className="text-xs text-emas bg-arang px-2 py-0.5 rounded border border-perunggu/30">Lisensi Terbuka / OFL</span>
+        {/* 2. LATAR BELAKANG PEMBUATAN: Inset Foto Saron di Kiri, Cerita di Kanan */}
+        <section className="bg-paper-2 border border-rule rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="lg:col-span-5">
+            <div className="relative aspect-[4/5] w-full max-w-[400px] mx-auto rounded-xl overflow-hidden border border-rule bg-paper-3">
+              <Image
+                src="/images/instrumen/saron.jpg"
+                alt="Bilah perunggu instrumen Saron gamelan Jawa"
+                fill
+                sizes="(max-width: 1024px) 100vw, 35vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper/80 via-transparent to-transparent pointer-events-none" />
             </div>
-            <p className="text-xs text-gading/65">
-              Tipografi judul menggunakan <strong>Cormorant Garamond</strong> karya Christian Thalmann dan teks menggunakan <strong>Inter</strong> karya Rasmus Andersson di bawah Lisensi SIL Open Font.
-            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Tautan Kembali */}
-      <div className="text-center pt-4">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emas text-tinta font-semibold text-sm hover:bg-emas-muda transition-all shadow-[0_0_20px_rgba(212,175,55,0.25)] min-h-[44px]"
-        >
-          ← Kembali ke Beranda Jirolu
-        </Link>
-      </div>
+          <div className="lg:col-span-7 space-y-6">
+            <div className="space-y-2 border-b border-rule pb-5">
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-ink leading-tight">
+                Mengapa Web Ini Dibuat
+              </h2>
+              <p className="font-sans text-sm text-accent">
+                Membawa gamelan lebih dekat ke keseharian kita
+              </p>
+            </div>
+
+            <div className="space-y-4 font-sans text-base text-ink-2 leading-relaxed">
+              <p>
+                Gamelan Jawa adalah warisan budaya yang kaya, tapi perangkat aslinya tidak mudah ditemui sehari-hari. Ukurannya besar, perawatannya khusus, dan biasanya hanya ada di sanggar atau pendopo.
+              </p>
+              <blockquote className="border-l-2 border-accent pl-5 py-1 font-serif text-lg text-ink italic">
+                &ldquo;Cukup buka browser, dengar bunyinya, dan tabuh sendiri langsung dari layar.&rdquo;
+              </blockquote>
+              <p>
+                Dari situ <strong>Jirolu</strong> dibuat. Kami ingin siapa saja bisa mencoba menabuh saron, bonang, gong, dan kendang tanpa harus punya alat fisiknya terlebih dulu.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. MAKNA NAMA: 3 Pilar Monumental dengan Aksen Aksara Jawa */}
+        <section className="space-y-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-ink">
+                Makna di Balik Nama Jirolu
+              </h2>
+              <p className="font-sans text-base text-ink-2 max-w-xl">
+                Diambil dari hitungan tiga nada pertama gamelan: ji, ro, dan lu.
+              </p>
+            </div>
+            <span className="font-serif text-3xl text-accent/60 select-none" aria-hidden="true">
+              ꦗꦶꦫꦺꦴꦭꦸ
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-paper-2 border border-rule rounded-2xl p-8 space-y-4">
+              <div className="flex items-baseline justify-between border-b border-rule pb-4">
+                <span className="font-serif text-5xl text-accent font-normal">1</span>
+                <span className="font-serif text-2xl text-ink">Ji (Siji)</span>
+              </div>
+              <p className="font-sans text-sm text-ink-2 leading-relaxed">
+                Nada pertama. Awal mula belajar mengenal karakter bunyi tiap instrumen.
+              </p>
+            </div>
+
+            <div className="bg-paper-2 border border-rule rounded-2xl p-8 space-y-4">
+              <div className="flex items-baseline justify-between border-b border-rule pb-4">
+                <span className="font-serif text-5xl text-accent font-normal">2</span>
+                <span className="font-serif text-2xl text-ink">Ro (Loro)</span>
+              </div>
+              <p className="font-sans text-sm text-ink-2 leading-relaxed">
+                Nada kedua. Mulai menyambung irama dan belajar menjaga ketukan.
+              </p>
+            </div>
+
+            <div className="bg-paper-2 border border-rule rounded-2xl p-8 space-y-4">
+              <div className="flex items-baseline justify-between border-b border-rule pb-4">
+                <span className="font-serif text-5xl text-accent font-normal">3</span>
+                <span className="font-serif text-2xl text-ink">Lu (Telu)</span>
+              </div>
+              <p className="font-sans text-sm text-ink-2 leading-relaxed">
+                Nada ketiga. Pola melodi mulai terbentuk hingga siap memainkan lagu utuh.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. SUMBER AUDIO & LISENSI: Inset Foto Gong + Detail Atribusi Freesound */}
+        <section className="bg-paper-2 border border-rule rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div className="lg:col-span-4">
+            <div className="relative aspect-square w-full max-w-[320px] mx-auto rounded-xl overflow-hidden border border-rule bg-paper-3">
+              <Image
+                src="/images/instrumen/gong.jpg"
+                alt="Gong Ageng gamelan Jawa"
+                fill
+                sizes="(max-width: 1024px) 100vw, 30vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-paper/75 via-transparent to-transparent pointer-events-none" />
+            </div>
+          </div>
+
+          <div className="lg:col-span-8 space-y-6">
+            <div className="space-y-2">
+              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-ink">
+                Sumber Audio &amp; Lisensi
+              </h2>
+              <p className="font-sans text-sm sm:text-base text-ink-2 leading-relaxed">
+                Rekaman suara gamelan di Jirolu diambil dari koleksi audio terbuka di{" "}
+                <a
+                  href="https://freesound.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:text-accent-2 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+                >
+                  Freesound.org
+                </a>
+                .
+              </p>
+            </div>
+
+            <div className="divide-y divide-rule border-y border-rule font-sans text-sm">
+              <div className="py-3 flex items-center justify-between gap-4">
+                <span className="text-muted">Sumber rekaman</span>
+                <span className="text-ink font-medium text-right">Freesound.org</span>
+              </div>
+              <div className="py-3 flex items-center justify-between gap-4">
+                <span className="text-muted">Lisensi</span>
+                <span className="text-ink font-medium text-right">Creative Commons (CC0 &amp; CC-BY)</span>
+              </div>
+              <div className="py-3 flex items-center justify-between gap-4">
+                <span className="text-muted">Pemutar audio</span>
+                <span className="text-ink font-medium text-right">Web Audio API</span>
+              </div>
+              <div className="py-3 flex items-center justify-between gap-4">
+                <span className="text-muted">Format berkas</span>
+                <span className="text-ink font-medium text-right">.webm &amp; .m4a</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. PENUTUP: Balanced Action Row */}
+        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            href="/instrumen/saron"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-sm motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[46px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+          >
+            Mulai Mainkan Saron
+          </Link>
+          <Link
+            href="/"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[46px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+          >
+            Kembali ke Beranda
+          </Link>
+        </div>
+      </main>
     </div>
-  </div>
-);
+  );
 }
