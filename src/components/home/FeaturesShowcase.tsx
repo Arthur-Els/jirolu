@@ -64,9 +64,9 @@ export const FeaturesShowcase: React.FC = () => {
   return (
     <section
       id="fitur"
-      className="relative w-full py-20 sm:py-28 px-4 sm:px-6 bg-paper"
+      className="relative w-full pt-20 sm:pt-28 pb-36 sm:pb-48 px-4 sm:px-6 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header Section */}
         <header className="mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl text-ink font-serif font-normal mb-3">
@@ -82,7 +82,7 @@ export const FeaturesShowcase: React.FC = () => {
           {FEATURE_CARDS.map((card) => (
             <div
               key={card.index}
-              className="bg-paper-2 border border-rule hover:border-accent/40 rounded-2xl p-7 sm:p-9 flex flex-col justify-between w-full motion-safe:transition-colors duration-200"
+              className="bg-paper-2/85 border border-rule hover:border-accent/50 rounded-2xl p-7 sm:p-9 flex flex-col justify-between w-full motion-safe:transition-colors duration-200"
             >
               <div>
                 <span className="font-mono text-xs text-muted mb-4 block">
@@ -111,6 +111,12 @@ export const FeaturesShowcase: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Transisi Fade Out Halus di Bawah Seksi Fitur Menuju Warna Solid Panggung */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-40 sm:h-52 pointer-events-none select-none z-0 bg-gradient-to-b from-transparent via-tinta/75 to-tinta"
+        aria-hidden="true"
+      />
     </section>
   );
 };

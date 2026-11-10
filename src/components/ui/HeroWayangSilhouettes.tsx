@@ -56,7 +56,7 @@ export const HeroWayangSilhouettes: React.FC = () => {
             fill
             priority
             sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
-            className="object-contain object-bottom brightness-0 opacity-30 sm:opacity-50 md:opacity-60 drop-shadow-pendar transition-opacity duration-300"
+            className="object-contain object-bottom brightness-0 opacity-30 sm:opacity-50 md:opacity-60 transition-opacity duration-300"
           />
         </div>
       </motion.div>
@@ -82,7 +82,7 @@ export const HeroWayangSilhouettes: React.FC = () => {
             fill
             priority
             sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
-            className="object-contain object-bottom brightness-0 opacity-30 sm:opacity-50 md:opacity-60 drop-shadow-pendar transition-opacity duration-300"
+            className="object-contain object-bottom brightness-0 opacity-30 sm:opacity-50 md:opacity-60 transition-opacity duration-300"
           />
         </div>
       </motion.div>
