@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
 
 interface FeatureCard {
   index: string;
@@ -10,42 +9,38 @@ interface FeatureCard {
   description: string;
   cta: {
     text: string;
-    icon: string;
     action_url: string;
   };
 }
 
 const FEATURE_CARDS: FeatureCard[] = [
   {
-    index: "[1]",
-    title: "Jelajahi Alat Musik",
+    index: "01",
+    title: "Kenali ragam instrumen",
     description:
-      "Pelajari anatomi fisik, fungsi ansambel, dan makna filosofis adiluhung Jawa di balik instrumen karawitan.",
+      "Dengar sampel audio dan pelajari peran gong, kendang, bonang, serta saron dalam gending Jawa.",
     cta: {
-      text: "Lihat Galeri",
-      icon: "arrow-right",
-      action_url: "/galeri",
+      text: "Lihat instrumen",
+      action_url: "#galeri",
     },
   },
   {
-    index: "[2]",
-    title: "Mainkan Gamelan",
+    index: "02",
+    title: "Tabuh nada langsung",
     description:
-      "Tabuh bilah perunggu, pencon, gong, dan kendang secara bebas tanpa jeda nada langsung di peramban web.",
+      "Simulasi interaktif bilah gamelan menggunakan keyboard komputer atau sentuhan layar ponsel.",
     cta: {
-      text: "Mulai Bermain",
-      icon: "arrow-right",
-      action_url: "/soundboard",
+      text: "Mulai tabuh",
+      action_url: "/instrumen/saron",
     },
   },
   {
-    index: "[3]",
-    title: "Belajar Lagu dan Rekam",
+    index: "03",
+    title: "Belajar lagu daerah",
     description:
-      "Ikuti panduan tuts berdenyut emas untuk melagukan tembang tradisional dan simpan rekaman kreasimu.",
+      "Ikuti panduan ketukan visual untuk melagukan tembang tradisional seperti Gundul Pacul dan Lir-Ilir.",
     cta: {
-      text: "Baca Panduan",
-      icon: "arrow-right",
+      text: "Buka panduan",
       action_url: "/tutorial",
     },
   },
@@ -56,7 +51,7 @@ export const FeaturesShowcase: React.FC = () => {
     e: React.MouseEvent<HTMLAnchorElement>,
     url: string
   ) => {
-    if (url === "/galeri") {
+    if (url === "#galeri") {
       const galleryElement = document.getElementById("galeri");
       if (galleryElement) {
         e.preventDefault();
@@ -68,171 +63,56 @@ export const FeaturesShowcase: React.FC = () => {
 
   return (
     <section
-      id="features_showcase"
-      className="relative w-full pt-[90px] pb-[110px] px-[24px] overflow-hidden"
+      id="fitur"
+      className="relative w-full py-20 sm:py-28 px-4 sm:px-6 bg-paper"
     >
-      {/* Background layer dengan gradasi multi-stop ultra-halus agar mengalir menyatu dari Hero video ke panggung galeri */}
-      <div
-        className="absolute inset-0 pointer-events-none select-none"
-        style={{
-          background:
-            "linear-gradient(180deg, transparent 0%, rgba(11, 10, 9, 0.12) 60px, rgba(11, 10, 9, 0.45) 130px, rgba(11, 10, 9, 0.82) 210px, #0B0A09 300px, #0B0A09 100%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Ambience pendaran emas lembut di tengah agar latar belakang mengalir dinamis */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[520px] pointer-events-none select-none opacity-20"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(212, 175, 55, 0.16) 0%, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
-      <div className="relative z-10 max-w-[1200px] mx-auto w-full">
+      <div className="max-w-6xl mx-auto w-full">
         {/* Header Section */}
-        <ScrollReveal direction="up" distance={28} duration={0.65} scale={0.96}>
-          <header className="flex flex-col items-center text-center">
-            {/* Headline */}
-            <h2
-              className="text-[clamp(32px,4vw,48px)] text-[#F3E5AB] text-center mb-[64px] leading-tight"
-              style={{ color: "#F3E5AB" }}
-            >
-              <span
-                className="font-sans font-bold"
-                style={{
-                  fontFamily:
-                    "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
-                  fontWeight: 700,
-                }}
-              >
-                Yang Bisa Kamu Lakukan di Jirolu
-              </span>
-            </h2>
-          </header>
-        </ScrollReveal>
+        <header className="mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl text-ink font-serif font-normal mb-3">
+            Cara Menikmati Jirolu
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-ink-2 max-w-xl">
+            Dari sekadar mendengarkan alunan nada sampai belajar memainkan tembang sendiri.
+          </p>
+        </header>
 
         {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[32px] w-full">
-          {FEATURE_CARDS.map((card, idx) => (
-            <ScrollReveal
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full">
+          {FEATURE_CARDS.map((card) => (
+            <div
               key={card.index}
-              direction="up"
-              distance={36}
-              scale={0.93}
-              delay={idx * 0.15}
-              duration={0.7}
-              className="h-full flex"
+              className="bg-paper-2 border border-rule hover:border-accent/40 rounded-2xl p-7 sm:p-9 flex flex-col justify-between w-full motion-safe:transition-colors duration-200"
             >
-              <div
-                className="group rounded-[20px] p-[40px_32px] flex flex-col justify-between w-full transition-all duration-300 ease-out hover:-translate-y-[4px]"
-                style={{
-                  backgroundColor: "rgba(28, 25, 20, 0.6)",
-                  border: "1px solid rgba(212, 175, 55, 0.2)",
-                  borderRadius: "20px",
-                  padding: "40px 32px",
-                  backdropFilter: "blur(12px)",
-                  WebkitBackdropFilter: "blur(12px)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "#D4AF37";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 30px rgba(212, 175, 55, 0.15)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(212, 175, 55, 0.2)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
-              >
-                {/* Bagian Atas Kartu */}
-                <div>
-                  {/* Index Typography */}
-                  <div
-                    className="font-mono text-[15px] text-[#D4AF37] mb-[28px] select-none"
-                    style={{
-                      fontFamily:
-                        "var(--font-jetbrains-mono), 'JetBrains Mono', monospace",
-                      color: "#D4AF37",
-                      fontSize: "15px",
-                      marginBottom: "28px",
-                    }}
-                  >
-                    {card.index}
-                  </div>
+              <div>
+                <span className="font-mono text-xs text-muted mb-4 block">
+                  {card.index}
+                </span>
 
-                  {/* Title Typography */}
-                  <h3
-                    className="font-serif text-[24px] font-semibold text-[#FFF9E6] mb-[14px] leading-snug"
-                    style={{
-                      fontFamily:
-                        "var(--font-playfair), 'Playfair Display', serif",
-                      fontSize: "24px",
-                      fontWeight: 600,
-                      color: "#FFF9E6",
-                      marginBottom: "14px",
-                    }}
-                  >
-                    {card.title}
-                  </h3>
+                <h3 className="font-serif text-xl sm:text-2xl font-normal text-ink mb-3 leading-snug">
+                  {card.title}
+                </h3>
 
-                  {/* Description Typography */}
-                  <p
-                    className="font-sans text-[14px] leading-[1.7] text-[rgba(255,249,230,0.7)] mb-[36px]"
-                    style={{
-                      fontFamily:
-                        "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
-                      fontSize: "14px",
-                      lineHeight: 1.7,
-                      color: "rgba(255, 249, 230, 0.7)",
-                      marginBottom: "36px",
-                    }}
-                  >
-                    {card.description}
-                  </p>
-                </div>
-
-                {/* Bagian Bawah Kartu (CTA Link) */}
-                <div>
-                  <Link
-                    href={card.cta.action_url}
-                    onClick={(e) => handleCtaClick(e, card.cta.action_url)}
-                    className="inline-flex items-center gap-[8px] text-[14px] font-semibold text-[#E5C158] hover:text-[#FFF9E6] transition-colors"
-                    style={{
-                      fontFamily:
-                        "var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif",
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      color: "#E5C158",
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <span>{card.cta.text}</span>
-                    <svg
-                      className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-200"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      />
-                    </svg>
-                  </Link>
-                </div>
+                <p className="font-sans text-sm leading-relaxed text-ink-2 mb-8">
+                  {card.description}
+                </p>
               </div>
-            </ScrollReveal>
+
+              <div>
+                <Link
+                  href={card.cta.action_url}
+                  onClick={(e) => handleCtaClick(e, card.cta.action_url)}
+                  className="inline-flex items-center text-sm font-semibold text-accent hover:text-accent-2 motion-safe:transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+                >
+                  <span>{card.cta.text}</span>
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
       </div>
     </section>
   );
 };
+
+export default FeaturesShowcase;

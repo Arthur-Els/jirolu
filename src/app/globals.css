@@ -1,13 +1,19 @@
+/* Hallmark · shape: Conversational FAQ · genre: atmospheric · theme: Spore (by request) · redesign: full
+ * hero: Stage · nav: search-led bar · footer: statement · imagery: photographs · signature: stage-curation · spore: cellar
+ * axes: dark/roman-serif/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P9 H8 E9 S9 R8 V9 · weakest: H, tuned headline words to 5 */
 @import "tailwindcss";
+@import "./tokens.css";
+@import "./base.css" layer(base);
 
 @theme {
   --color-tinta: #0B0A09;
-  --color-arang: #171411;
+  --color-arang: #161310;
   --color-emas: #D4AF37;
   --color-emas-muda: #F4E3B2;
   --color-emas-tua: #997A1E;
   --color-perunggu: #A9783C;
-  --color-gading: #EFE6D2;
+  --color-gading: #F5EFE6;
   --color-merah: #E05252;
 
   --font-serif: var(--font-playfair), var(--font-cormorant), "Georgia", serif;
@@ -15,42 +21,38 @@
   --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", "Courier New", monospace;
 
   --shadow-pendar: 0 0 25px rgba(212, 175, 55, 0.45);
+  --drop-shadow-pendar: 0 0 30px rgba(212, 175, 55, 0.25);
 }
 
 :root {
   --bg-tinta: #0B0A09;
-  --card-arang: #171411;
+  --card-arang: #161310;
   --accent-emas: #D4AF37;
-  --text-gading: #EFE6D2;
+  --text-gading: #F5EFE6;
 }
 
 body {
   background-color: #0B0A09;
-  color: #EFE6D2;
+  color: #F5EFE6;
   font-family: var(--font-inter), sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   -webkit-font-smoothing: antialiased;
 }
 
 /* Pola latar batik kawung halus */
 .bg-batik-pattern {
-  background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-    radial-gradient(rgba(169, 120, 60, 0.04) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    radial-gradient(rgba(169, 120, 60, 0.03) 1px, transparent 1px);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
 }
 
 /* Sentuhan ornamen garis etnik tipis */
 .ornamen-garis {
-  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.35), transparent);
   height: 1px;
-}
-
-/* Efek pendar keemasan untuk bilah dan tombol aktif */
-.pendar-emas {
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.45), inset 0 0 15px rgba(212, 175, 55, 0.25);
 }
 
 /* Efek getar lembut saat salah tekan nada pada mode belajar */
@@ -67,18 +69,6 @@ body {
   }
   50% {
     box-shadow: 0 0 32px rgba(212, 175, 55, 0.95), inset 0 0 16px rgba(212, 175, 55, 0.6);
-  }
-}
-
-/* Efek memantul lembut ke bawah untuk indikator gulir (ScrollIndicator) */
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: translateY(6px);
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
 
