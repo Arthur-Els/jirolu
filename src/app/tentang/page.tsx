@@ -94,18 +94,17 @@ export default function TentangPage() {
 
         {/* 3. MAKNA NAMA: 3 Pilar Monumental dengan Aksen Aksara Jawa */}
         <section className="space-y-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div className="space-y-2">
-              <h2 className="font-serif text-3xl sm:text-4xl font-normal text-ink">
-                Makna di Balik Nama Jirolu
-              </h2>
-              <p className="font-sans text-base text-ink-2 max-w-xl">
-                Diambil dari hitungan tiga nada pertama gamelan: ji, ro, dan lu.
-              </p>
-            </div>
-            <span className="font-serif text-3xl text-accent/60 select-none" aria-hidden="true">
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+            <span className="font-serif text-3xl text-accent/70 select-none block" aria-hidden="true">
               ꦗꦶꦫꦺꦴꦭꦸ
             </span>
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
+              Makna di Balik Nama Jirolu
+            </h2>
+            <div className="w-[25%] h-0.5 bg-accent mx-auto rounded-full my-3" />
+            <p className="font-sans text-sm sm:text-base text-ink-2 leading-relaxed max-w-2xl mx-auto font-light">
+              Diambil dari hitungan tiga nada pertama gamelan: ji, ro, dan lu.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -157,10 +156,11 @@ export default function TentangPage() {
           </div>
 
           <div className="lg:col-span-8 space-y-6">
-            <div className="space-y-2">
-              <h2 className="font-serif text-2xl sm:text-3xl font-normal text-ink">
+            <div className="space-y-3">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-ink tracking-tight">
                 Sumber Audio &amp; Lisensi
               </h2>
+              <div className="w-16 h-0.5 bg-accent rounded-full" />
               <p className="font-sans text-sm sm:text-base text-ink-2 leading-relaxed">
                 Rekaman suara gamelan di Jirolu diambil dari koleksi audio terbuka di{" "}
                 <a
@@ -200,13 +200,13 @@ export default function TentangPage() {
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/instrumen/saron"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-sm motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[46px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
             Mulai Mainkan Saron
           </Link>
           <Link
             href="/"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[46px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule font-medium text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
             Kembali ke Beranda
           </Link>

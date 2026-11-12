@@ -14,22 +14,22 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emas/50 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none min-h-[44px]";
+    "inline-flex items-center justify-center font-medium rounded-full motion-safe:transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed select-none";
 
   const variantStyles = {
-    emas: "bg-emas text-tinta font-semibold hover:bg-emas-muda shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:shadow-[0_0_25px_rgba(212,175,55,0.45)] active:scale-[0.98]",
+    emas: "bg-accent hover:bg-accent-2 text-accent-ink font-semibold shadow-[0_0_20px_rgba(212,175,55,0.25)] hover:shadow-[0_0_25px_rgba(212,175,55,0.45)]",
     arang:
-      "bg-arang text-gading border border-perunggu/40 hover:border-emas/60 hover:bg-[#211c18] active:scale-[0.98]",
+      "bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent",
     garis:
-      "border border-emas/70 text-emas hover:bg-emas/10 hover:border-emas active:scale-[0.98]",
+      "border border-rule hover:border-accent text-ink hover:bg-paper-2",
     merah:
-      "border border-merah/70 text-merah hover:bg-merah/15 hover:border-merah hover:text-red-300 active:scale-[0.98]",
+      "border border-merah/70 text-merah hover:bg-merah/15 hover:border-merah hover:text-red-300",
   };
 
   const sizeStyles = {
-    sm: "px-3 py-1.5 text-xs min-w-[36px]",
-    md: "px-5 py-2.5 text-sm min-w-[44px]",
-    lg: "px-6 py-3.5 text-base min-w-[48px]",
+    sm: "px-4 py-2 text-xs min-h-[36px]",
+    md: "px-6 py-2.5 text-sm min-h-[44px]",
+    lg: "px-8 py-3.5 text-[15px] min-h-[48px]",
   };
 
   return (

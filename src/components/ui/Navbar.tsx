@@ -80,7 +80,7 @@ export const Navbar: React.FC = () => {
         {/* Tombol Desktop */}
         <Link
           href="/instrumen/saron"
-          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform active:scale-95 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] whitespace-nowrap"
+          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform active:scale-95 whitespace-nowrap"
         >
           Mulai Bermain
         </Link>

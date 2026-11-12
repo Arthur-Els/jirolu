@@ -77,10 +77,10 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
               <button
                 type="button"
                 onClick={isDemoPlaying ? onHentikanDemo : onMulaiDemo}
-                className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer min-h-[44px] border ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer min-h-[44px] border ${
                   isDemoPlaying
                     ? "bg-red-950/80 border-red-500 text-red-200 hover:bg-red-900 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
-                    : "bg-arang border-emas/50 text-emas hover:bg-emas/10 hover:border-emas shadow-sm"
+                    : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent shadow-sm"
                 }`}
               >
                 {isDemoPlaying ? (

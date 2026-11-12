@@ -310,9 +310,6 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       {/* 1. HEADER PENGANTAR PANGGUNG (Megah & Menyatu) */}
       <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-8 sm:mb-14">
         <ScrollReveal direction="up" distance={24} duration={0.65} scale={0.96}>
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-emas text-sm font-mono font-medium mb-1">
-            <span>ꦥꦁꦒꦸꦁꦏꦫꦮꦶꦠꦤ꧀</span>
-          </div>
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-gading tracking-tight">
             Denah Panggung Karawitan
           </h2>
@@ -546,7 +543,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             <button
               type="button"
               onClick={() => handleInstrumentClick(selectedInstrument.slug)}
-              className="shrink-0 px-3 py-1.5 rounded-xl bg-emas text-tinta text-xs font-bold shadow-[0_0_12px_rgba(212,175,55,0.4)] cursor-pointer"
+              className="shrink-0 px-4 py-2 rounded-full bg-accent hover:bg-accent-2 text-accent-ink text-xs font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer shadow-md"
             >
               Lihat Detail ↓
             </button>
@@ -691,25 +688,25 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       type="button"
                       onClick={handleToggleSongAudio}
                       aria-label={`Putar contoh lagu permainan ${selectedInstrument.nama}`}
-                      className={`w-full sm:w-auto px-5 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-3 min-h-[46px] cursor-pointer shadow-lg ${
+                      className={`w-full sm:w-auto px-6 py-3 rounded-full border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer shadow-lg ${
                         isPlayingSong
-                          ? "text-emas border-emas shadow-[0_0_25px_rgba(212,175,55,0.6)]"
-                          : "bg-tinta border-emas/40 text-gading hover:text-emas hover:border-emas hover:bg-arang"
+                          ? "text-accent-ink bg-accent border-accent"
+                          : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent"
                       }`}
                     >
                       {isPlayingSong ? (
                         <>
                           <div className="flex items-end gap-1 h-4">
-                            <span className="w-1 bg-emas rounded-full animate-eq-1" />
-                            <span className="w-1 bg-emas rounded-full animate-eq-2" />
-                            <span className="w-1 bg-emas rounded-full animate-eq-3" />
-                            <span className="w-1 bg-emas rounded-full animate-eq-4" />
+                            <span className="w-1 bg-accent-ink rounded-full animate-eq-1" />
+                            <span className="w-1 bg-accent-ink rounded-full animate-eq-2" />
+                            <span className="w-1 bg-accent-ink rounded-full animate-eq-3" />
+                            <span className="w-1 bg-accent-ink rounded-full animate-eq-4" />
                           </div>
                           <span>Jeda Contoh Permainan</span>
                         </>
                       ) : (
                         <>
-                          <svg className="w-5 h-5 text-emas" fill="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                           </svg>
                           <div className="text-left">
@@ -722,7 +719,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                     {/* Tombol CTA: Mulai Memainkan Alat Musik di Soundboard */}
                     <Link
                       href={`/instrumen/${selectedInstrument.slug}`}
-                      className="w-full sm:w-auto px-7 py-3 rounded-xl bg-emas text-tinta font-semibold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] hover:bg-emas-muda transition-all flex items-center justify-center gap-2 min-h-[46px]"
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-xs sm:text-[15px] motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-2 min-h-[48px]"
                     >
                       <span>Mainkan {selectedInstrument.nama}</span>
                       <span>→</span>
