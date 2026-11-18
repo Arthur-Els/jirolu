@@ -18,19 +18,19 @@ export default function CaraBermainPage() {
       {/* Konten Halaman Cara Bermain (Scroll di atas background video) */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-16 space-y-12">
         {/* Header Panduan */}
-        <div className="text-center space-y-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 text-emas text-xs uppercase tracking-widest font-medium">
             <span>ꦠꦸꦠꦸꦂꦥꦤꦸꦢꦸꦃ</span>
             <span>•</span>
             <span>Panduan Pengunjung</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-gading">
+          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-gading tracking-tight">
             Cara Memainkan Gamelan di Jirolu
           </h1>
+          <div className="w-[25%] h-0.5 bg-emas mx-auto rounded-full my-3" />
           <p className="font-serif text-lg text-emas italic">
             &ldquo;Gampang, tanpa delay, dan bisa dicoba siapa saja.&rdquo;
           </p>
-          <div className="w-20 h-0.5 bg-emas mx-auto rounded-full" />
         </div>
 
         {/* Bagian 1: Bermain di HP vs Laptop */}
@@ -214,9 +214,10 @@ export default function CaraBermainPage() {
         <div className="text-center pt-4">
           <Link
             href="/instrumen/saron"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-emas text-tinta font-semibold text-sm shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:bg-emas-muda transition-all min-h-[44px]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
-            Coba Mainkan Saron Sekarang →
+            <span>Coba Mainkan Saron Sekarang</span>
+            <span>→</span>
           </Link>
         </div>
       </div>

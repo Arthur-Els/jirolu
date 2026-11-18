@@ -68,11 +68,12 @@ export const FeaturesShowcase: React.FC = () => {
     >
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         {/* Header Section */}
-        <header className="mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl text-ink font-serif font-normal mb-3">
+        <header className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-12 sm:mb-16">
+          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
             Cara Menikmati Jirolu
           </h2>
-          <p className="font-sans text-sm sm:text-base text-ink-2 max-w-xl">
+          <div className="w-[25%] h-0.5 bg-accent mx-auto rounded-full my-3" />
+          <p className="text-sm sm:text-base text-ink-2 leading-relaxed max-w-2xl mx-auto font-light">
             Dari sekadar mendengarkan alunan nada sampai belajar memainkan tembang sendiri.
           </p>
         </header>

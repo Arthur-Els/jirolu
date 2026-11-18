@@ -59,10 +59,10 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
       {/* Bar Navigasi Atas Halaman */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mt-8 border-b border-perunggu/25">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mt-8 border-b border-rule">
         <Link
           href="/#galeri"
-          className="inline-flex items-center gap-2 text-sm text-gading/70 hover:text-emas-muda transition-colors min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -73,7 +73,7 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         {/* Tautan Alat Musik Berikutnya */}
         <Link
           href={`/instrumen/${nextInstrument.slug}`}
-          className="inline-flex items-center text-sm text-gading hover:text-emas transition-colors group min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 group min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
         >
           <span>Alat Musik Selanjutnya: <strong>{nextInstrument.nama}</strong></span>
           <svg
@@ -104,10 +104,10 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
       />
 
       {/* Bar Navigasi Bawah Halaman */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-perunggu/25">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-rule">
         <Link
           href="/#galeri"
-          className="inline-flex items-center gap-2 text-sm text-gading/70 hover:text-emas-muda transition-colors min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -118,7 +118,7 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         {/* Tautan Alat Musik Berikutnya */}
         <Link
           href={`/instrumen/${nextInstrument.slug}`}
-          className="inline-flex items-center text-sm text-gading hover:text-emas transition-colors group min-h-[44px]"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 group min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
         >
           <span>Alat Musik Selanjutnya: <strong>{nextInstrument.nama}</strong></span>
           <svg
