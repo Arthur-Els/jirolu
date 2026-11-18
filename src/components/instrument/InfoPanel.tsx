@@ -47,7 +47,7 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ instrumen }) => {
       </div>
 
       {/* Bagian Fungsi & Filosofi */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4 border-t border-perunggu/20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Panel Fungsi */}
         <div className="space-y-4 bg-tinta/40 p-6 rounded-xl border border-perunggu/20">
           <div className="flex items-center gap-3">

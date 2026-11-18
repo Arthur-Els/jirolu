@@ -39,7 +39,7 @@ export const OtherInstruments: React.FC<OtherInstrumentsProps> = ({
           <Link
             key={item.slug}
             href={`/instrumen/${item.slug}`}
-            className="group bg-arang/90 border border-perunggu/30 rounded-xl overflow-hidden hover:border-emas hover:shadow-[0_0_20px_rgba(212,175,55,0.25)] transition-all duration-300 flex flex-col justify-between"
+            className="group bg-arang/90 border border-perunggu/30 rounded-xl overflow-hidden hover:border-emas transition-all duration-300 flex flex-col justify-between"
           >
             <div className="relative w-full aspect-[4/3] bg-tinta overflow-hidden">
               <Image
@@ -49,12 +49,6 @@ export const OtherInstruments: React.FC<OtherInstrumentsProps> = ({
                 sizes="(max-width: 640px) 100vw, 33vw"
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-arang via-transparent to-transparent opacity-80" />
-              {item.namaJawa && (
-                <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-tinta/80 border border-perunggu/30 text-emas font-serif text-xs">
-                  {item.namaJawa}
-                </span>
-              )}
             </div>
 
             <div className="p-4 space-y-1.5">
@@ -62,9 +56,6 @@ export const OtherInstruments: React.FC<OtherInstrumentsProps> = ({
                 <h4 className="font-serif text-lg font-bold text-gading group-hover:text-emas transition-colors">
                   {item.nama}
                 </h4>
-                <span className="text-[10px] text-perunggu uppercase tracking-wider font-semibold">
-                  {item.tipe === "bernada" ? "Bernada" : "Ritmis"}
-                </span>
               </div>
               <p className="text-xs text-gading/65 line-clamp-2 leading-relaxed">
                 {item.deskripsiSingkat}

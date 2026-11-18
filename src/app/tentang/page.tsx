@@ -102,7 +102,7 @@ export default function TentangPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-paper-2 border border-rule rounded-2xl p-8 space-y-4">
+            <div className="bg-paper/40 backdrop-blur-md border border-rule rounded-2xl p-8 space-y-4">
               <div className="flex items-baseline justify-between border-b border-rule pb-4">
                 <span className="font-serif text-5xl text-accent font-normal">1</span>
                 <span className="font-serif text-2xl text-ink">Ji (Siji)</span>
@@ -112,7 +112,7 @@ export default function TentangPage() {
               </p>
             </div>
 
-            <div className="bg-paper-2 border border-rule rounded-2xl p-8 space-y-4">
+            <div className="bg-paper/40 backdrop-blur-md border border-rule rounded-2xl p-8 space-y-4">
               <div className="flex items-baseline justify-between border-b border-rule pb-4">
                 <span className="font-serif text-5xl text-accent font-normal">2</span>
                 <span className="font-serif text-2xl text-ink">Ro (Loro)</span>
@@ -122,7 +122,7 @@ export default function TentangPage() {
               </p>
             </div>
 
-            <div className="bg-paper-2 border border-rule rounded-2xl p-8 space-y-4">
+            <div className="bg-paper/40 backdrop-blur-md border border-rule rounded-2xl p-8 space-y-4">
               <div className="flex items-baseline justify-between border-b border-rule pb-4">
                 <span className="font-serif text-5xl text-accent font-normal">3</span>
                 <span className="font-serif text-2xl text-ink">Lu (Telu)</span>
