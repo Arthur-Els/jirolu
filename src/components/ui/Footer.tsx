@@ -60,6 +60,9 @@ export const Footer: React.FC = () => {
               <Link href="/cara-bermain" className="hover:text-white transition-colors">
                 Cara Bermain
               </Link>
+              <Link href="/tim" className="hover:text-white transition-colors">
+                Tim
+              </Link>
             </div>
 
             {/* Kolom 2 (Kanan): Alat Musik */}

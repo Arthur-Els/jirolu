@@ -11,11 +11,16 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/tentang", label: "Tentang" },
     { href: "/#galeri", label: "Galeri Musik" },
+    { href: "/tentang", label: "Tentang" },
     { href: "/cara-bermain", label: "Cara Bermain" },
-    { href: "/#kontak", label: "Kontak" },
+    { href: "/tim", label: "Tim" },
   ];
+
+  const isCurrentPage = (href: string) => {
+    if (href.startsWith("/#")) return false;
+    return pathname === href;
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,7 +85,7 @@ export const Navbar: React.FC = () => {
         {/* Tombol Desktop */}
         <Link
           href="/instrumen/saron"
-          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform active:scale-95 shadow-[0_0_20px_rgba(212,175,55,0.35)] hover:shadow-[0_0_28px_rgba(212,175,55,0.55)] whitespace-nowrap"
+          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform active:scale-95 whitespace-nowrap"
         >
           Mulai Bermain
         </Link>
@@ -120,7 +125,7 @@ export const Navbar: React.FC = () => {
             <Link
               href="/instrumen/saron"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-center w-full py-3 rounded-full bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold shadow-[0_0_20px_rgba(212,175,55,0.35)]"
+              className="block text-center w-full py-3 rounded-full bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold"
             >
               Mulai Bermain
             </Link>

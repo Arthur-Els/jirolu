@@ -26,15 +26,6 @@ export const HeroWayangSilhouettes: React.FC = () => {
       className="absolute inset-0 pointer-events-none select-none overflow-hidden z-0"
       aria-hidden="true"
     >
-      {/* Pendaran Cahaya Blencong & Ambience Panggung Kelir di Belakang Siluet */}
-      <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[1200px] h-[500px] opacity-35 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 50% 90%, rgba(212, 175, 55, 0.28) 0%, rgba(212, 175, 55, 0.08) 45%, transparent 75%)",
-        }}
-      />
-
       {/* Kontainer Siluet Wayang 1 (Sisi Kiri - Menjulang dari Dasar Layar sebagai Penyambut) */}
       <motion.div
         initial={{ opacity: 0, y: 90 }}
