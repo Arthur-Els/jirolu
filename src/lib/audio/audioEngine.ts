@@ -403,25 +403,18 @@ export function playSynthesizedKendang(
   }
 }
 
+// Menyimpan timer aktif untuk simulasi contoh permainan agar bisa dihentikan bersih saat jeda/pindah instrumen
+let melodySampleTimers: ReturnType<typeof setTimeout>[] = [];
+
 /**
- * Memainkan suara cuplikan singkat (preview) untuk tiap instrumen di galeri pendopo
+ * Menghentikan simulasi rangkaian frasa lagu (gending) yang sedang berjalan beserta timer-nya
  */
-export function playInstrumentPreview(slug: string): void {
-  const ctx = getAudioContext();
-  if (!ctx) return;
+export function stopInstrumentMelodySample(): void {
+  melodySampleTimers.forEach((timerId) => clearTimeout(timerId));
+  melodySampleTimers = [];
 
-  if (ctx.state === "suspended") {
-    ctx.resume();
-  }
-
-  if (slug === "saron") {
-    playSynthesizedGamelan(ctx, 320, 2.0, "preview-saron");
-  } else if (slug === "bonang") {
-    playSynthesizedGamelan(ctx, 640, 1.8, "preview-bonang");
-  } else if (slug === "gong") {
-    playSynthesizedGong(ctx, 55, 3.8, "preview-gong");
-  } else if (slug === "kendang") {
-    playSynthesizedKendang(ctx, "dah", 0.9, "preview-kendang");
+  if (audioContextInstance && activeSounds.size > 0) {
+    stopAllActiveSounds(0.08);
   }
 }
 
@@ -429,6 +422,8 @@ export function playInstrumentPreview(slug: string): void {
  * Memainkan simulasi rangkaian frasa lagu (gending) multi-nada untuk contoh lagu di galeri
  */
 export function playInstrumentMelodySample(slug: string, onEnded?: () => void): void {
+  stopInstrumentMelodySample();
+
   const ctx = getAudioContext();
   if (!ctx) return;
 
@@ -436,14 +431,19 @@ export function playInstrumentMelodySample(slug: string, onEnded?: () => void): 
     ctx.resume();
   }
 
+  const schedule = (fn: () => void, delayMs: number) => {
+    const id = setTimeout(fn, delayMs);
+    melodySampleTimers.push(id);
+  };
+
   if (slug === "saron") {
     // Frasa balungan saron: 5 nada berurutan (ji - ro - lu - mo - nem)
     const freqs = [290, 320, 360, 430, 480];
     freqs.forEach((freq, idx) => {
-      setTimeout(() => {
+      schedule(() => {
         playSynthesizedGamelan(ctx, freq, 1.4, `sample-saron-${idx}`);
         if (idx === freqs.length - 1 && onEnded) {
-          setTimeout(onEnded, 1400);
+          schedule(onEnded, 1400);
         }
       }, idx * 360);
     });
@@ -451,28 +451,28 @@ export function playInstrumentMelodySample(slug: string, onEnded?: () => void): 
     // Pola jalinan mipil bonang: nada kembar lincah
     const freqs = [580, 640, 580, 640, 720, 860];
     freqs.forEach((freq, idx) => {
-      setTimeout(() => {
+      schedule(() => {
         playSynthesizedGamelan(ctx, freq, 1.1, `sample-bonang-${idx}`);
         if (idx === freqs.length - 1 && onEnded) {
-          setTimeout(onEnded, 1100);
+          schedule(onEnded, 1100);
         }
       }, idx * 230);
     });
   } else if (slug === "gong") {
     // Pola penutup: kempul mendahului, disusul dentum agung Gong Ageng
     playSynthesizedGong(ctx, 110, 2.2, "sample-kempul");
-    setTimeout(() => {
+    schedule(() => {
       playSynthesizedGong(ctx, 52, 4.5, "sample-gong-ageng");
-      if (onEnded) setTimeout(onEnded, 4500);
+      if (onEnded) schedule(onEnded, 4500);
     }, 1100);
   } else if (slug === "kendang") {
     // Pola ketukan kendang: dung - tak - tung - dah
     const beats: ("dung" | "tak" | "tung" | "dah")[] = ["dung", "tak", "tung", "dah", "dah"];
     beats.forEach((stroke, idx) => {
-      setTimeout(() => {
+      schedule(() => {
         playSynthesizedKendang(ctx, stroke, 0.8, `sample-kendang-${idx}`);
         if (idx === beats.length - 1 && onEnded) {
-          setTimeout(onEnded, 900);
+          schedule(onEnded, 900);
         }
       }, idx * 320);
     });

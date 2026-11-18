@@ -11,7 +11,7 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const navLinks = [
-    { href: "/#galeri", label: "Galeri Musik" },
+    { href: "/#galeri", label: "Panggung" },
     { href: "/tentang", label: "Tentang" },
     { href: "/cara-bermain", label: "Cara Bermain" },
     { href: "/tim", label: "Tim" },
@@ -37,9 +37,6 @@ export const Navbar: React.FC = () => {
     if (href === "/#galeri" && pathname === "/") {
       e.preventDefault();
       document.getElementById("galeri")?.scrollIntoView({ behavior: "smooth" });
-    } else if (href === "/#kontak" && pathname === "/") {
-      e.preventDefault();
-      document.getElementById("kontak")?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -67,17 +64,25 @@ export const Navbar: React.FC = () => {
       </Link>
 
       {/* Navigasi Desktop */}
-      <nav className="hidden md:flex items-center gap-8">
-        {navLinks.map((link) => (
-          <Link
-            key={link.label}
-            href={link.href}
-            onClick={(e) => handleLinkClick(link.href, e)}
-            className="text-[14px] text-white/75 hover:text-white transition-colors font-medium select-none whitespace-nowrap"
-          >
-            {link.label}
-          </Link>
-        ))}
+      <nav aria-label="Utama" className="hidden md:flex items-center gap-8">
+        {navLinks.map((link) => {
+          const active = isCurrentPage(link.href);
+          return (
+            <Link
+              key={link.label}
+              href={link.href}
+              aria-current={active ? "page" : undefined}
+              onClick={(e) => handleLinkClick(link.href, e)}
+              className={`text-[14px] transition-colors font-medium select-none whitespace-nowrap rounded-sm focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-4 ${
+                active
+                  ? "text-ink underline decoration-accent decoration-2 underline-offset-8"
+                  : "text-white/75 hover:text-white"
+              }`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
       </nav>
 
       {/* Action Button Desktop & Mobile Toggle */}
@@ -111,16 +116,24 @@ export const Navbar: React.FC = () => {
       {/* Dropdown Menu Mobile */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-[#0B0A09]/95 backdrop-blur-2xl border-b border-white/10 px-6 py-6 space-y-4 shadow-2xl animate-in fade-in duration-200">
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              onClick={(e) => handleLinkClick(link.href, e)}
-              className="block text-[15px] font-medium text-white/80 hover:text-white py-1"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const active = isCurrentPage(link.href);
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                onClick={(e) => handleLinkClick(link.href, e)}
+                className={`block text-[15px] font-medium py-1 ${
+                  active
+                    ? "text-ink border-l-2 border-accent pl-3"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
           <div className="pt-3 border-t border-white/10">
             <Link
               href="/instrumen/saron"

@@ -47,3 +47,4 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Menyusun alur perjalanan pengguna, struktur navigasi, serta pemetaan sistem agar alur belajar dan bermain gamelan dari beranda hingga tiap instrumen terasa runtut.",
   },
 ];
+

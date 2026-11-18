@@ -51,8 +51,8 @@ export const Footer: React.FC = () => {
               <span className="text-[10px] font-semibold text-emas uppercase tracking-widest pb-1 border-b border-perunggu/20">
                 Navigasi
               </span>
-              <Link href="/" className="hover:text-white transition-colors">
-                Beranda
+              <Link href="/#galeri" className="hover:text-white transition-colors">
+                Panggung
               </Link>
               <Link href="/tentang" className="hover:text-white transition-colors">
                 Tentang

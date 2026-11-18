@@ -20,13 +20,10 @@ export default function TentangPage() {
         {/* 1. HERO EDITORIAL SPLIT: Judul & Foto Panggung Pendopo */}
         <header className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           <div className="lg:col-span-6 space-y-6">
-            <span className="font-serif text-xl sm:text-2xl text-accent/80 block" aria-hidden="true">
-              ꦗꦶꦫꦺꦴꦭꦸ
-            </span>
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-ink tracking-tight leading-[1.08]">
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal text-ink tracking-tight">
               Tentang Jirolu
             </h1>
-            <p className="font-serif text-xl sm:text-2xl text-accent italic leading-snug">
+            <p className="font-serif text-lg sm:text-xl text-accent italic leading-snug">
               Museum gamelan yang bisa kamu mainkan.
             </p>
             <p className="font-sans text-base sm:text-lg text-ink-2 leading-relaxed max-w-xl">
@@ -95,9 +92,6 @@ export default function TentangPage() {
         {/* 3. MAKNA NAMA: 3 Pilar Monumental dengan Aksen Aksara Jawa */}
         <section className="space-y-10">
           <div className="max-w-4xl mx-auto text-center space-y-4">
-            <span className="font-serif text-3xl text-accent/70 select-none block" aria-hidden="true">
-              ꦗꦶꦫꦺꦴꦭꦸ
-            </span>
             <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
               Makna di Balik Nama Jirolu
             </h2>
@@ -142,20 +136,7 @@ export default function TentangPage() {
 
         {/* 5. SUMBER AUDIO & LISENSI: Inset Foto Gong + Detail Atribusi Freesound */}
         <section className="bg-paper-2 border border-rule rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div className="lg:col-span-4">
-            <div className="relative aspect-square w-full max-w-[320px] mx-auto rounded-xl overflow-hidden border border-rule bg-paper-3">
-              <Image
-                src="/images/instrumen/gong.jpg"
-                alt="Gong Ageng gamelan Jawa"
-                fill
-                sizes="(max-width: 1024px) 100vw, 30vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-paper/75 via-transparent to-transparent pointer-events-none" />
-            </div>
-          </div>
-
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-12 space-y-6">
             <div className="space-y-3">
               <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-ink tracking-tight">
                 Sumber Audio &amp; Lisensi
@@ -197,7 +178,7 @@ export default function TentangPage() {
         </section>
 
         {/* 6. PENUTUP: Balanced Action Row */}
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/instrumen/saron"
             className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
