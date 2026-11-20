@@ -48,7 +48,7 @@ export const VolumeControl: React.FC<VolumeControlProps> = ({
           value={isMuted ? 0 : volume}
           onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
           aria-label="Pengatur Volume Suara"
-          className="w-18 sm:w-24 h-1.5 bg-arang rounded-lg appearance-none cursor-pointer accent-emas"
+          className="w-18 sm:w-24 h-1.5 bg-arang rounded-full appearance-none cursor-pointer accent-emas"
         />
         <span className="text-[11px] font-mono text-gading/60 w-7 text-right select-none">
           {isMuted ? "0%" : `${Math.round(volume * 100)}%`}

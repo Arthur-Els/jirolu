@@ -14,7 +14,7 @@ export const InstrumentCard: React.FC<InstrumentCardProps> = ({ instrumen }) => 
   return (
     <Link
       href={`/instrumen/${instrumen.slug}`}
-      className="group relative flex flex-col bg-arang rounded-xl overflow-hidden border border-perunggu/30 transition-all duration-300 hover:border-emas hover:shadow-[0_0_25px_rgba(212,175,55,0.25)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-emas"
+      className="group relative flex flex-col bg-arang rounded-2xl overflow-hidden border border-perunggu/30 transition-[border-color,box-shadow,transform] duration-300 hover:border-emas hover:shadow-[0_0_25px_rgba(212,175,55,0.25)] hover:-translate-y-1.5 focus:outline-none focus:ring-2 focus:ring-emas"
     >
       {/* Gambar Instrumen */}
       <div className="relative w-full aspect-[4/3] bg-gradient-to-b from-[#211c17] to-arang overflow-hidden">
@@ -45,7 +45,7 @@ export const InstrumentCard: React.FC<InstrumentCardProps> = ({ instrumen }) => 
 
         {/* Aksara Jawa Estetis di Pojok Kiri Atas */}
         {instrumen.namaJawa && (
-          <div className="absolute top-3 left-3 px-2 py-0.5 rounded bg-tinta/70 border border-perunggu/30 backdrop-blur-sm">
+          <div className="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-tinta/70 border border-perunggu/30 backdrop-blur-sm">
             <span className="text-emas font-serif text-sm tracking-widest opacity-90">
               {instrumen.namaJawa}
             </span>

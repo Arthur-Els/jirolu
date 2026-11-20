@@ -32,7 +32,7 @@ export default function TentangPage() {
           </div>
 
           <div className="lg:col-span-6">
-            <div className="relative aspect-[16/10] w-full rounded-2xl overflow-hidden border border-rule bg-paper-2 shadow-card">
+            <div className="relative aspect-[16/10] w-full rounded-3xl overflow-hidden border border-rule bg-paper-2 shadow-card">
               <Image
                 src="/background/stage-bg.jpg"
                 alt="Susunan panggung gamelan Jawa di pendopo"
@@ -51,9 +51,9 @@ export default function TentangPage() {
         </header>
 
         {/* 2. LATAR BELAKANG PEMBUATAN: Inset Foto Saron di Kiri, Cerita di Kanan */}
-        <section className="bg-paper-2 border border-rule rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <section className="bg-paper-2 border border-rule rounded-3xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-5">
-            <div className="relative aspect-[4/5] w-full max-w-[400px] mx-auto rounded-xl overflow-hidden border border-rule bg-paper-3">
+            <div className="relative aspect-[4/5] w-full max-w-[400px] mx-auto rounded-2xl overflow-hidden border border-rule bg-paper-3">
               <Image
                 src="/images/instrumen/saron.jpg"
                 alt="Bilah perunggu instrumen Saron gamelan Jawa"
@@ -135,7 +135,7 @@ export default function TentangPage() {
         </section>
 
         {/* 5. SUMBER AUDIO & LISENSI: Inset Foto Gong + Detail Atribusi Freesound */}
-        <section className="bg-paper-2 border border-rule rounded-2xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <section className="bg-paper-2 border border-rule rounded-3xl p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-12 space-y-6">
             <div className="space-y-3">
               <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-ink tracking-tight">
@@ -181,13 +181,13 @@ export default function TentangPage() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/instrumen/saron"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
             Mulai Mainkan Saron
           </Link>
           <Link
             href="/"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule font-medium text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-paper-2 hover:bg-paper-3 text-ink border border-rule font-medium text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
             Kembali ke Beranda
           </Link>

@@ -56,7 +56,7 @@ export const Bilah: React.FC<BilahProps> = ({
           touchAction: "none",
         }}
         aria-label={`Bilah nada ${nada.nada} (${nada.label}), tombol ${nada.key.toUpperCase()}`}
-        className={`w-full rounded-t-xl rounded-b-md relative flex flex-col items-center justify-between py-4 px-1.5 transition-all duration-100 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emas ${
+        className={`w-full rounded-t-xl rounded-b-lg relative flex flex-col items-center justify-between py-4 px-1.5 transition-[transform,box-shadow,background-color] duration-100 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emas ${
           isActive
             ? "bg-gradient-to-b from-emas via-emas-muda to-emas shadow-[0_0_30px_rgba(212,175,55,0.85)] translate-y-1 scale-[0.98]"
             : isTargetLearnNote

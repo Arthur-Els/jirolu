@@ -39,7 +39,7 @@ export const OtherInstruments: React.FC<OtherInstrumentsProps> = ({
           <Link
             key={item.slug}
             href={`/instrumen/${item.slug}`}
-            className="group bg-arang/90 border border-perunggu/30 rounded-xl overflow-hidden hover:border-emas transition-all duration-300 flex flex-col justify-between"
+            className="group bg-arang/90 border border-perunggu/30 rounded-2xl overflow-hidden hover:border-emas transition-colors duration-300 flex flex-col justify-between"
           >
             <div className="relative w-full aspect-[4/3] bg-tinta overflow-hidden">
               <Image

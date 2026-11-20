@@ -21,7 +21,7 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
       <span className="text-xs uppercase tracking-widest text-gading/60 font-medium">
         Pilihan Laras:
       </span>
-      <div className="inline-flex rounded-xl p-1 bg-tinta border border-perunggu/40 shadow-inner">
+      <div className="inline-flex rounded-2xl p-1 bg-tinta border border-perunggu/40 shadow-inner">
         {/* Tombol Pelog */}
         <button
           type="button"
@@ -29,7 +29,7 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
             if (!disabled) onLarasChange("pelog");
           }}
           disabled={disabled}
-          className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all duration-200 min-h-[44px] min-w-[80px] ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wider transition-colors duration-200 min-h-[44px] min-w-[80px] ${
             currentLaras === "pelog"
               ? "bg-emas text-tinta font-bold"
               : "text-gading/70 hover:text-emas hover:bg-arang cursor-pointer"
@@ -48,7 +48,7 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
             }
           }}
           disabled={!hasSlendro || disabled}
-          className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all duration-200 min-h-[44px] min-w-[80px] ${
+          className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wider transition-colors duration-200 min-h-[44px] min-w-[80px] ${
             currentLaras === "slendro"
               ? "bg-emas text-tinta"
               : hasSlendro && !disabled

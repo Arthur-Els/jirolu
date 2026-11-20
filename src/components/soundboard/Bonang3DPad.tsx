@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Nada, Laras } from "@/types/instrumen";
@@ -825,7 +825,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
   return (
     <div
       ref={panelRef}
-      className={`w-full flex flex-col items-center select-none transition-all ${
+      className={`w-full flex flex-col items-center select-none ${
         isFullscreen
           ? "fixed inset-0 z-50 bg-[#0c0704] p-4 sm:p-8 justify-between overflow-hidden"
           : "space-y-4 py-1"
@@ -892,7 +892,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
           type="button"
           onClick={toggleFullscreen}
           title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
-          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
+          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
         >
           {isFullscreen ? (
             <>
@@ -946,7 +946,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
                   key={`bonang-deck-r1-${laras}-${item.nada}-${item.key}`}
                   type="button"
                   onClick={() => handleStrike(item)}
-                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[70px] ${
+                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[70px] ${
                     isActive
                       ? "bg-emas text-tinta border-emas scale-102"
                       : isTarget
@@ -998,7 +998,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
                   key={`bonang-deck-r2-${laras}-${item.nada}-${item.key}`}
                   type="button"
                   onClick={() => handleStrike(item)}
-                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[70px] ${
+                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[70px] ${
                     isActive
                       ? "bg-emas text-tinta border-emas scale-102"
                       : isTarget

@@ -30,7 +30,9 @@
   --font-display: var(--font-playfair), var(--font-cormorant), Georgia, serif;
   --font-body: var(--font-plus-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-outlier: var(--font-jetbrains-mono), monospace;
-  --radius-card: 16px;
+  --radius-card: 22px;
+  --radius-card-inner: 16px;
+  --radius-button: 13px;
   --radius-pill: 999px;
   --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.6);
   --tracking-display: -0.015em;

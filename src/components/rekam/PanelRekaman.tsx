@@ -126,7 +126,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
               Memutar Ulang
             </span>
           ) : adaRekaman ? (
-            <span className="text-gading/80 bg-tinta/60 px-2.5 py-1 rounded-md border border-perunggu/30 font-mono text-xs">
+            <span className="text-gading/80 bg-tinta/60 px-2.5 py-1 rounded-lg border border-perunggu/30 font-mono text-xs">
               Tersimpan: {jumlahKetukan} ketukan
             </span>
           ) : (
@@ -139,7 +139,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
 
       {/* Pesan Ramah Batas Waktu */}
       {pesanInfo && (
-        <div className="p-2 rounded-lg bg-emas/10 border border-emas/30 text-xs text-emas-muda">
+        <div className="p-2.5 rounded-xl bg-emas/10 border border-emas/30 text-xs text-emas-muda">
           {pesanInfo}
         </div>
       )}

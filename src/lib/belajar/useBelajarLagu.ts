@@ -22,14 +22,16 @@ export function useBelajarLagu({
   const [lastWrongNote, setLastWrongNote] = useState<string | null>(null);
   const [justCorrect, setJustCorrect] = useState<boolean>(false);
 
-  // Jika lagu berganti, reset state pembelajaran lewat useEffect
-  useEffect(() => {
+  // Jika lagu berganti, sesuaikan state pembelajaran saat render (pola resmi React)
+  const [prevLaguSlug, setPrevLaguSlug] = useState<string | undefined>(lagu?.slug);
+  if (prevLaguSlug !== lagu?.slug) {
+    setPrevLaguSlug(lagu?.slug);
     setStatus("belum_mulai");
     setCurrentStepIndex(0);
     setSalahHitung(0);
     setLastWrongNote(null);
     setJustCorrect(false);
-  }, [lagu?.slug]);
+  }
 
   // Simpan ref onLarasMismatch agar tidak memicu re-render tak berujung
   const onLarasMismatchRef = useRef(onLarasMismatch);
@@ -42,7 +44,7 @@ export function useBelajarLagu({
     if (lagu && larasAktif && lagu.laras !== larasAktif) {
       onLarasMismatchRef.current?.(lagu.laras);
     }
-  }, [lagu?.slug, lagu?.laras, larasAktif]);
+  }, [lagu, larasAktif]);
 
   const mulai = useCallback(() => {
     if (!lagu) return;

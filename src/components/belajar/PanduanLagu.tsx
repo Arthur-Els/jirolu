@@ -27,9 +27,6 @@ interface PanduanLaguProps {
 export const PanduanLagu: React.FC<PanduanLaguProps> = ({
   lagu,
   status,
-  currentStepIndex,
-  totalNotes,
-  targetNote,
   salahHitung,
   larasAutoChanged,
   onMulai,
@@ -37,7 +34,6 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
   onKeluar,
   onPilihLaguLain,
   isDemoPlaying = false,
-  demoStepIndex = null,
   onMulaiDemo,
   onHentikanDemo,
 }) => {
@@ -45,7 +41,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
     <div className="p-4 sm:p-5 rounded-2xl bg-tinta/80 border border-emas/40 shadow-xl space-y-4">
       {/* Pesan Otomatis Ganti Laras */}
       {larasAutoChanged && (
-        <div className="p-2.5 rounded-lg bg-emas/10 border border-emas/30 text-xs text-emas-muda flex items-center gap-2">
+        <div className="p-2.5 rounded-xl bg-emas/10 border border-emas/30 text-xs text-emas-muda flex items-center gap-2">
           <svg className="w-4 h-4 shrink-0 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -77,7 +73,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
               <button
                 type="button"
                 onClick={isDemoPlaying ? onHentikanDemo : onMulaiDemo}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer min-h-[44px] border ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold tracking-wider motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer min-h-[44px] border ${
                   isDemoPlaying
                     ? "bg-red-950/80 border-red-500 text-red-200 hover:bg-red-900"
                     : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent"

@@ -36,7 +36,7 @@ export default function CaraBermainPage() {
         {/* Bagian 1: Bermain di HP vs Laptop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Bermain di HP / Tablet */}
-          <div className="p-6 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg backdrop-blur-sm">
+          <div className="p-6 rounded-3xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg backdrop-blur-sm">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-emas/15 border border-emas/40 flex items-center justify-center text-emas">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@ export default function CaraBermainPage() {
           </div>
 
           {/* Bermain di Laptop / PC */}
-          <div className="p-6 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg backdrop-blur-sm">
+          <div className="p-6 rounded-3xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg backdrop-blur-sm">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-perunggu/20 border border-perunggu/50 flex items-center justify-center text-emas">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@ export default function CaraBermainPage() {
         </div>
 
         {/* Bagian 2: Tabel Pemetaan Tombol Keyboard Per Alat */}
-        <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-6 shadow-lg">
+        <section className="p-6 sm:p-8 rounded-3xl bg-arang/80 border border-perunggu/30 space-y-6 shadow-lg">
           <div className="space-y-1">
             <h2 className="font-serif text-2xl font-bold text-gading flex items-center gap-2">
               <span>Daftar Tombol Keyboard Komputer</span>
@@ -160,12 +160,12 @@ export default function CaraBermainPage() {
         </section>
 
         {/* Bagian 3: Mengenal Laras Slendro & Pelog */}
-        <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
+        <section className="p-6 sm:p-8 rounded-3xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
           <h2 className="font-serif text-2xl font-bold text-gading">
             Mengenal Laras: Slendro & Pelog
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gading/80 font-light leading-relaxed">
-            <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-2">
+            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-2">
               <h3 className="font-serif text-lg font-bold text-emas">Laras Slendro (5 Nada)</h3>
               <p>
                 Tangga nada pentatonis dengan pembagian interval nada yang relatif merata.
@@ -173,7 +173,7 @@ export default function CaraBermainPage() {
                 Nuansanya terasa riang, lincah, bersemangat, dan lugas.
               </p>
             </div>
-            <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-2">
+            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-2">
               <h3 className="font-serif text-lg font-bold text-emas">Laras Pelog</h3>
               <p>
                 Tangga nada heptatonis dengan rentang jarak nada yang berbeda-beda (ada yang renggang dan sempit).
@@ -185,12 +185,12 @@ export default function CaraBermainPage() {
         </section>
 
         {/* Bagian 4: Fitur Mode Belajar & Rekaman */}
-        <section className="p-6 sm:p-8 rounded-2xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
+        <section className="p-6 sm:p-8 rounded-3xl bg-arang/80 border border-perunggu/30 space-y-4 shadow-lg">
           <h2 className="font-serif text-2xl font-bold text-gading">
             Fitur Mode Belajar dan Rekam
           </h2>
           <div className="space-y-4 text-sm text-gading/80 leading-relaxed font-light">
-            <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
+            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
               <h3 className="font-serif text-base font-bold text-emas">1. Mode Belajar Lagu (Saron dan Bonang)</h3>
               <p>
                 Pilih tab <strong>&ldquo;Belajar Lagu&rdquo;</strong> di atas soundboard. Pilih lagu yang ingin kamu pelajari.
@@ -199,7 +199,7 @@ export default function CaraBermainPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
+            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
               <h3 className="font-serif text-base font-bold text-emas">2. Panel Rekam dan Putar Ulang</h3>
               <p>
                 Gunakan panel di bawah soundboard. Klik <strong>&ldquo;Rekam&rdquo;</strong> lalu mainkan alat musikmu.
@@ -214,7 +214,7 @@ export default function CaraBermainPage() {
         <div className="text-center pt-4">
           <Link
             href="/instrumen/saron"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
             <span>Coba Mainkan Saron Sekarang</span>
             <span>→</span>

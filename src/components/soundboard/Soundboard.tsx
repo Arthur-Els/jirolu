@@ -5,7 +5,6 @@ import { Instrumen, Laras, Nada, ItemSuara } from "@/types/instrumen";
 import { Lagu } from "@/types/lagu";
 import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
 import { useRekaman } from "@/lib/rekam/useRekaman";
-import { Bilah } from "./Bilah";
 import { Saron3DPad } from "./Saron3DPad";
 import { Bonang3DPad } from "./Bonang3DPad";
 import { GongPad } from "./GongPad";
@@ -211,7 +210,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
     availableSongs.length > 0;
 
   return (
-    <div className="w-full bg-arang/90 border border-perunggu/35 rounded-2xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+    <div className="w-full bg-arang/90 border border-perunggu/35 rounded-3xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
       {/* 1. Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
@@ -231,7 +230,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           {!isLoading && !audioFilesAvailable && (
             <span
               title="File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emas/10 border border-emas/30 text-[11px] font-medium text-emas select-none"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emas/10 border border-emas/30 text-[11px] font-medium text-emas select-none"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emas" />
               Mode Synthesizer
@@ -281,7 +280,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
       {/* Buka Kunci Audio untuk iOS Safari */}
       {!isAudioUnlocked && (
-        <div className="text-center p-3 rounded-lg bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="text-center p-3 rounded-xl bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-gading/75">
             Klik tombol di samping untuk mengaktifkan audio di peramban:
           </span>

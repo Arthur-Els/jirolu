@@ -42,7 +42,7 @@ export const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between px-6 sm:px-12 transition-all duration-300 ease-in-out select-none ${
+      className={`fixed top-0 left-0 right-0 z-50 w-full flex items-center justify-between px-6 sm:px-12 transition-[padding,background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-in-out select-none ${
         isScrolled || isMobileMenuOpen
           ? "py-3 sm:py-3.5 bg-[#0B0A09]/75 backdrop-blur-xl backdrop-saturate-150 border-b border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.37)]"
           : "py-4 sm:py-5 bg-transparent backdrop-blur-none border-b border-transparent"
@@ -90,7 +90,7 @@ export const Navbar: React.FC = () => {
         {/* Tombol Desktop */}
         <Link
           href="/instrumen/saron"
-          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-all duration-200 transform active:scale-95 whitespace-nowrap"
+          className="hidden md:inline-flex rounded-xl px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-[background-color,color,transform] duration-200 transform active:scale-95 whitespace-nowrap"
         >
           Mulai Bermain
         </Link>
@@ -138,7 +138,7 @@ export const Navbar: React.FC = () => {
             <Link
               href="/instrumen/saron"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-center w-full py-3 rounded-full bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold"
+              className="block text-center w-full py-3 rounded-xl bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold"
             >
               Mulai Bermain
             </Link>

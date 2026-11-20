@@ -44,7 +44,7 @@ export const PencuBonang: React.FC<PencuBonangProps> = ({
         onPointerDown={handlePointerDown}
         style={{ touchAction: "none" }}
         aria-label={`Pencon Bonang nada ${nada.nada} (${nada.label}), tombol ${nada.key.toUpperCase()}`}
-        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full relative flex flex-col items-center justify-center transition-all duration-100 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emas ${
+        className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full relative flex flex-col items-center justify-center transition-[transform,box-shadow,background-color] duration-100 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emas ${
           isActive
             ? "bg-gradient-to-tr from-emas via-emas-muda to-emas shadow-[0_0_30px_rgba(212,175,55,0.9)] scale-95"
             : isTargetLearnNote

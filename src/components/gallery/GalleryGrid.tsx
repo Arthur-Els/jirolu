@@ -397,7 +397,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       }
                       onMouseEnter={() => setHoveredSlug(area.slug)}
                       onMouseLeave={() => setHoveredSlug(null)}
-                      className="transition-all duration-300 ease-out"
+                      className="transition-[fill,stroke,stroke-width] duration-300 ease-out"
                       fill={
                         isHovered
                           ? "rgba(212, 175, 55, 0.25)"
@@ -546,7 +546,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             <button
               type="button"
               onClick={scrollToInstrumentTabs}
-              className="shrink-0 px-4 py-2 rounded-full bg-accent hover:bg-accent-2 text-accent-ink text-xs font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer"
+              className="shrink-0 px-4 py-2 rounded-xl bg-accent hover:bg-accent-2 text-accent-ink text-xs font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer"
             >
               Lihat Detail ↓
             </button>
@@ -725,7 +725,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                         type="button"
                         onClick={handleToggleSongAudio}
                         aria-label={`Putar contoh lagu permainan ${selectedInstrument.nama}`}
-                        className={`w-full sm:w-auto px-6 py-3 rounded-full border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer ${
+                        className={`w-full sm:w-auto px-6 py-3 rounded-xl border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer ${
                           isPlayingSong
                             ? "text-accent-ink bg-accent border-accent"
                             : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent"
@@ -756,7 +756,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       {/* Tombol CTA: Mulai Memainkan Alat Musik di Soundboard */}
                       <Link
                         href={`/instrumen/${selectedInstrument.slug}`}
-                        className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-xs sm:text-[15px] motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-2 min-h-[48px]"
+                        className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-xs sm:text-[15px] motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-2 min-h-[48px]"
                       >
                         <span>Mainkan {selectedInstrument.nama}</span>
                         <span>→</span>

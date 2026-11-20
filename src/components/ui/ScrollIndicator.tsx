@@ -165,7 +165,7 @@ export const ScrollIndicator: React.FC<ScrollIndicatorProps> = ({
       id={id}
       onClick={handleClick}
       aria-label={activeText || "Gulir ke bawah untuk jelajahi"}
-      className={`group flex flex-col items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FBBF24] focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-full p-2.5 hover:bg-white/[0.06] transition-all duration-300 cursor-pointer select-none ${posClass} ${className}`}
+      className={`group flex flex-col items-center justify-center gap-1.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FBBF24] focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-full p-2.5 hover:bg-white/[0.06] transition-colors duration-300 cursor-pointer select-none ${posClass} ${className}`}
     >
       {/* Teks Petunjuk Gulir (Hanya tampil jika ada teks) */}
       {activeText ? (

@@ -763,7 +763,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
   return (
     <div
       ref={panelRef}
-      className={`w-full flex flex-col items-center select-none transition-all ${
+      className={`w-full flex flex-col items-center select-none ${
         isFullscreen
           ? "fixed inset-0 z-50 bg-[#0c0704] p-4 sm:p-8 justify-between overflow-hidden"
           : "space-y-4 py-2 px-1 sm:px-3"
@@ -830,7 +830,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
           type="button"
           onClick={toggleFullscreen}
           title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
-          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
+          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
         >
           {isFullscreen ? (
             <>
@@ -863,7 +863,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(dahItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
+              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "dah"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
@@ -882,7 +882,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(dungItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
+              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "dung"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
@@ -901,7 +901,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(takItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
+              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "tak"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
@@ -920,7 +920,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(tungItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
+              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "tung"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
