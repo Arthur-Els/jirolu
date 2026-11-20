@@ -830,7 +830,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
           type="button"
           onClick={toggleFullscreen}
           title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
-          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors shadow-lg cursor-pointer"
+          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
         >
           {isFullscreen ? (
             <>
@@ -863,9 +863,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(dahItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 ${
+              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
                 activeSoundId === "dah"
-                  ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                  ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
             >
@@ -882,9 +882,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(dungItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 ${
+              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
                 activeSoundId === "dung"
-                  ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                  ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
             >
@@ -901,9 +901,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(takItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 ${
+              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
                 activeSoundId === "tak"
-                  ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                  ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
             >
@@ -920,9 +920,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             <button
               type="button"
               onClick={() => handleStrike(tungItem)}
-              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 ${
+              className={`p-3 rounded-2xl border flex items-center justify-between transition-all cursor-pointer active:scale-95 ${
                 activeSoundId === "tung"
-                  ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                  ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
             >
@@ -934,10 +934,6 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             </button>
           )}
         </div>
-
-        <p className="text-xs text-gading/50 italic text-center">
-          Klik langsung pada kulit kendang 3D atau gunakan tombol deck / keyboard di atas.
-        </p>
       </div>
     </div>
   );

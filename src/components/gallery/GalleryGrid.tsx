@@ -546,7 +546,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             <button
               type="button"
               onClick={scrollToInstrumentTabs}
-              className="shrink-0 px-4 py-2 rounded-full bg-accent hover:bg-accent-2 text-accent-ink text-xs font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer shadow-md"
+              className="shrink-0 px-4 py-2 rounded-full bg-accent hover:bg-accent-2 text-accent-ink text-xs font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer"
             >
               Lihat Detail ↓
             </button>
@@ -725,7 +725,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                         type="button"
                         onClick={handleToggleSongAudio}
                         aria-label={`Putar contoh lagu permainan ${selectedInstrument.nama}`}
-                        className={`w-full sm:w-auto px-6 py-3 rounded-full border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer shadow-lg ${
+                        className={`w-full sm:w-auto px-6 py-3 rounded-full border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer ${
                           isPlayingSong
                             ? "text-accent-ink bg-accent border-accent"
                             : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent"

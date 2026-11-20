@@ -185,7 +185,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
             disabled={isRecordingOrPlaying}
             className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all min-h-[44px] cursor-pointer ${
               activeTab === "bebas"
-                ? "bg-emas text-tinta shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+                ? "bg-emas text-tinta"
                 : "text-gading/70 hover:text-emas hover:bg-arang"
             } ${isRecordingOrPlaying ? "opacity-50 cursor-not-allowed" : ""}`}
           >
@@ -198,7 +198,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
             disabled={isRecordingOrPlaying}
             className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition-all min-h-[44px] cursor-pointer ${
               activeTab === "belajar"
-                ? "bg-emas text-tinta shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+                ? "bg-emas text-tinta"
                 : "text-gading/70 hover:text-emas hover:bg-arang"
             } ${isRecordingOrPlaying ? "opacity-50 cursor-not-allowed" : ""}`}
           >

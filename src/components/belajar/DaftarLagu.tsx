@@ -24,7 +24,7 @@ export const DaftarLagu: React.FC<DaftarLaguProps> = ({ songs, onSelectSong }) =
             key={song.slug}
             type="button"
             onClick={() => onSelectSong(song)}
-            className="group text-left p-4 rounded-xl bg-tinta/80 border border-perunggu/30 hover:border-emas hover:bg-arang/90 transition-all duration-200 cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-emas/50 flex flex-col justify-between gap-3 min-h-[44px]"
+            className="group text-left p-4 rounded-xl bg-tinta/80 border border-perunggu/30 hover:border-emas hover:bg-arang/90 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-emas/50 flex flex-col justify-between gap-3 min-h-[44px]"
           >
             <div className="space-y-1.5">
               <div className="flex items-center justify-between gap-2">

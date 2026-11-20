@@ -62,9 +62,14 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mt-8 border-b border-rule">
         <Link
           href="/#galeri"
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-ink font-medium text-sm min-h-[44px] motion-safe:active:scale-95"
+          className="group inline-flex items-center justify-center gap-2 py-2.5 text-ink/75 hover:text-white font-medium text-sm min-h-[44px] transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="w-4 h-4 transition-transform duration-150 ease-out group-hover:-translate-x-1 group-active:-translate-x-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
           </svg>
           <span>Kembali ke Galeri Pameran</span>
@@ -73,11 +78,11 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         {/* Tautan Alat Musik Berikutnya */}
         <Link
           href={`/instrumen/${nextInstrument.slug}`}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 group min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+          className="group inline-flex items-center justify-center gap-2 py-2.5 text-ink/75 hover:text-white font-medium text-sm min-h-[44px] transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
         >
-          <span>Alat Musik Selanjutnya: <strong>{nextInstrument.nama}</strong></span>
+          <span>Alat Musik Selanjutnya: <strong className="text-ink group-hover:text-white font-semibold transition-colors">{nextInstrument.nama}</strong></span>
           <svg
-            className="w-4 h-4 transition-transform group-hover:translate-x-1"
+            className="w-4 h-4 transition-transform duration-150 ease-out group-hover:translate-x-1 group-active:translate-x-2"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -103,34 +108,7 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
         allInstruments={allInstruments}
       />
 
-      {/* Bar Navigasi Bawah Halaman */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-rule">
-        <Link
-          href="/#galeri"
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>Kembali ke Galeri Pameran</span>
-        </Link>
-
-        {/* Tautan Alat Musik Berikutnya */}
-        <Link
-          href={`/instrumen/${nextInstrument.slug}`}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 group min-h-[44px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
-        >
-          <span>Alat Musik Selanjutnya: <strong>{nextInstrument.nama}</strong></span>
-          <svg
-            className="w-4 h-4 transition-transform group-hover:translate-x-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </Link>
-      </div>
+      {/* Bar Navigasi Bawah Halaman dihapus agar tidak duplikat dengan bar navigasi atas */}
     </div>
   );
 }

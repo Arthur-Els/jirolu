@@ -892,7 +892,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
           type="button"
           onClick={toggleFullscreen}
           title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
-          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors shadow-lg cursor-pointer"
+          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
         >
           {isFullscreen ? (
             <>
@@ -946,9 +946,9 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
                   key={`bonang-deck-r1-${laras}-${item.nada}-${item.key}`}
                   type="button"
                   onClick={() => handleStrike(item)}
-                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 min-h-[64px] sm:min-h-[70px] ${
+                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[70px] ${
                     isActive
-                      ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                      ? "bg-emas text-tinta border-emas scale-102"
                       : isTarget
                       ? "bg-gradient-to-b from-[#dfb962] to-[#805a1d] text-gading border-emas ring-2 ring-emas/80 animate-pulse"
                       : isWrong
@@ -998,9 +998,9 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
                   key={`bonang-deck-r2-${laras}-${item.nada}-${item.key}`}
                   type="button"
                   onClick={() => handleStrike(item)}
-                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 min-h-[64px] sm:min-h-[70px] ${
+                  className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[70px] ${
                     isActive
-                      ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                      ? "bg-emas text-tinta border-emas scale-102"
                       : isTarget
                       ? "bg-gradient-to-b from-[#dfb962] to-[#805a1d] text-gading border-emas ring-2 ring-emas/80 animate-pulse"
                       : isWrong
@@ -1022,10 +1022,6 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
             })}
           </div>
         </div>
-
-        <p className="text-xs text-gading/50 italic text-center">
-          Klik langsung pada pencon 3D atau gunakan tombol deck / keyboard di atas.
-        </p>
       </div>
     </div>
   );

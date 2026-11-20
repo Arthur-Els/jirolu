@@ -214,19 +214,30 @@ export const Soundboard: React.FC<SoundboardProps> = ({
     <div className="w-full bg-arang/90 border border-perunggu/35 rounded-2xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
       {/* 1. Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse" />
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gading">
-              Soundboard Virtual {instrumen.nama}
-            </h2>
-          </div>
-          <p className="text-xs sm:text-sm text-gading/65 mt-1">
-            Sentuh instrumen atau gunakan tombol keyboard komputer untuk memainkan suara tanpa jeda.
-          </p>
+        <div className="flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse" />
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gading">
+            {instrumen.nama}
+          </h2>
+          {instrumen.namaJawa && (
+            <span className="text-sm font-serif italic text-emas-muda hidden sm:inline">
+              ({instrumen.namaJawa})
+            </span>
+          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          {/* Badge Indikator Ringkas jika Rekaman Belum Ada (Mode Synthesizer) */}
+          {!isLoading && !audioFilesAvailable && (
+            <span
+              title="File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-emas/10 border border-emas/30 text-[11px] font-medium text-emas select-none"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emas" />
+              Mode Synthesizer
+            </span>
+          )}
+
           <VolumeControl
             volume={volume}
             isMuted={isMuted}
@@ -268,29 +279,11 @@ export const Soundboard: React.FC<SoundboardProps> = ({
         />
       )}
 
-      {/* Pesan Ramah Ketersediaan Audio Rekaman Asli */}
-      {!isLoading && !audioFilesAvailable && (
-        <div className="flex items-start gap-3 p-4 rounded-xl bg-tinta/80 border border-emas/30 text-xs sm:text-sm text-gading/85">
-          <div className="text-emas mt-0.5 shrink-0">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div className="space-y-1">
-            <p className="font-semibold text-emas">Audio Belum Tersedia (Mode Synthesizer Aktif)</p>
-            <p className="text-gading/70 leading-relaxed text-xs">
-              File rekaman asli <code className="text-emas-muda bg-arang px-1.5 py-0.5 rounded">.webm</code> belum terpasang di folder public.
-              Sistem Jirolu otomatis mensintesis suara nada dan resonansi secara langsung lewat Web Audio API agar kamu tetap bisa bermain.
-            </p>
-          </div>
-        </div>
-      )}
-
       {/* Buka Kunci Audio untuk iOS Safari */}
       {!isAudioUnlocked && (
         <div className="text-center p-3 rounded-lg bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-gading/75">
-            Klik tombol di samping untuk memastikan audio aktif dengan optimal:
+            Klik tombol di samping untuk mengaktifkan audio di peramban:
           </span>
           <Button variant="emas" size="sm" onClick={handleUnlock} className="w-full sm:w-auto">
             Aktifkan Suara Audio

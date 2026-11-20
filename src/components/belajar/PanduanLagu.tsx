@@ -79,8 +79,8 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
                 onClick={isDemoPlaying ? onHentikanDemo : onMulaiDemo}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold tracking-wider motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer min-h-[44px] border ${
                   isDemoPlaying
-                    ? "bg-red-950/80 border-red-500 text-red-200 hover:bg-red-900 shadow-[0_0_15px_rgba(239,68,68,0.4)]"
-                    : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent shadow-sm"
+                    ? "bg-red-950/80 border-red-500 text-red-200 hover:bg-red-900"
+                    : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent"
                 }`}
               >
                 {isDemoPlaying ? (

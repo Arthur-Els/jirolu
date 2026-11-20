@@ -876,7 +876,7 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
           type="button"
           onClick={toggleFullscreen}
           title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
-          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors shadow-lg cursor-pointer"
+          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
         >
           {isFullscreen ? (
             <>
@@ -919,8 +919,8 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
                 key={`saron-deck-${laras}-${item.nada}`}
                 type="button"
                 onClick={() => handleStrike(item)}
-                className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer shadow-md active:scale-95 min-h-[64px] sm:min-h-[72px] ${isActive
-                    ? "bg-emas text-tinta border-emas shadow-[0_0_25px_rgba(212,175,55,0.9)] scale-102"
+                className={`p-2.5 sm:p-3 rounded-xl border flex flex-col items-center justify-between transition-all cursor-pointer active:scale-95 min-h-[64px] sm:min-h-[72px] ${isActive
+                    ? "bg-emas text-tinta border-emas scale-102"
                     : isTarget
                       ? "bg-gradient-to-b from-[#dfb962] to-[#805a1d] text-gading border-emas ring-2 ring-emas/80 animate-pulse"
                       : isWrong
@@ -941,10 +941,6 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
             );
           })}
         </div>
-
-        <p className="text-xs text-gading/50 italic text-center">
-          Klik langsung pada bilah 3D atau gunakan tombol deck / keyboard di atas.
-        </p>
       </div>
     </div>
   );
