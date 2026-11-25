@@ -171,7 +171,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
   return (
     <div className="w-full space-y-4">
       {/* Tab Pilihan Mode: Main Bebas | Belajar Lagu */}
-      <div className="flex items-center justify-between pb-2 border-b border-perunggu/20">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-perunggu/20">
         <div className="inline-flex p-1 rounded-2xl bg-tinta border border-perunggu/35 shadow-inner">
           <button
             type="button"
@@ -183,7 +183,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
               }
             }}
             disabled={isRecordingOrPlaying}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wider transition-colors min-h-[44px] cursor-pointer ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider transition-colors min-h-[42px] sm:min-h-[44px] cursor-pointer ${
               activeTab === "bebas"
                 ? "bg-emas text-tinta"
                 : "text-gading/70 hover:text-emas hover:bg-arang"
@@ -196,7 +196,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
             type="button"
             onClick={handleBukaModeBelajar}
             disabled={isRecordingOrPlaying}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wider transition-colors min-h-[44px] cursor-pointer ${
+            className={`px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider transition-colors min-h-[42px] sm:min-h-[44px] cursor-pointer ${
               activeTab === "belajar"
                 ? "bg-emas text-tinta"
                 : "text-gading/70 hover:text-emas hover:bg-arang"

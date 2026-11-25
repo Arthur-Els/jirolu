@@ -66,14 +66,14 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
         </div>
 
         {/* Tombol Aksi Sesuai Status */}
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           {status === "belum_mulai" && (
             <>
               {/* Tombol Contoh Permainan */}
               <button
                 type="button"
                 onClick={isDemoPlaying ? onHentikanDemo : onMulaiDemo}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold tracking-wider motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer min-h-[44px] border ${
+                className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs font-semibold tracking-wider motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer min-h-[44px] border whitespace-nowrap ${
                   isDemoPlaying
                     ? "bg-red-950/80 border-red-500 text-red-200 hover:bg-red-900"
                     : "bg-paper-2 hover:bg-paper-3 text-ink border-rule hover:border-accent"
@@ -86,7 +86,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
                   </>
                 ) : (
                   <>
-                    <svg className="w-4 h-4 text-emas" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-emas shrink-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                     <span>Contoh Permainan</span>
@@ -101,7 +101,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
                   if (isDemoPlaying) onHentikanDemo?.();
                   onMulai();
                 }}
-                className="min-h-[44px]"
+                className="min-h-[44px] flex-1 sm:flex-initial"
               >
                 Mulai Belajar
               </Button>
@@ -113,7 +113,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
                   if (isDemoPlaying) onHentikanDemo?.();
                   onPilihLaguLain();
                 }}
-                className="min-h-[44px]"
+                className="min-h-[44px] w-full sm:w-auto"
               >
                 Pilih Lagu Lain
               </Button>
@@ -122,10 +122,10 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
 
           {status === "berjalan" && (
             <>
-              <Button variant="arang" size="sm" onClick={onUlangi}>
+              <Button variant="arang" size="sm" onClick={onUlangi} className="flex-1 sm:flex-initial min-h-[42px]">
                 Ulangi
               </Button>
-              <Button variant="merah" size="sm" onClick={onKeluar}>
+              <Button variant="merah" size="sm" onClick={onKeluar} className="flex-1 sm:flex-initial min-h-[42px]">
                 Keluar
               </Button>
             </>

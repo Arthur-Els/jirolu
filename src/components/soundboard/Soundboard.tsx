@@ -210,27 +210,38 @@ export const Soundboard: React.FC<SoundboardProps> = ({
     availableSongs.length > 0;
 
   return (
-    <div className="w-full bg-arang/90 border border-perunggu/35 rounded-3xl p-4 sm:p-8 shadow-2xl backdrop-blur-md space-y-6">
+    <div className="w-full bg-arang/90 border border-perunggu/35 rounded-2xl sm:rounded-3xl p-3 sm:p-8 shadow-2xl backdrop-blur-md space-y-4 sm:space-y-6">
       {/* 1. Header Soundboard: Judul, Kontrol Volume, dan Toggle Laras */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse" />
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-gading">
-            {instrumen.nama}
-          </h2>
-          {instrumen.namaJawa && (
-            <span className="text-sm font-serif italic text-emas-muda hidden sm:inline">
-              ({instrumen.namaJawa})
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse shrink-0" />
+            <h2 className="font-serif text-xl sm:text-3xl font-bold text-gading truncate">
+              {instrumen.nama}
+            </h2>
+            {instrumen.namaJawa && (
+              <span className="text-sm font-serif italic text-emas-muda hidden sm:inline shrink-0">
+                ({instrumen.namaJawa})
+              </span>
+            )}
+          </div>
+          {!isLoading && !audioFilesAvailable && (
+            <span
+              title="File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
+              className="sm:hidden inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emas/10 border border-emas/30 text-[10px] font-medium text-emas select-none shrink-0"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-emas" />
+              Synth
             </span>
           )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-4 w-full lg:w-auto">
           {/* Badge Indikator Ringkas jika Rekaman Belum Ada (Mode Synthesizer) */}
           {!isLoading && !audioFilesAvailable && (
             <span
               title="File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emas/10 border border-emas/30 text-[11px] font-medium text-emas select-none"
+              className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emas/10 border border-emas/30 text-[11px] font-medium text-emas select-none"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emas" />
               Mode Synthesizer
@@ -333,7 +344,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
       {/* GONG */}
       {instrumen.slug === "gong" && (
-        <div className="w-full rounded-2xl bg-gradient-to-b from-[#211409] via-[#140b05] to-[#0a0502] p-4 sm:p-8 border-2 border-[#543b23] shadow-2xl">
+        <div className="w-full rounded-2xl bg-gradient-to-b from-[#211409] via-[#140b05] to-[#0a0502] p-3 sm:p-8 border-2 border-[#543b23] shadow-2xl overflow-hidden">
           <GongPad
             daftarSuara={currentItems as ItemSuara[]}
             activeKeyId={

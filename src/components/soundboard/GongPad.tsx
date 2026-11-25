@@ -52,23 +52,33 @@ export const GongPad: React.FC<GongPadProps> = ({
   );
 
   // Ukuran visual proporsional untuk 3 jenis gong
+  // Mobile: susunan 2+1 (Gong Ageng paling besar di baris atas, Suwukan & Kempul berjajar di baris bawah)
   const ukuranGong: Record<string, { size: string; scale: string }> = {
-    "gong-ageng": { size: "w-44 h-44 sm:w-56 sm:h-56", scale: "order-2 md:order-2" },
-    "gong-suwukan": { size: "w-36 h-36 sm:w-44 sm:h-44", scale: "order-1 md:order-1" },
-    "kempul": { size: "w-28 h-28 sm:w-36 sm:h-36", scale: "order-3 md:order-3" },
+    "gong-ageng": {
+      size: "w-40 h-40 sm:w-56 sm:h-56",
+      scale: "col-span-2 order-1 md:order-2 justify-self-center",
+    },
+    "gong-suwukan": {
+      size: "w-32 h-32 sm:w-44 sm:h-44",
+      scale: "order-2 md:order-1 justify-self-center",
+    },
+    "kempul": {
+      size: "w-28 h-28 sm:w-36 sm:h-36",
+      scale: "order-3 md:order-3 justify-self-center",
+    },
   };
 
   return (
-    <div className="w-full flex flex-col items-center py-6 px-2 space-y-6">
-      <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-10 md:gap-14 w-full">
+    <div className="w-full flex flex-col items-center py-4 sm:py-6 px-1 sm:px-2 space-y-6">
+      <div className="grid grid-cols-2 md:flex md:flex-wrap items-end justify-center gap-x-4 gap-y-6 sm:gap-10 md:gap-14 w-full">
         {daftarSuara.map((gong) => {
-          const config = ukuranGong[gong.id] || { size: "w-36 h-36", scale: "" };
+          const config = ukuranGong[gong.id] || { size: "w-32 h-32 sm:w-36 sm:h-36", scale: "justify-self-center" };
           const isRippling = Boolean(ripples[gong.id]);
 
           return (
             <div
               key={gong.id}
-              className={`flex flex-col items-center gap-3 ${config.scale} select-none`}
+              className={`flex flex-col items-center gap-2.5 sm:gap-3 ${config.scale} select-none`}
             >
               {/* Wadah Gong dengan Efek Gelombang Riak Emas */}
               <div className="relative flex items-center justify-center">
@@ -76,7 +86,7 @@ export const GongPad: React.FC<GongPadProps> = ({
                 {isRippling && (
                   <>
                     <span className="absolute inset-0 rounded-full border-2 border-emas animate-ping opacity-60 pointer-events-none duration-1000" />
-                    <span className="absolute -inset-4 sm:-inset-6 rounded-full border border-emas/40 animate-pulse pointer-events-none" />
+                    <span className="absolute -inset-3 sm:-inset-6 rounded-full border border-emas/40 animate-pulse pointer-events-none" />
                   </>
                 )}
 
@@ -97,23 +107,23 @@ export const GongPad: React.FC<GongPadProps> = ({
 
                   {/* Pencu Tengah (Tonjolan Penabuh Gong) */}
                   <div
-                    className={`w-10 h-10 sm:w-14 sm:h-14 rounded-full border-2 border-[#825c1a] shadow-inner flex items-center justify-center transition-colors pointer-events-none ${
+                    className={`w-9 h-9 sm:w-14 sm:h-14 rounded-full border-2 border-[#825c1a] shadow-inner flex items-center justify-center transition-colors pointer-events-none ${
                       isRippling
                         ? "bg-emas text-tinta"
                         : "bg-gradient-to-br from-emas via-[#916b25] to-[#46310e] text-[#221606]"
                     }`}
                   >
-                    <div className="w-3 h-3 rounded-full bg-tinta/50" />
+                    <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-tinta/50" />
                   </div>
                 </button>
               </div>
 
               {/* Identitas Gong & Tombol Keyboard */}
               <div className="flex flex-col items-center gap-1 text-center">
-                <span className="font-serif text-lg sm:text-xl font-bold text-gading">
+                <span className="font-serif text-base sm:text-xl font-bold text-gading">
                   {gong.nama}
                 </span>
-                <span className="text-[11px] text-gading/60 max-w-[140px] leading-tight">
+                <span className="text-[11px] text-gading/60 max-w-[130px] sm:max-w-[140px] leading-tight">
                   {gong.keterangan.split("(")[0]}
                 </span>
                 <div className="mt-1">
@@ -125,8 +135,11 @@ export const GongPad: React.FC<GongPadProps> = ({
         })}
       </div>
 
-      <p className="text-xs text-gading/50 italic text-center pt-2">
-        Tekan tombol angka <span className="text-emas font-semibold">[1, 2, 3]</span> atau klik langsung untuk mendengarkan dengung gelombang agung gamelan.
+      <p className="text-xs text-gading/50 italic text-center pt-1 sm:pt-2 px-2">
+        <span className="sm:hidden">Ketuk langsung piringan gong untuk mendengarkan dengung gelombang agung gamelan.</span>
+        <span className="hidden sm:inline">
+          Tekan tombol angka <span className="text-emas font-semibold">[1, 2, 3]</span> atau klik langsung untuk mendengarkan dengung gelombang agung gamelan.
+        </span>
       </p>
     </div>
   );

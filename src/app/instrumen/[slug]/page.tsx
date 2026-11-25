@@ -57,12 +57,12 @@ export default async function InstrumentDetailPage({ params }: PageProps) {
   const availableSongs = getSongsByInstrument(slug);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-16 space-y-12">
+    <div className="w-full max-w-6xl mx-auto px-3 sm:px-6 py-8 sm:py-16 space-y-8 sm:space-y-12">
       {/* Bar Navigasi Atas Halaman */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mt-8 border-b border-rule">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 pb-3 sm:pb-4 mt-10 sm:mt-8 border-b border-rule">
         <Link
           href="/#galeri"
-          className="group inline-flex items-center justify-center gap-2 py-2.5 text-ink/75 hover:text-white font-medium text-sm min-h-[44px] transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+          className="group inline-flex items-center justify-start sm:justify-center gap-2 py-2 text-ink/75 hover:text-white font-medium text-xs sm:text-sm min-h-[44px] transition-colors focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
         >
           <svg
             className="w-4 h-4 transition-transform duration-150 ease-out group-hover:-translate-x-1 group-active:-translate-x-2"

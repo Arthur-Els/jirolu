@@ -39,10 +39,8 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
     <div className="w-full pt-4 border-t border-perunggu/25 flex flex-col gap-2.5">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Sisi Kiri: Label & Tombol Aksi */}
-        <div className="flex flex-wrap items-center gap-3">
-          
-
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
             {/* Tombol Rekam */}
             {!isRecording ? (
               <Button
@@ -51,7 +49,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
                 onClick={onMulaiRekam}
                 disabled={isPlaying}
                 aria-label="Mulai Merekam Permainan"
-                className="gap-1.5 h-8 text-xs px-3"
+                className="gap-1.5 h-9 sm:h-8 text-xs px-3 flex-1 sm:flex-initial"
               >
                 <span className="w-2 h-2 rounded-full bg-tinta" />
                 <span>Rekam</span>
@@ -62,7 +60,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
                 size="sm"
                 onClick={onBerhenti}
                 aria-label="Berhenti Merekam"
-                className="gap-1.5 h-8 text-xs px-3 border-red-400 text-red-300 hover:bg-red-900/20"
+                className="gap-1.5 h-9 sm:h-8 text-xs px-3 border-red-400 text-red-300 hover:bg-red-900/20 flex-1 sm:flex-initial"
               >
                 <span className="w-2 h-2 rounded-sm bg-red-400" />
                 <span>Berhenti</span>
@@ -77,7 +75,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
                 onClick={onPutar}
                 disabled={!adaRekaman || isRecording}
                 aria-label="Putar Ulang Permainan"
-                className="gap-1.5 h-8 text-xs px-3"
+                className="gap-1.5 h-9 sm:h-8 text-xs px-3 flex-1 sm:flex-initial"
               >
                 <svg className="w-3.5 h-3.5 fill-current text-emas" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
@@ -90,7 +88,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
                 size="sm"
                 onClick={onBerhenti}
                 aria-label="Berhenti Memutar"
-                className="gap-1.5 h-8 text-xs px-3"
+                className="gap-1.5 h-9 sm:h-8 text-xs px-3 flex-1 sm:flex-initial"
               >
                 <svg className="w-3 h-3 fill-current text-emas" viewBox="0 0 24 24">
                   <path d="M6 6h12v12H6z" />
@@ -106,7 +104,7 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
               onClick={onHapus}
               disabled={!adaRekaman || isRecording || isPlaying}
               aria-label="Hapus Rekaman"
-              className="h-8 text-xs px-2.5 hover:bg-red-500/10 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-500/60"
+              className="h-9 sm:h-8 text-xs px-2.5 hover:bg-red-500/10 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-500/60"
             >
               Hapus
             </Button>

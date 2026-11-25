@@ -16,13 +16,13 @@ export const VolumeControl: React.FC<VolumeControlProps> = ({
   onToggleMute,
 }) => {
   return (
-    <div className="flex items-center gap-2.5 bg-tinta/80 border border-perunggu/30 px-3 py-1.5 rounded-xl shadow-inner">
+    <div className="flex items-center gap-2.5 bg-tinta/80 border border-perunggu/30 px-3 py-1.5 rounded-xl shadow-inner w-full sm:w-auto">
       {/* Tombol Mute / Unmute */}
       <button
         type="button"
         onClick={onToggleMute}
         aria-label={isMuted ? "Nyalakan suara" : "Matikan suara"}
-        className="text-gading/80 hover:text-emas p-1.5 rounded-lg transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer focus:outline-none focus:ring-1 focus:ring-emas"
+        className="text-gading/80 hover:text-emas p-1.5 rounded-lg transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer focus:outline-none focus:ring-1 focus:ring-emas shrink-0"
       >
         {isMuted || volume === 0 ? (
           // Ikon Volume Mute / Bisu
@@ -39,7 +39,7 @@ export const VolumeControl: React.FC<VolumeControlProps> = ({
       </button>
 
       {/* Slider Volume */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 flex-1 sm:flex-initial">
         <input
           type="range"
           min="0"
@@ -48,9 +48,9 @@ export const VolumeControl: React.FC<VolumeControlProps> = ({
           value={isMuted ? 0 : volume}
           onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
           aria-label="Pengatur Volume Suara"
-          className="w-18 sm:w-24 h-1.5 bg-arang rounded-full appearance-none cursor-pointer accent-emas"
+          className="w-full sm:w-24 h-1.5 bg-arang rounded-full appearance-none cursor-pointer accent-emas"
         />
-        <span className="text-[11px] font-mono text-gading/60 w-7 text-right select-none">
+        <span className="text-[11px] font-mono text-gading/60 w-8 text-right select-none shrink-0">
           {isMuted ? "0%" : `${Math.round(volume * 100)}%`}
         </span>
       </div>

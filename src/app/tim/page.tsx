@@ -149,15 +149,15 @@ export default function TimPage() {
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
             href="/instrumen/saron"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-sm motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[46px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
             Mulai Mainkan Saron
           </Link>
           <Link
-            href="/tentang"
-            className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-paper-2 hover:bg-paper-3 text-ink border border-rule hover:border-accent font-medium text-sm motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[46px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+            href="/"
+            className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule font-medium text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
           >
-            Tentang Jirolu
+            Kembali ke Beranda
           </Link>
         </div>
       </div>

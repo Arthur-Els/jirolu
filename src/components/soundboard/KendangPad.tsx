@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ItemSuara } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
+import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
 
 interface KendangPadProps {
   daftarSuara: ItemSuara[];
@@ -85,9 +86,16 @@ export const KendangPad: React.FC<KendangPadProps> = ({
 
     const camera = new THREE.PerspectiveCamera(
       38,
-      container.clientWidth / container.clientHeight,
+      Math.max(container.clientWidth, 1) / Math.max(container.clientHeight, 1),
       0.1,
       100
+    );
+    updateResponsivePerspectiveCamera(
+      camera,
+      container.clientWidth,
+      container.clientHeight,
+      38,
+      1.7
     );
     // Posisi kamera sedikit serong atas-depan agar kedua tebokan & bodi terlihat jelas
     camera.position.set(0.2, 1.4, 3.8);
@@ -721,9 +729,15 @@ export const KendangPad: React.FC<KendangPadProps> = ({
 
     // RESIZE OBSERVER
     const resizeObserver = new ResizeObserver(() => {
-      if (!container) return;
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
+      if (!container || container.clientWidth === 0 || container.clientHeight === 0) return;
+      updateResponsivePerspectiveCamera(
+        camera,
+        container.clientWidth,
+        container.clientHeight,
+        38,
+        1.7
+      );
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(container.clientWidth, container.clientHeight);
     });
     resizeObserver.observe(container);
@@ -765,16 +779,16 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       ref={panelRef}
       className={`w-full flex flex-col items-center select-none ${
         isFullscreen
-          ? "fixed inset-0 z-50 bg-[#0c0704] p-4 sm:p-8 justify-between overflow-hidden"
-          : "space-y-4 py-2 px-1 sm:px-3"
+          ? "fixed inset-0 z-50 bg-[#0c0704] p-3 sm:p-8 justify-between overflow-y-auto sm:overflow-hidden gap-2"
+          : "space-y-3 sm:space-y-4 py-1 sm:py-2 sm:px-3"
       }`}
     >
       {/* ========================================================= */}
       {/* 1. HINT MODE LANDSCAPE (OTOMATIS DI SMARTPHONE)           */}
       {/* ========================================================= */}
       {showLandscapeHint && (
-        <div className="w-full max-w-4xl flex items-center justify-between bg-gradient-to-r from-emas/15 via-arang/90 to-emas/15 border border-emas/30 rounded-xl px-3 py-1.5 text-xs text-gading/85 shadow-sm sm:hidden">
-          <div className="flex items-center gap-2">
+        <div className="w-full max-w-4xl flex items-center justify-between gap-2 bg-gradient-to-r from-emas/15 via-arang/90 to-emas/15 border border-emas/30 rounded-xl px-3 py-1.5 text-[11px] leading-snug text-gading/85 shadow-sm sm:hidden">
+          <div className="flex items-center gap-2 min-w-0">
             <svg
               className="w-4 h-4 text-emas animate-pulse flex-shrink-0"
               fill="none"
@@ -795,7 +809,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
           <button
             type="button"
             onClick={() => setShowLandscapeHint(false)}
-            className="text-gading/60 hover:text-white p-1 text-sm leading-none"
+            className="text-gading/60 hover:text-white p-1 text-sm leading-none shrink-0"
             title="Tutup tips"
           >
             ✕
@@ -808,46 +822,47 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       {/* ========================================================= */}
       <div
         className={`relative w-full rounded-2xl bg-gradient-to-b from-[#1b120a] via-[#110a05] to-[#070402] border border-perunggu/35 shadow-2xl overflow-hidden ${
-          isFullscreen ? "flex-1 my-2" : "h-[380px] sm:h-[440px] md:h-[480px]"
+          isFullscreen ? "flex-1 min-h-[220px] my-1 sm:my-2" : "h-[260px] sm:h-[440px] md:h-[480px]"
         }`}
       >
         {/* Spotlight Ambient Belakang */}
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-3/4 h-64 bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.18)_0%,transparent_70%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
-        {/* Petunjuk Posisi & Orbit */}
-        <div className="absolute top-3 left-4 z-10 pointer-events-none flex items-center gap-2">
-          <span className="text-[11px] font-serif uppercase tracking-widest text-emas font-bold drop-shadow-md">
-            Kendang 3D
-          </span>
-          <span className="hidden sm:inline text-[10px] text-gading/50 italic">
-            &bull; Drag untuk orbit 360°, klik langsung kulit kendang untuk menabuh
-          </span>
-        </div>
+        {/* Header Overlay: Petunjuk Posisi & Tombol Fullscreen */}
+        <div className="absolute top-2.5 inset-x-3 sm:top-3 sm:inset-x-4 z-20 flex items-start justify-between gap-2 pointer-events-none">
+          <div className="flex items-center gap-2 min-w-0 pt-1">
+            <span className="text-[10px] sm:text-[11px] font-serif uppercase tracking-wider sm:tracking-widest text-emas font-bold drop-shadow-md truncate">
+              Kendang 3D
+            </span>
+            <span className="hidden md:inline text-[10px] text-gading/50 italic shrink-0">
+              &bull; Drag untuk orbit 360°, klik langsung kulit kendang untuk menabuh
+            </span>
+          </div>
 
-        {/* Tombol Fullscreen */}
-        <button
-          type="button"
-          onClick={toggleFullscreen}
-          title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
-          className="absolute top-3 right-4 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
-        >
-          {isFullscreen ? (
-            <>
-              <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-              <span className="text-[11px]">Tutup Layar Penuh</span>
-            </>
-          ) : (
-            <>
-              <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
-              </svg>
-              <span className="text-[11px]">Layar Penuh</span>
-            </>
-          )}
-        </button>
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
+            className="pointer-events-auto shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
+          >
+            {isFullscreen ? (
+              <>
+                <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span className="hidden sm:inline text-[11px]">Tutup Layar Penuh</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                </svg>
+                <span className="hidden sm:inline text-[11px]">Layar Penuh</span>
+              </>
+            )}
+          </button>
+        </div>
 
         {/* Kanvas Three.js */}
         <div ref={canvasContainerRef} className="w-full h-full" />
@@ -857,7 +872,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       {/* 3. DEDICATED UI DECK TOMBOL PUKUL (RINGKAS & TEPAT SASARAN)*/}
       {/* ========================================================= */}
       <div className="w-full flex flex-col items-center gap-3">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full">
           {/* Tombol 1: DAH */}
           {dahItem && (
             <button

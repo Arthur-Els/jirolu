@@ -90,7 +90,7 @@ export const Navbar: React.FC = () => {
         {/* Tombol Desktop */}
         <Link
           href="/instrumen/saron"
-          className="hidden md:inline-flex rounded-xl px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-[background-color,color,transform] duration-200 transform active:scale-95 whitespace-nowrap"
+          className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-[background-color,color,transform] duration-200 transform active:scale-95 whitespace-nowrap"
         >
           Mulai Bermain
         </Link>
@@ -138,7 +138,7 @@ export const Navbar: React.FC = () => {
             <Link
               href="/instrumen/saron"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-center w-full py-3 rounded-xl bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold"
+              className="block text-center w-full py-3 rounded-full bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold"
             >
               Mulai Bermain
             </Link>
