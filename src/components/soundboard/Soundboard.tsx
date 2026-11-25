@@ -90,6 +90,13 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 
   const isRecordingOrPlaying = isRecording || isPlaying;
 
+  // Pengenal unik item untuk rekaman & playback (membedakan baris atas vs baris bawah pada Bonang)
+  const getRecordId = useCallback((item: AudioTarget): string => {
+    if ("id" in item) return (item as ItemSuara).id;
+    const nadaItem = item as Nada;
+    return nadaItem.baris !== undefined ? `${nadaItem.baris}:${nadaItem.nada}` : nadaItem.nada;
+  }, []);
+
   // Fungsi sentral saat nada/suara ditekan
   const triggerPlay = useCallback(
     (item: AudioTarget) => {
@@ -100,9 +107,9 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       const itemId = "id" in item ? (item as ItemSuara).id : (item as Nada).nada;
       const itemBaris = "baris" in item ? (item as Nada).baris : undefined;
 
-      // 2. Catat ketukan jika sedang merekam
+      // 2. Catat ketukan jika sedang merekam (pakai ID unik per baris untuk Bonang)
       if (isRecording) {
-        catatKetukan(itemId);
+        catatKetukan(getRecordId(item));
       }
 
       // 3. Masukan ke mode belajar jika sedang aktif & berjalan
@@ -123,21 +130,18 @@ export const Soundboard: React.FC<SoundboardProps> = ({
         externalOnNadaDitekan(itemId);
       }
     },
-    [playItem, isRecording, catatKetukan, externalOnNadaDitekan, targetNoteHighlight]
+    [playItem, isRecording, catatKetukan, getRecordId, externalOnNadaDitekan, targetNoteHighlight]
   );
 
   // Mainkan item berdasarkan ID (digunakan saat putar rekaman)
   const handlePlayById = useCallback(
     (id: string) => {
-      const target = currentItems.find((item) => {
-        if ("id" in item) return (item as ItemSuara).id === id;
-        return (item as Nada).nada === id;
-      });
+      const target = currentItems.find((item) => getRecordId(item) === id);
       if (target) {
         playItem(target);
       }
     },
-    [currentItems, playItem]
+    [currentItems, getRecordId, playItem]
   );
 
   // Mainkan nada otomatis untuk contoh permainan lagu (dengan efek visual 3D & getar)
@@ -333,7 +337,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
             demoActiveKey ||
             activeKey ||
             (activePlayingId
-              ? (currentItems as Nada[]).find((item) => item.nada === activePlayingId)?.key
+              ? (currentItems as Nada[]).find((item) => getRecordId(item) === activePlayingId)?.key
               : null)
           }
           targetLearnNote={targetNoteHighlight}

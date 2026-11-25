@@ -93,8 +93,15 @@ export function useRekaman() {
       rekamanData.forEach((item) => {
         const t = setTimeout(() => {
           onTriggerItem(item.id);
-          setActivePlayingId(item.id);
-          setTimeout(() => setActivePlayingId(null), 180);
+          // Reset singkat ke null agar ketukan berulang pada nada yang sama tetap memicu animasi 3D
+          setActivePlayingId(null);
+          const tShow = setTimeout(() => {
+            setActivePlayingId(item.id);
+          }, 12);
+          const tClear = setTimeout(() => {
+            setActivePlayingId((prev) => (prev === item.id ? null : prev));
+          }, 190);
+          playbackTimeoutsRef.current.push(tShow, tClear);
         }, item.waktu);
         playbackTimeoutsRef.current.push(t);
       });
