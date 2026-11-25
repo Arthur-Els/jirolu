@@ -7,7 +7,7 @@ interface PanelRekamanProps {
   isRecording: boolean;
   isPlaying: boolean;
   adaRekaman: boolean;
-  jumlahKetukan: number;
+  jumlahKetukan?: number;
   durasiDetik: number;
   pesanInfo: string | null;
   onMulaiRekam: () => void;
@@ -20,7 +20,6 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
   isRecording,
   isPlaying,
   adaRekaman,
-  jumlahKetukan,
   durasiDetik,
   pesanInfo,
   onMulaiRekam,
@@ -112,27 +111,25 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
         </div>
 
         {/* Sisi Kanan: Status & Indikator Timer */}
-        <div className="flex items-center gap-3 text-xs">
-          {isRecording ? (
-            <span className="inline-flex items-center gap-2 text-red-400 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-full font-mono text-xs">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              Merekam ({formatTimer(durasiDetik)} / 01:00)
-            </span>
-          ) : isPlaying ? (
-            <span className="inline-flex items-center gap-2 text-emas bg-tinta border border-emas/30 px-2.5 py-1 rounded-full font-mono text-xs">
-              <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
-              Memutar Ulang
-            </span>
-          ) : adaRekaman ? (
-            <span className="text-gading/80 bg-tinta/60 px-2.5 py-1 rounded-lg border border-perunggu/30 font-mono text-xs">
-              Tersimpan: {jumlahKetukan} ketukan
-            </span>
-          ) : (
-            <span className="text-gading/40 italic text-xs">
-              *Maksimal 60 detik rekaman
-            </span>
-          )}
-        </div>
+        {(isRecording || isPlaying || !adaRekaman) && (
+          <div className="flex items-center gap-3 text-xs">
+            {isRecording ? (
+              <span className="inline-flex items-center gap-2 text-red-400 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-full font-mono text-xs">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                Merekam ({formatTimer(durasiDetik)} / 01:00)
+              </span>
+            ) : isPlaying ? (
+              <span className="inline-flex items-center gap-2 text-emas bg-tinta border border-emas/30 px-2.5 py-1 rounded-full font-mono text-xs">
+                <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
+                Memutar Ulang
+              </span>
+            ) : (
+              <span className="text-gading/40 italic text-xs">
+                *Maksimal 60 detik rekaman
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Pesan Ramah Batas Waktu */}
