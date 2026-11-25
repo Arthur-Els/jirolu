@@ -873,12 +873,12 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       {/* ========================================================= */}
       <div className="w-full flex flex-col items-center gap-3">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 w-full">
-          {/* Tombol 1: DAH */}
+          {/* Tombol 1: DAH (Tebokan Kiri - Kolom Kiri Atas di Mobile) */}
           {dahItem && (
             <button
               type="button"
               onClick={() => handleStrike(dahItem)}
-              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
+              className={`col-start-1 row-start-1 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "dah"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
@@ -892,12 +892,12 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             </button>
           )}
 
-          {/* Tombol 2: DUNG */}
+          {/* Tombol 2: DUNG (Tebokan Kiri - Kolom Kiri Bawah di Mobile) */}
           {dungItem && (
             <button
               type="button"
               onClick={() => handleStrike(dungItem)}
-              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
+              className={`col-start-1 row-start-2 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "dung"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
@@ -911,12 +911,12 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             </button>
           )}
 
-          {/* Tombol 3: TAK */}
+          {/* Tombol 3: TAK (Tebokan Kanan - Kolom Kanan Atas di Mobile) */}
           {takItem && (
             <button
               type="button"
               onClick={() => handleStrike(takItem)}
-              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
+              className={`col-start-2 row-start-1 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "tak"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
@@ -930,12 +930,12 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             </button>
           )}
 
-          {/* Tombol 4: TUNG */}
+          {/* Tombol 4: TUNG (Tebokan Kanan - Kolom Kanan Bawah di Mobile) */}
           {tungItem && (
             <button
               type="button"
               onClick={() => handleStrike(tungItem)}
-              className={`p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
+              className={`col-start-2 row-start-2 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
                 activeSoundId === "tung"
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"

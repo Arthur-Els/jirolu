@@ -342,20 +342,18 @@ export const Soundboard: React.FC<SoundboardProps> = ({
         />
       )}
 
-      {/* GONG */}
+      {/* GONG 3D */}
       {instrumen.slug === "gong" && (
-        <div className="w-full rounded-2xl bg-gradient-to-b from-[#211409] via-[#140b05] to-[#0a0502] p-3 sm:p-8 border-2 border-[#543b23] shadow-2xl overflow-hidden">
-          <GongPad
-            daftarSuara={currentItems as ItemSuara[]}
-            activeKeyId={
-              activePlayingId ||
-              (currentItems as ItemSuara[]).find(
-                (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
-              )?.id
-            }
-            onPlay={(item) => triggerPlay(item)}
-          />
-        </div>
+        <GongPad
+          daftarSuara={currentItems as ItemSuara[]}
+          activeKeyId={
+            activePlayingId ||
+            (currentItems as ItemSuara[]).find(
+              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
+            )?.id
+          }
+          onPlay={(item) => triggerPlay(item)}
+        />
       )}
 
       {/* KENDANG */}
