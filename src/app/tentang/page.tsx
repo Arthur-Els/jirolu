@@ -151,6 +151,10 @@ export default function TentangPage() {
                   className="text-accent hover:text-accent-2 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
                 >
                   Freesound.org
+                  https://www.youtube.com/watch?v=lvlemJk0SxQ (bonang)
+                  https://www.youtube.com/watch?v=PRUnAA8gxK8 (saron)
+                  https://www.youtube.com/watch?v=OM347CwgNTE (kendang)
+                  https://www.youtube.com/watch?v=iut_hK_Xdlg (gong)
                 </a>
                 .
               </p>
