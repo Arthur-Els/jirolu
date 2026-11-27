@@ -6,11 +6,17 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Nada, Laras } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import {
+  PadStrikeEvent,
+  useActiveFlashIds,
+  useStrikeQueueEffect,
+} from "@/lib/audio/useActiveFlashIds";
 
 interface Bonang3DPadProps {
   laras: Laras;
   daftarNada: Nada[];
   activeKeyId?: string | null;
+  strikeQueue?: PadStrikeEvent[];
   targetLearnNote?: string | null;
   wrongFeedbackNote?: string | null;
   onPlay: (nada: Nada) => void;
@@ -191,6 +197,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
   laras,
   daftarNada,
   activeKeyId,
+  strikeQueue,
   targetLearnNote,
   wrongFeedbackNote,
   onPlay,
@@ -198,7 +205,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
-  const [activeKeyString, setActiveKeyString] = useState<string | null>(null);
+  const { activeIds, flashId } = useActiveFlashIds(180);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLandscapeHint, setShowLandscapeHint] = useState(true);
 
@@ -232,6 +239,10 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
       trigger3DVisualRef.current(activeKeyId.toLowerCase());
     }
   }, [activeKeyId]);
+
+  useStrikeQueueEffect(strikeQueue, (id) => {
+    trigger3DVisualRef.current?.(id.toLowerCase());
+  });
 
   // Pantau status fullscreen
   useEffect(() => {
@@ -634,8 +645,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
     // =========================================================================
     const triggerVisualStrike = (targetKeyOrSymbol: string) => {
       const searchKey = targetKeyOrSymbol.toLowerCase();
-      setActiveKeyString(searchKey);
-      setTimeout(() => setActiveKeyString(null), 180);
+      flashId(searchKey);
 
       // Cari berdasarkan key shortcut (karena nada bisa sama antara baris 1 dan baris 2)
       const target =
@@ -824,7 +834,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
       woodTexture.dispose();
       carvingTexture.dispose();
     };
-  }, [laras]);
+  }, [laras, flashId]);
 
   const handleStrike = (item: Nada) => {
     if (trigger3DVisualRef.current) {
@@ -954,7 +964,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
             {row1Items.map((item) => {
               const isTarget = targetLearnNote === item.nada && item.baris === 2;
               const isWrong = wrongFeedbackNote === item.nada;
-              const isActive = activeKeyString === item.key.toLowerCase();
+              const isActive = activeIds.has(item.key.toLowerCase());
               const shortLabel = item.label.replace(" (tinggi)", "");
 
               return (
@@ -1009,7 +1019,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
             {row2Items.map((item) => {
               const isTarget = targetLearnNote === item.nada && (item.baris === 2 || !item.baris);
               const isWrong = wrongFeedbackNote === item.nada;
-              const isActive = activeKeyString === item.key.toLowerCase();
+              const isActive = activeIds.has(item.key.toLowerCase());
               const shortLabel = item.label.replace(" (tinggi)", "");
 
               return (

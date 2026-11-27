@@ -6,22 +6,29 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ItemSuara } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import {
+  PadStrikeEvent,
+  useActiveFlashIds,
+  useStrikeQueueEffect,
+} from "@/lib/audio/useActiveFlashIds";
 
 interface KendangPadProps {
   daftarSuara: ItemSuara[];
   activeKeyId?: string | null;
+  strikeQueue?: PadStrikeEvent[];
   onPlay: (item: ItemSuara) => void;
 }
 
 export const KendangPad: React.FC<KendangPadProps> = ({
   daftarSuara,
   activeKeyId,
+  strikeQueue,
   onPlay,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
-  const [activeSoundId, setActiveSoundId] = useState<string | null>(null);
+  const { activeIds, flashId } = useActiveFlashIds(180);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLandscapeHint, setShowLandscapeHint] = useState(true);
 
@@ -49,6 +56,10 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       trigger3DVisualRef.current(activeKeyId);
     }
   }, [activeKeyId]);
+
+  useStrikeQueueEffect(strikeQueue, (id) => {
+    trigger3DVisualRef.current?.(id);
+  });
 
   // Pantau status fullscreen
   useEffect(() => {
@@ -580,8 +591,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
     let rippleKempyangTime = 0;
 
     const trigger3DVisual = (soundId: string) => {
-      setActiveSoundId(soundId);
-      setTimeout(() => setActiveSoundId(null), 180);
+      flashId(soundId);
 
       if (soundId === "dah" || soundId === "dung") {
         vibeBem.intensity = soundId === "dah" ? 0.075 : 0.052;
@@ -761,7 +771,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
       leatherBemTexture.dispose();
       leatherKempyangTexture.dispose();
     };
-  }, []); // Empty dependency array: tidak pernah ter-reset saat bermain!
+  }, [flashId]); // Tidak pernah ter-reset saat bermain!
 
   const dahItem = getSuaraById("dah");
   const dungItem = getSuaraById("dung");
@@ -880,7 +890,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
               type="button"
               onClick={() => handleStrike(dahItem)}
               className={`col-start-1 row-start-1 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
-                activeSoundId === "dah"
+                activeIds.has("dah")
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
@@ -899,7 +909,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
               type="button"
               onClick={() => handleStrike(dungItem)}
               className={`col-start-1 row-start-2 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
-                activeSoundId === "dung"
+                activeIds.has("dung")
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
@@ -918,7 +928,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
               type="button"
               onClick={() => handleStrike(takItem)}
               className={`col-start-2 row-start-1 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
-                activeSoundId === "tak"
+                activeIds.has("tak")
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}
@@ -937,7 +947,7 @@ export const KendangPad: React.FC<KendangPadProps> = ({
               type="button"
               onClick={() => handleStrike(tungItem)}
               className={`col-start-2 row-start-2 sm:col-start-auto sm:row-start-auto p-3 rounded-xl border flex items-center justify-between transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 ${
-                activeSoundId === "tung"
+                activeIds.has("tung")
                   ? "bg-emas text-tinta border-emas scale-102"
                   : "bg-gradient-to-b from-[#2b190f] to-[#170e08] border-perunggu/35 text-gading hover:border-emas/50 hover:bg-[#341f13]"
               }`}

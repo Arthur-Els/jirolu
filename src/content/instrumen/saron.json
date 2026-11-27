@@ -87,14 +87,14 @@
         "nada": "5",
         "label": "mo",
         "audio": "/audio/saron/slendro/5.webm",
-        "key": "5",
+        "key": "4",
         "frekuensi": 405
       },
       {
         "nada": "6",
         "label": "nem",
         "audio": "/audio/saron/slendro/6.webm",
-        "key": "6",
+        "key": "5",
         "frekuensi": 455
       }
     ]

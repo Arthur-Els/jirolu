@@ -247,8 +247,11 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
                 hentikanDemo();
                 ulangi();
               }}
+              onKembali={() => {
+                hentikanDemo();
+                keluar();
+              }}
               onKeluar={handleKeluarMode}
-              onPilihLaguLain={handlePilihLaguLain}
               isDemoPlaying={isDemoPlaying}
               demoStepIndex={demoStepIndex}
               onMulaiDemo={mulaiDemo}

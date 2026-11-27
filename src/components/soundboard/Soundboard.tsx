@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo, useRef } from "react"
 import { Instrumen, Laras, Nada, ItemSuara } from "@/types/instrumen";
 import { Lagu } from "@/types/lagu";
 import { useAudioBuffers, AudioTarget } from "@/lib/audio/useAudioBuffers";
+import { PadStrikeEvent } from "@/lib/audio/useActiveFlashIds";
 import { useRekaman } from "@/lib/rekam/useRekaman";
 import { Saron3DPad } from "./Saron3DPad";
 import { Bonang3DPad } from "./Bonang3DPad";
@@ -30,7 +31,8 @@ export const Soundboard: React.FC<SoundboardProps> = ({
 }) => {
   // 1. State laras biasa tanpa localStorage
   const [laras, setLaras] = useState<Laras>(instrumen.larasDefault || "pelog");
-  const [activeKey, setActiveKey] = useState<string | null>(null);
+  const [strikeQueue, setStrikeQueue] = useState<PadStrikeEvent[]>([]);
+  const strikeSeqRef = useRef(0);
 
   // Status apakah Mode Belajar sedang aktif
   const [isLearnModeActive, setIsLearnModeActive] = useState<boolean>(false);
@@ -174,7 +176,24 @@ export const Soundboard: React.FC<SoundboardProps> = ({
     [currentItems, playItem]
   );
 
-  // Tangani masukan keyboard komputer
+  // Pengenal target visual untuk tiap pad (Bonang pakai key karena nada baris 1 & 2 sama)
+  const resolvePadTargetId = useCallback(
+    (item: AudioTarget): string => {
+      if ("id" in item) return (item as ItemSuara).id;
+      const nadaItem = item as Nada;
+      return instrumen.slug === "bonang"
+        ? nadaItem.key.toLowerCase()
+        : nadaItem.nada;
+    },
+    [instrumen.slug]
+  );
+
+  const enqueuePadStrike = useCallback((id: string) => {
+    const seq = ++strikeSeqRef.current;
+    setStrikeQueue((prev) => [...prev.slice(-15), { id, seq }]);
+  }, []);
+
+  // Tangani masukan keyboard komputer (mendukung beberapa tuts bersamaan)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -190,14 +209,13 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       const matched = currentItems.find((item) => item.key.toLowerCase() === pressed);
       if (matched) {
         triggerPlay(matched);
-        setActiveKey(matched.key);
-        setTimeout(() => setActiveKey(null), 180);
+        enqueuePadStrike(resolvePadTargetId(matched));
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentItems, triggerPlay]);
+  }, [currentItems, triggerPlay, enqueuePadStrike, resolvePadTargetId]);
 
   // Pergantian laras dengan penghentian suara halus
   const handleLarasChange = useCallback(
@@ -318,10 +336,9 @@ export const Soundboard: React.FC<SoundboardProps> = ({
                 (item) => item.key.toLowerCase() === demoActiveKey.toLowerCase()
               )?.nada) ||
             activePlayingId ||
-            (currentItems as Nada[]).find(
-              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
-            )?.nada
+            null
           }
+          strikeQueue={strikeQueue}
           targetLearnNote={targetNoteHighlight}
           wrongFeedbackNote={wrongFeedbackNote}
           onPlay={(item) => triggerPlay(item)}
@@ -335,11 +352,11 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           daftarNada={currentItems as Nada[]}
           activeKeyId={
             demoActiveKey ||
-            activeKey ||
             (activePlayingId
               ? (currentItems as Nada[]).find((item) => getRecordId(item) === activePlayingId)?.key
               : null)
           }
+          strikeQueue={strikeQueue}
           targetLearnNote={targetNoteHighlight}
           wrongFeedbackNote={wrongFeedbackNote}
           onPlay={(item) => triggerPlay(item)}
@@ -350,12 +367,8 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {instrumen.slug === "gong" && (
         <GongPad
           daftarSuara={currentItems as ItemSuara[]}
-          activeKeyId={
-            activePlayingId ||
-            (currentItems as ItemSuara[]).find(
-              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
-            )?.id
-          }
+          activeKeyId={activePlayingId || null}
+          strikeQueue={strikeQueue}
           onPlay={(item) => triggerPlay(item)}
         />
       )}
@@ -364,12 +377,8 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {instrumen.slug === "kendang" && (
         <KendangPad
           daftarSuara={currentItems as ItemSuara[]}
-          activeKeyId={
-            activePlayingId ||
-            (currentItems as ItemSuara[]).find(
-              (item) => item.key.toLowerCase() === activeKey?.toLowerCase()
-            )?.id
-          }
+          activeKeyId={activePlayingId || null}
+          strikeQueue={strikeQueue}
           onPlay={(item) => triggerPlay(item)}
         />
       )}

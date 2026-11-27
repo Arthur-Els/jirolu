@@ -15,8 +15,8 @@ interface PanduanLaguProps {
   larasAutoChanged?: boolean;
   onMulai: () => void;
   onUlangi: () => void;
+  onKembali: () => void;
   onKeluar: () => void;
-  onPilihLaguLain: () => void;
   // Fitur Contoh Permainan
   isDemoPlaying?: boolean;
   demoStepIndex?: number | null;
@@ -31,17 +31,17 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
   larasAutoChanged,
   onMulai,
   onUlangi,
+  onKembali,
   onKeluar,
-  onPilihLaguLain,
   isDemoPlaying = false,
   onMulaiDemo,
   onHentikanDemo,
 }) => {
   return (
-    <div className="p-4 sm:p-5 rounded-2xl bg-tinta/80 border border-emas/40 shadow-xl space-y-4">
+    <div className="py-1 pb-4 border-b border-perunggu/20 space-y-4">
       {/* Pesan Otomatis Ganti Laras */}
       {larasAutoChanged && (
-        <div className="p-2.5 rounded-xl bg-emas/10 border border-emas/30 text-xs text-emas-muda flex items-center gap-2">
+        <div className="py-1 text-xs text-emas-muda flex items-center gap-2">
           <svg className="w-4 h-4 shrink-0 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -105,18 +105,6 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
               >
                 Mulai Belajar
               </Button>
-
-              <Button
-                variant="arang"
-                size="sm"
-                onClick={() => {
-                  if (isDemoPlaying) onHentikanDemo?.();
-                  onPilihLaguLain();
-                }}
-                className="min-h-[44px] w-full sm:w-auto"
-              >
-                Pilih Lagu Lain
-              </Button>
             </>
           )}
 
@@ -125,8 +113,8 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
               <Button variant="arang" size="sm" onClick={onUlangi} className="flex-1 sm:flex-initial min-h-[42px]">
                 Ulangi
               </Button>
-              <Button variant="merah" size="sm" onClick={onKeluar} className="flex-1 sm:flex-initial min-h-[42px]">
-                Keluar
+              <Button variant="garis" size="sm" onClick={onKembali} className="flex-1 sm:flex-initial min-h-[42px]">
+                Kembali
               </Button>
             </>
           )}
@@ -172,7 +160,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
 
       {/* Kondisi 3: Selesai */}
       {status === "selesai" && (
-        <div className="p-6 rounded-xl bg-arang border border-emas/50 text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
+        <div className="py-5 text-center space-y-4 animate-in fade-in zoom-in-95 duration-200">
           <div className="w-12 h-12 rounded-full bg-emas/20 border border-emas mx-auto flex items-center justify-center text-emas">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -192,9 +180,6 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <Button variant="emas" size="md" onClick={onUlangi}>
               Main Lagi
-            </Button>
-            <Button variant="arang" size="md" onClick={onPilihLaguLain}>
-              Pilih Lagu Lain
             </Button>
             <Button variant="garis" size="md" onClick={onKeluar}>
               Kembali ke Main Bebas

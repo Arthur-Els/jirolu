@@ -6,10 +6,16 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ItemSuara } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import {
+  PadStrikeEvent,
+  useActiveFlashIds,
+  useStrikeQueueEffect,
+} from "@/lib/audio/useActiveFlashIds";
 
 interface GongPadProps {
   daftarSuara: ItemSuara[];
   activeKeyId?: string | null;
+  strikeQueue?: PadStrikeEvent[];
   onPlay: (item: ItemSuara) => void;
 }
 
@@ -203,12 +209,13 @@ interface GongVisualState {
 export const GongPad: React.FC<GongPadProps> = ({
   daftarSuara,
   activeKeyId,
+  strikeQueue,
   onPlay,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
-  const [activeSoundId, setActiveSoundId] = useState<string | null>(null);
+  const { activeIds, flashId } = useActiveFlashIds(180);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLandscapeHint, setShowLandscapeHint] = useState(true);
 
@@ -236,6 +243,10 @@ export const GongPad: React.FC<GongPadProps> = ({
       trigger3DVisualRef.current(activeKeyId);
     }
   }, [activeKeyId]);
+
+  useStrikeQueueEffect(strikeQueue, (id) => {
+    trigger3DVisualRef.current?.(id);
+  });
 
   // Pantau status fullscreen
   useEffect(() => {
@@ -609,10 +620,7 @@ export const GongPad: React.FC<GongPadProps> = ({
     // PEMICU ANIMASI PUKULAN GONG 3D
     // =========================================================================
     const trigger3DVisual = (soundId: string) => {
-      setActiveSoundId(soundId);
-      setTimeout(() => {
-        setActiveSoundId((prev) => (prev === soundId ? null : prev));
-      }, 420);
+      flashId(soundId);
 
       const state = gongStates[soundId];
       if (state) {
@@ -769,7 +777,7 @@ export const GongPad: React.FC<GongPadProps> = ({
       woodTexture.dispose();
       carvingTexture.dispose();
     };
-  }, []);
+  }, [flashId]);
 
   // Urutan tombol kiri-ke-kanan selaras dengan gantungannya di Gayor 3D
   const suwukanItem = getSuaraById("gong-suwukan");
@@ -886,7 +894,7 @@ export const GongPad: React.FC<GongPadProps> = ({
       <div className="w-full flex flex-col items-center gap-2.5">
         <div className="grid grid-cols-3 gap-2 sm:gap-4 w-full">
           {orderedItems.map((gong) => {
-            const isActive = activeSoundId === gong.id;
+            const isActive = activeIds.has(gong.id.toLowerCase());
             const subtitle =
               gong.id === "gong-ageng"
                 ? "Nada Terdalam"

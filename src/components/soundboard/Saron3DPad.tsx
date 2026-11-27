@@ -6,11 +6,17 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Nada, Laras } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import {
+  PadStrikeEvent,
+  useActiveFlashIds,
+  useStrikeQueueEffect,
+} from "@/lib/audio/useActiveFlashIds";
 
 interface Saron3DPadProps {
   laras: Laras;
   daftarNada: Nada[];
   activeKeyId?: string | null;
+  strikeQueue?: PadStrikeEvent[];
   targetLearnNote?: string | null;
   wrongFeedbackNote?: string | null;
   onPlay: (nada: Nada) => void;
@@ -163,6 +169,7 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
   laras,
   daftarNada,
   activeKeyId,
+  strikeQueue,
   targetLearnNote,
   wrongFeedbackNote,
   onPlay,
@@ -170,7 +177,7 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
-  const [activeSoundSymbol, setActiveSoundSymbol] = useState<string | null>(null);
+  const { activeIds, flashId } = useActiveFlashIds(180);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showLandscapeHint, setShowLandscapeHint] = useState(true);
 
@@ -204,6 +211,10 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
       trigger3DVisualRef.current(activeKeyId);
     }
   }, [activeKeyId]);
+
+  useStrikeQueueEffect(strikeQueue, (id) => {
+    trigger3DVisualRef.current?.(id);
+  });
 
   // Pantau status fullscreen
   useEffect(() => {
@@ -627,8 +638,7 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
     // 9. LOGIKA VISUAL KETUKAN: KILATAN EMAS, GETARAN & GELOMBANG KUNING
     // =========================================================================
     const triggerVisualStrike = (symbol: string) => {
-      setActiveSoundSymbol(symbol);
-      setTimeout(() => setActiveSoundSymbol(null), 180);
+      flashId(symbol);
 
       const target = bilahRecords.find((b) => b.nadaSymbol === symbol);
       if (!target) return;
@@ -813,7 +823,7 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
       woodTexture.dispose();
       carvingTexture.dispose();
     };
-  }, [laras]); // Rebuild bersih saat laras berubah (Pelog 7 nada <-> Slendro 5 nada)
+  }, [laras, flashId]); // Rebuild bersih saat laras berubah (Pelog 7 nada <-> Slendro 5 nada)
 
   const handleStrike = (item: Nada) => {
     if (trigger3DVisualRef.current) {
@@ -927,7 +937,7 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
           {daftarNada.map((item) => {
             const isTarget = targetLearnNote === item.nada;
             const isWrong = wrongFeedbackNote === item.nada;
-            const isActive = activeSoundSymbol === item.nada;
+            const isActive = activeIds.has(item.nada.toLowerCase());
 
             return (
               <button
