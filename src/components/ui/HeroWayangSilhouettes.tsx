@@ -52,18 +52,25 @@ const DraggableWayang: React.FC<DraggableWayangProps> = ({
   constraintsRef,
   bottomFadeMaskStyle,
 }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
 
-  // Efek miring halus mengikuti arah tarikan ala dalang saat digeser di PC
-  const xVelocity = useVelocity(x);
-  const rawTilt = useTransform(xVelocity, [-1200, 0, 1200], [-8, 0, 8]);
-  const smoothTilt = useSpring(rawTilt, { stiffness: 240, damping: 22 });
+  // Spring berbobot agar wayang terasa punya massa saat ditarik di belakang kursor
+  const weightedSpring = { mass: 1.6, stiffness: 220, damping: 34 };
+  const smoothX = useSpring(rawX, weightedSpring);
+  const smoothY = useSpring(rawY, weightedSpring);
+  const lagX = useTransform([smoothX, rawX], ([sx, rx]) => (sx as number) - (rx as number));
+  const lagY = useTransform([smoothY, rawY], ([sy, ry]) => (sy as number) - (ry as number));
+
+  // Efek miring lebih pelan dan mantap mengikuti kecepatan gerak berbobot
+  const xVelocity = useVelocity(smoothX);
+  const rawTilt = useTransform(xVelocity, [-1200, 0, 1200], [-6.5, 0, 6.5]);
+  const smoothTilt = useSpring(rawTilt, { mass: 1.4, stiffness: 150, damping: 24 });
 
   const handleResetPosition = () => {
     if (!isDesktop) return;
-    animate(x, 0, { type: "spring", stiffness: 220, damping: 24 });
-    animate(y, 0, { type: "spring", stiffness: 220, damping: 24 });
+    animate(rawX, 0, { type: "spring", stiffness: 190, damping: 28 });
+    animate(rawY, 0, { type: "spring", stiffness: 190, damping: 28 });
   };
 
   return (
@@ -71,16 +78,16 @@ const DraggableWayang: React.FC<DraggableWayangProps> = ({
       drag={isDesktop}
       dragConstraints={constraintsRef}
       dragElastic={0.06}
-      dragMomentum={false}
-      whileDrag={isDesktop ? { scale: 1.02 } : undefined}
+      dragMomentum={true}
+      dragTransition={{
+        power: 0.14,
+        timeConstant: 190,
+        bounceStiffness: 240,
+        bounceDamping: 32,
+      }}
       onDoubleClick={handleResetPosition}
       title={isDesktop ? "Geser wayang (klik dua kali untuk reset)" : undefined}
-      style={{
-        x,
-        y,
-        rotate: isDesktop && !shouldReduceMotion ? smoothTilt : 0,
-        transformOrigin: "bottom center",
-      }}
+      style={{ x: rawX, y: rawY }}
       className={`${positionClassName} ${
         isDesktop
           ? "pointer-events-auto cursor-grab active:cursor-grabbing touch-none"
@@ -88,25 +95,35 @@ const DraggableWayang: React.FC<DraggableWayangProps> = ({
       }`}
     >
       <motion.div
-        initial={{ opacity: 0, y: 90 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 1.4,
-          ease: [0.22, 1, 0.36, 1],
-          delay,
+        style={{
+          x: isDesktop && !shouldReduceMotion ? lagX : 0,
+          y: isDesktop && !shouldReduceMotion ? lagY : 0,
+          rotate: isDesktop && !shouldReduceMotion ? smoothTilt : 0,
+          transformOrigin: "bottom center",
         }}
-        className="relative w-full h-full"
-        style={bottomFadeMaskStyle}
+        className="w-full h-full"
       >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          priority
-          draggable={false}
-          sizes={sizes}
-          className="object-contain object-bottom brightness-0 opacity-30 sm:opacity-50 md:opacity-60 transition-opacity duration-300"
-        />
+        <motion.div
+          initial={{ opacity: 0, y: 90 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1.4,
+            ease: [0.22, 1, 0.36, 1],
+            delay,
+          }}
+          className="relative w-full h-full"
+          style={bottomFadeMaskStyle}
+        >
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            priority
+            draggable={false}
+            sizes={sizes}
+            className="object-contain object-bottom brightness-0 opacity-30 sm:opacity-50 md:opacity-60 transition-opacity duration-300"
+          />
+        </motion.div>
       </motion.div>
     </motion.div>
   );
