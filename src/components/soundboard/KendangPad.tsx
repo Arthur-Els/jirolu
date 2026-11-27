@@ -294,7 +294,8 @@ export const KendangPad: React.FC<KendangPadProps> = ({
     const posAttr = barrelCylinder.attributes.position;
     for (let i = 0; i < posAttr.count; i++) {
       const y = posAttr.getY(i);
-      const t = (y + halfLen) / length; // 0 (Bem) s.d 1 (Kempyang)
+      // Clamp ke [0, 1] karena BufferAttribute Float32 dapat menghasilkan t sedikit negatif di tepi -halfLen (yang membuat Math.pow(..., 0.82) menjadi NaN)
+      const t = THREE.MathUtils.clamp((y + halfLen) / length, 0, 1); // 0 (Bem) s.d 1 (Kempyang)
       const baseR = THREE.MathUtils.lerp(rBem, rKempyang, t);
       // Kurva cembung gentong asimetris (puncak cembung sedikit condong ke Bem)
       const bulge = Math.sin(Math.PI * Math.pow(t, 0.82)) * 0.32;
