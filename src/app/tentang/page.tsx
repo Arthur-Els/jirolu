@@ -176,7 +176,6 @@ export default function TentangPage() {
                     </a>
                   </React.Fragment>
                 ))}
-                .
               </p>
             </div>
 
