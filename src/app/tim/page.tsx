@@ -57,7 +57,6 @@ export default function TimPage() {
                     className="font-serif text-2xl sm:text-3xl text-accent/80 num w-9 shrink-0 select-none"
                     aria-hidden="true"
                   >
-                    {member.nomor}
                   </span>
 
                   <div
