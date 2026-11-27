@@ -165,10 +165,10 @@ export const HeroWayangSilhouettes: React.FC = () => {
       {/* Jangkar posisi awal di viewport pembuka (min-h-dvh), sementara area drag meluas hingga batas denah panggung */}
       <div className="relative w-full h-dvh pointer-events-none">
         <DraggableWayang
-          src="/background/wayang 1.png"
+          src="/background/wayang 2.png"
           alt="Siluet Wayang Penyambut Kiri"
           sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
-          positionClassName="absolute bottom-0 left-[-22%] sm:left-[-8%] md:left-[0%] lg:left-[2%] xl:left-[5%] h-[68vh] sm:h-[82vh] md:h-[90vh] lg:h-[95vh] max-h-[920px] aspect-[598/1080]"
+          positionClassName="absolute bottom-0 left-[-22%] sm:left-[-8%] md:left-[0%] lg:left-[2%] xl:left-[5%] h-[68vh] sm:h-[82vh] md:h-[90vh] lg:h-[95vh] max-h-[920px] aspect-[487/1080]"
           delay={0.15}
           isDesktop={isDesktop}
           shouldReduceMotion={shouldReduceMotion}
@@ -177,10 +177,10 @@ export const HeroWayangSilhouettes: React.FC = () => {
         />
 
         <DraggableWayang
-          src="/background/wayang 2.png"
+          src="/background/wayang 1.png"
           alt="Siluet Wayang Penyambut Kanan"
           sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
-          positionClassName="absolute bottom-0 right-[-22%] sm:right-[-8%] md:right-[0%] lg:right-[2%] xl:right-[5%] h-[68vh] sm:h-[82vh] md:h-[90vh] lg:h-[95vh] max-h-[920px] aspect-[487/1080]"
+          positionClassName="absolute bottom-0 right-[-22%] sm:right-[-8%] md:right-[0%] lg:right-[2%] xl:right-[5%] h-[68vh] sm:h-[82vh] md:h-[90vh] lg:h-[95vh] max-h-[920px] aspect-[598/1080]"
           delay={0.28}
           isDesktop={isDesktop}
           shouldReduceMotion={shouldReduceMotion}
