@@ -10,6 +10,16 @@ export const metadata: Metadata = {
     "Cerita di balik pembuatan Jirolu, arti nama ji-ro-lu, cara kerja simulasi, dan sumber rekaman audio gamelan.",
 };
 
+const YOUTUBE_EXAMPLE_LINKS = [
+  { label: "Bonang", href: "https://www.youtube.com/watch?v=lvlemJk0SxQ" },
+  { label: "Saron", href: "https://www.youtube.com/watch?v=PRUnAA8gxK8" },
+  { label: "Kendang", href: "https://www.youtube.com/watch?v=OM347CwgNTE" },
+  { label: "Gong", href: "https://www.youtube.com/watch?v=iut_hK_Xdlg" },
+] as const;
+
+const externalLinkClassName =
+  "text-accent hover:text-accent-2 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2";
+
 export default function TentangPage() {
   return (
     <div className="relative w-full min-h-dvh bg-paper text-ink">
@@ -148,14 +158,24 @@ export default function TentangPage() {
                   href="https://freesound.org"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-accent hover:text-accent-2 underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2"
+                  className={externalLinkClassName}
                 >
                   Freesound.org
-                  https://www.youtube.com/watch?v=lvlemJk0SxQ (bonang)
-                  https://www.youtube.com/watch?v=PRUnAA8gxK8 (saron)
-                  https://www.youtube.com/watch?v=OM347CwgNTE (kendang)
-                  https://www.youtube.com/watch?v=iut_hK_Xdlg (gong)
                 </a>
+                <br />Audio contoh permainan alat musik diambil dari YouTube: {" "}
+                {YOUTUBE_EXAMPLE_LINKS.map((item, idx) => (
+                  <React.Fragment key={item.label}>
+                    {idx > 0 && (idx === YOUTUBE_EXAMPLE_LINKS.length - 1 ? ", dan " : ", ")}
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={externalLinkClassName}
+                    >
+                      {item.label}
+                    </a>
+                  </React.Fragment>
+                ))}
                 .
               </p>
             </div>
@@ -175,7 +195,7 @@ export default function TentangPage() {
               </div>
               <div className="py-3 flex items-center justify-between gap-4">
                 <span className="text-muted">Format berkas</span>
-                <span className="text-ink font-medium text-right">.webm &amp; .m4a</span>
+                <span className="text-ink font-medium text-right">.WAV .webm .m4a</span>
               </div>
             </div>
           </div>
