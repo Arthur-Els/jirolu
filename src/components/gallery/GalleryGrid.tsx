@@ -10,6 +10,7 @@ import {
   stopInstrumentMelodySample,
 } from "@/lib/audio/audioEngine";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { useWelcomeAudio } from "@/components/audio/WelcomeAudioProvider";
 
 interface GalleryGridProps {
   instruments: Instrumen[];
@@ -112,13 +113,14 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
   const shouldReduceMotion = useReducedMotion();
 
   // State pemutar audio contoh lagu (manual lewat tombol di panel detail)
+  const { setExternalAudioPlaying } = useWelcomeAudio();
   const [isPlayingSong, setIsPlayingSong] = useState<boolean>(false);
   const [songNotice, setSongNotice] = useState<string | null>(null);
   const audioSongRef = useRef<HTMLAudioElement | null>(null);
   const songNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Hentikan audio contoh permainan (baik HTMLAudio maupun simulasi Web Audio) secara bersih
-  const stopSongAudio = useCallback(() => {
+  // Bersihkan resource audio contoh permainan tanpa mengubah status welcome audio
+  const cleanupSongResources = useCallback(() => {
     if (audioSongRef.current) {
       audioSongRef.current.pause();
       audioSongRef.current.currentTime = 0;
@@ -132,6 +134,12 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
     setIsPlayingSong(false);
     setSongNotice(null);
   }, []);
+
+  // Hentikan audio contoh permainan dan lanjutkan kembali audio welcome bila aktif
+  const stopSongAudio = useCallback(() => {
+    cleanupSongResources();
+    setExternalAudioPlaying(false);
+  }, [cleanupSongResources, setExternalAudioPlaying]);
 
   // Efek kamera melangkah masuk panggung saat scroll (Scroll-Driven Cinematic Step-In)
   useEffect(() => {
@@ -233,7 +241,8 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       return;
     }
 
-    stopSongAudio();
+    cleanupSongResources();
+    setExternalAudioPlaying(true);
 
     const audioUrl = `/audio/sampel/${selectedInstrument.slug}-lagu.mp3`;
     const audio = new Audio(audioUrl);
@@ -250,6 +259,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       );
       playInstrumentMelodySample(selectedInstrument.slug, () => {
         setIsPlayingSong(false);
+        setExternalAudioPlaying(false);
       });
       songNoticeTimerRef.current = setTimeout(() => {
         setSongNotice(null);
@@ -260,6 +270,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
     audio.onended = () => {
       audioSongRef.current = null;
       setIsPlayingSong(false);
+      setExternalAudioPlaying(false);
     };
 
     audio.onerror = playFallbackMelody;
@@ -723,6 +734,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                       {/* Tombol Khusus: Putar Audio Contoh Permainan Lagu */}
                       <button
                         type="button"
+                        data-welcome-skip="true"
                         onClick={handleToggleSongAudio}
                         aria-label={`Putar contoh lagu permainan ${selectedInstrument.nama}`}
                         className={`w-full sm:w-auto px-6 py-3 rounded-full border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer ${
