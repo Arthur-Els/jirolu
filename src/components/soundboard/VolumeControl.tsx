@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface VolumeControlProps {
   volume: number;
@@ -15,13 +16,24 @@ export const VolumeControl: React.FC<VolumeControlProps> = ({
   onVolumeChange,
   onToggleMute,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+
   return (
     <div className="flex items-center gap-2.5 bg-tinta/80 border border-perunggu/30 px-3 py-1.5 rounded-xl shadow-inner w-full sm:w-auto">
       {/* Tombol Mute / Unmute */}
       <button
         type="button"
         onClick={onToggleMute}
-        aria-label={isMuted ? "Nyalakan suara" : "Matikan suara"}
+        aria-label={
+          isMuted
+            ? isEn
+              ? "Unmute audio"
+              : "Nyalakan suara"
+            : isEn
+            ? "Mute audio"
+            : "Matikan suara"
+        }
         className="text-gading/80 hover:text-emas p-1.5 rounded-lg transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer focus:outline-none focus:ring-1 focus:ring-emas shrink-0"
       >
         {isMuted || volume === 0 ? (
@@ -47,7 +59,7 @@ export const VolumeControl: React.FC<VolumeControlProps> = ({
           step="0.05"
           value={isMuted ? 0 : volume}
           onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
-          aria-label="Pengatur Volume Suara"
+          aria-label={isEn ? "Audio Volume Control" : "Pengatur Volume Suara"}
           className="w-full sm:w-24 h-1.5 bg-arang rounded-full appearance-none cursor-pointer accent-emas"
         />
         <span className="text-[11px] font-mono text-gading/60 w-8 text-right select-none shrink-0">

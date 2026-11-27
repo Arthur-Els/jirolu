@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import { Laras } from "@/types/instrumen";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface LarasToggleProps {
   currentLaras: Laras;
@@ -16,9 +19,15 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
   disabled = false,
   disabledMessage,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+
   return (
     <div className="flex flex-row items-center justify-between sm:justify-start gap-2 sm:gap-3 w-full sm:w-auto">
-      <span className="text-[11px] sm:text-xs uppercase tracking-widest text-gading/60 font-medium shrink-0">
+      <span
+        className="text-[11px] sm:text-xs uppercase tracking-widest text-gading/60 font-medium shrink-0"
+        title={isEn ? "Gamelan tuning system (Laras)" : "Sistem tangga nada gamelan (Laras)"}
+      >
         Laras:
       </span>
       <div className="inline-flex rounded-2xl p-1 bg-tinta border border-perunggu/40 shadow-inner">
@@ -34,7 +43,13 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
               ? "bg-emas text-tinta font-bold"
               : "text-gading/70 hover:text-emas hover:bg-arang cursor-pointer"
           } ${disabled ? "cursor-default" : "cursor-pointer"}`}
-          title={disabled ? (disabledMessage || "Laras dikunci ke Pelog") : "Pilih laras Pelog"}
+          title={
+            disabled
+              ? disabledMessage || (isEn ? "Laras is locked to Pelog" : "Laras dikunci ke Pelog")
+              : isEn
+              ? "Select Pelog tuning (laras)"
+              : "Pilih laras Pelog"
+          }
         >
           Pelog {disabled && "🔒"}
         </button>
@@ -57,13 +72,20 @@ export const LarasToggle: React.FC<LarasToggleProps> = ({
           }`}
           title={
             disabled
-              ? (disabledMessage || "Laras Slendro dinonaktifkan pada Mode Belajar")
+              ? disabledMessage ||
+                (isEn
+                  ? "Slendro tuning is disabled in Learn Mode"
+                  : "Laras Slendro dinonaktifkan pada Mode Belajar")
               : hasSlendro
-              ? "Beralih ke laras Slendro"
+              ? isEn
+                ? "Switch to Slendro tuning (laras)"
+                : "Beralih ke laras Slendro"
+              : isEn
+              ? "Slendro tuning will be enabled in Phase 2"
               : "Laras Slendro akan diaktifkan pada Fase 2"
           }
         >
-          Slendro {!hasSlendro && "(Fase 2)"}
+          Slendro {!hasSlendro && (isEn ? "(Phase 2)" : "(Fase 2)")}
         </button>
       </div>
     </div>

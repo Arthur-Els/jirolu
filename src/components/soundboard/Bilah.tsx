@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { Nada } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface BilahProps {
   nada: Nada;
@@ -29,6 +30,7 @@ export const Bilah: React.FC<BilahProps> = ({
   isPlaybackActive = false,
   onPlay,
 }) => {
+  const { locale } = useLanguage();
   const [isPointerActive, setIsPointerActive] = useState<boolean>(false);
   const isActive = isPointerActive || isTriggeredByKey || isPlaybackActive;
 
@@ -55,7 +57,11 @@ export const Bilah: React.FC<BilahProps> = ({
           height: `${tinggiPersen}%`,
           touchAction: "none",
         }}
-        aria-label={`Bilah nada ${nada.nada} (${nada.label}), tombol ${nada.key.toUpperCase()}`}
+        aria-label={
+          locale === "en"
+            ? `Bronze bar note ${nada.nada} (${nada.label}), key ${nada.key.toUpperCase()}`
+            : `Bilah nada ${nada.nada} (${nada.label}), tombol ${nada.key.toUpperCase()}`
+        }
         className={`w-full rounded-t-xl rounded-b-lg relative flex flex-col items-center justify-between py-4 px-1.5 transition-[transform,box-shadow,background-color] duration-100 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emas ${
           isActive
             ? "bg-gradient-to-b from-emas via-emas-muda to-emas shadow-[0_0_30px_rgba(212,175,55,0.85)] translate-y-1 scale-[0.98]"

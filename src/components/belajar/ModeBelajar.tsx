@@ -5,6 +5,7 @@ import { Lagu } from "@/types/lagu";
 import { DaftarLagu } from "./DaftarLagu";
 import { PanduanLagu } from "./PanduanLagu";
 import { useBelajarLagu } from "@/lib/belajar/useBelajarLagu";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface ModeBelajarProps {
   availableSongs: Lagu[];
@@ -28,6 +29,8 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
   onActiveTabChange,
   onPlayDemoNote,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
   const [activeTab, setActiveTab] = useState<"bebas" | "belajar">("bebas");
   const [selectedSong, setSelectedSong] = useState<Lagu | null>(null);
   const [larasAutoChanged, setLarasAutoChanged] = useState<boolean>(false);
@@ -194,7 +197,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
                 : "text-gading/70 hover:text-emas hover:bg-arang"
             } ${isRecordingOrPlaying ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            Main Bebas
+            {isEn ? "Free Play" : "Main Bebas"}
           </button>
 
           <button
@@ -207,7 +210,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
                 : "text-gading/70 hover:text-emas hover:bg-arang"
             } ${isRecordingOrPlaying ? "opacity-50 cursor-not-allowed" : ""}`}
           >
-            Belajar Lagu
+            {isEn ? "Learn Song" : "Belajar Lagu"}
           </button>
         </div>
 
@@ -217,7 +220,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
             onClick={handlePilihLaguLain}
             className="text-xs text-emas hover:text-emas-muda underline transition-colors cursor-pointer"
           >
-            ← Ganti Lagu
+            {isEn ? "← Change Song" : "← Ganti Lagu"}
           </button>
         )}
       </div>

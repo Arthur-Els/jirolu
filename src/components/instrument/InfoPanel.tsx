@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Instrumen } from "@/types/instrumen";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { getLocalizedInstrument } from "@/lib/i18n/instrumentDict";
 
 interface InfoPanelProps {
   instrumen: Instrumen;
@@ -11,6 +13,9 @@ interface InfoPanelProps {
 export const InfoPanel: React.FC<InfoPanelProps> = ({ instrumen }) => {
   const [isOpen, setIsOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+  const localizedInstrumen = getLocalizedInstrument(instrumen, locale);
 
   return (
     <div className="w-full bg-arang/60 border border-perunggu/25 rounded-2xl overflow-hidden backdrop-blur-sm transition-colors duration-200">
@@ -25,12 +30,14 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ instrumen }) => {
         <div className="flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-emas/70" />
           <span className="font-serif text-base sm:text-lg text-gading font-medium">
-            Tentang {instrumen.nama}
+            {isEn ? `About ${localizedInstrumen.nama}` : `Tentang ${localizedInstrumen.nama}`}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-xs text-gading/60 font-medium">
-          <span>{isOpen ? "Tutup" : "Baca Detail"}</span>
+          <span>
+            {isOpen ? (isEn ? "Close" : "Tutup") : isEn ? "Read Details" : "Baca Detail"}
+          </span>
           <motion.svg
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={
@@ -82,10 +89,10 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ instrumen }) => {
                 <div className="space-y-2 bg-tinta/40 p-4 sm:p-5 rounded-xl border border-perunggu/15">
                   <span className="text-xs font-semibold uppercase tracking-wider text-emas flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emas" />
-                    Fungsi dalam Gamelan
+                    {isEn ? "Role in the Gamelan" : "Fungsi dalam Gamelan"}
                   </span>
                   <p className="text-xs sm:text-sm text-gading/80 leading-relaxed font-light">
-                    {instrumen.fungsi}
+                    {localizedInstrumen.fungsi}
                   </p>
                 </div>
 
@@ -93,10 +100,10 @@ export const InfoPanel: React.FC<InfoPanelProps> = ({ instrumen }) => {
                 <div className="space-y-2 bg-tinta/40 p-4 sm:p-5 rounded-xl border border-perunggu/15">
                   <span className="text-xs font-semibold uppercase tracking-wider text-emas flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emas" />
-                    Makna &amp; Filosofi Jawa
+                    {isEn ? "Javanese Meaning & Philosophy" : "Makna & Filosofi Jawa"}
                   </span>
                   <p className="text-xs sm:text-sm text-gading/80 leading-relaxed font-light">
-                    {instrumen.filosofi}
+                    {localizedInstrumen.filosofi}
                   </p>
                 </div>
               </div>

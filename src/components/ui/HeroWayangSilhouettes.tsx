@@ -2,6 +2,7 @@
 
 import React, { useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import {
   animate,
   motion,
@@ -32,6 +33,7 @@ function getDesktopServerSnapshot(): boolean {
 interface DraggableWayangProps {
   src: string;
   alt: string;
+  dragTooltip: string;
   sizes: string;
   positionClassName: string;
   delay: number;
@@ -44,6 +46,7 @@ interface DraggableWayangProps {
 const DraggableWayang: React.FC<DraggableWayangProps> = ({
   src,
   alt,
+  dragTooltip,
   sizes,
   positionClassName,
   delay,
@@ -86,7 +89,7 @@ const DraggableWayang: React.FC<DraggableWayangProps> = ({
         bounceDamping: 32,
       }}
       onDoubleClick={handleResetPosition}
-      title={isDesktop ? "Geser wayang (klik dua kali untuk reset)" : undefined}
+      title={isDesktop ? dragTooltip : undefined}
       style={{ x: rawX, y: rawY }}
       className={`${positionClassName} ${
         isDesktop
@@ -130,6 +133,11 @@ const DraggableWayang: React.FC<DraggableWayangProps> = ({
 };
 
 export const HeroWayangSilhouettes: React.FC = () => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+  const dragTooltip = isEn
+    ? "Drag wayang (double-click to reset)"
+    : "Geser wayang (klik dua kali untuk reset)";
   const constraintsRef = useRef<HTMLDivElement | null>(null);
   const isDesktop = useSyncExternalStore(
     subscribeDesktopQuery,
@@ -166,7 +174,8 @@ export const HeroWayangSilhouettes: React.FC = () => {
       <div className="relative w-full h-dvh pointer-events-none">
         <DraggableWayang
           src="/background/wayang 2.png"
-          alt="Siluet Wayang Penyambut Kiri"
+          alt={isEn ? "Left welcoming Wayang silhouette" : "Siluet Wayang Penyambut Kiri"}
+          dragTooltip={dragTooltip}
           sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
           positionClassName="absolute bottom-0 left-[-22%] sm:left-[-8%] md:left-[0%] lg:left-[2%] xl:left-[5%] h-[68vh] sm:h-[82vh] md:h-[90vh] lg:h-[95vh] max-h-[920px] aspect-[487/1080]"
           delay={0.15}
@@ -178,7 +187,8 @@ export const HeroWayangSilhouettes: React.FC = () => {
 
         <DraggableWayang
           src="/background/wayang 1.png"
-          alt="Siluet Wayang Penyambut Kanan"
+          alt={isEn ? "Right welcoming Wayang silhouette" : "Siluet Wayang Penyambut Kanan"}
+          dragTooltip={dragTooltip}
           sizes="(max-width: 640px) 70vw, (max-width: 1024px) 50vw, 40vw"
           positionClassName="absolute bottom-0 right-[-22%] sm:right-[-8%] md:right-[0%] lg:right-[2%] xl:right-[5%] h-[68vh] sm:h-[82vh] md:h-[90vh] lg:h-[95vh] max-h-[920px] aspect-[598/1080]"
           delay={0.28}

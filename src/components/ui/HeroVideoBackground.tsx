@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface HeroVideoBackgroundProps {
   src: string;
@@ -11,6 +12,7 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
   src,
   isFixed = true,
 }) => {
+  const { locale } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -74,7 +76,9 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
         <source src={src} type="video/mp4" />
         <source src="/background/new-bg.mp4" type="video/mp4" />
         <source src="/background/bg-home.mp4" type="video/mp4" />
-        Peramban Anda tidak mendukung pemutaran video.
+        {locale === "en"
+          ? "Your browser does not support video playback."
+          : "Peramban Anda tidak mendukung pemutaran video."}
       </video>
 
       {/* Lapisan 1: Dimming sinematik gelap agar teks tetap kontras */}

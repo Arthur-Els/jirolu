@@ -2,18 +2,22 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { stopAllActiveSounds } from "../audio/audioEngine";
+import { useLanguage } from "../i18n/LanguageProvider";
 
 export interface RekamanItem {
   id: string;      // ID nada atau suara (misal "1", "dung", "gong-ageng")
   waktu: number;   // Selisih waktu sejak rekaman dimulai (milidetik)
 }
 
+export type RekamanInfoCode = "max_duration";
+
 export function useRekaman() {
+  const { locale } = useLanguage();
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [rekamanData, setRekamanData] = useState<RekamanItem[]>([]);
   const [durasiDetik, setDurasiDetik] = useState<number>(0);
-  const [pesanInfo, setPesanInfo] = useState<string | null>(null);
+  const [pesanInfoCode, setPesanInfoCode] = useState<RekamanInfoCode | null>(null);
   const [activePlayingId, setActivePlayingId] = useState<string | null>(null);
 
   const startTimeRef = useRef<number>(0);
@@ -50,7 +54,7 @@ export function useRekaman() {
     berhenti();
     setRekamanData([]);
     setDurasiDetik(0);
-    setPesanInfo(null);
+    setPesanInfoCode(null);
     startTimeRef.current = Date.now();
     setIsRecording(true);
 
@@ -62,7 +66,7 @@ export function useRekaman() {
         if (next >= 60) {
           if (timerIntervalRef.current) clearInterval(timerIntervalRef.current);
           setIsRecording(false);
-          setPesanInfo("Batas maksimal rekaman 60 detik telah tercapai.");
+          setPesanInfoCode("max_duration");
           return 60;
         }
         return next;
@@ -86,7 +90,7 @@ export function useRekaman() {
       if (rekamanData.length === 0 || isRecording || isPlaying) return;
 
       setIsPlaying(true);
-      setPesanInfo(null);
+      setPesanInfoCode(null);
       playbackTimeoutsRef.current = [];
 
       // Jadwalkan setiap ketukan sesuai selisih waktu aslinya
@@ -122,8 +126,15 @@ export function useRekaman() {
     berhenti();
     setRekamanData([]);
     setDurasiDetik(0);
-    setPesanInfo(null);
+    setPesanInfoCode(null);
   }, [berhenti]);
+
+  const pesanInfo =
+    pesanInfoCode === "max_duration"
+      ? locale === "en"
+        ? "Maximum recording limit of 60 seconds has been reached."
+        : "Batas maksimal rekaman 60 detik telah tercapai."
+      : null;
 
   return {
     isRecording,
@@ -132,6 +143,7 @@ export function useRekaman() {
     jumlahKetukan: rekamanData.length,
     durasiDetik,
     pesanInfo,
+    pesanInfoCode,
     activePlayingId,
     mulaiRekam,
     berhenti,

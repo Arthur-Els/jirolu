@@ -6,6 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ItemSuara } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import {
   PadStrikeEvent,
   useActiveFlashIds,
@@ -212,6 +213,8 @@ export const GongPad: React.FC<GongPadProps> = ({
   strikeQueue,
   onPlay,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
@@ -823,14 +826,22 @@ export const GongPad: React.FC<GongPadProps> = ({
               />
             </svg>
             <span>
-              💡 <strong>Tips:</strong> Putar ke <em>mode landscape</em> untuk pandangan gayor dan gong yang lebih luas.
+              {isEn ? (
+                <>
+                  💡 <strong>Tips:</strong> Rotate to <em>landscape mode</em> for a wider view of the gayor (carved gong stand) and gongs.
+                </>
+              ) : (
+                <>
+                  💡 <strong>Tips:</strong> Putar ke <em>mode landscape</em> untuk pandangan gayor dan gong yang lebih luas.
+                </>
+              )}
             </span>
           </div>
           <button
             type="button"
             onClick={() => setShowLandscapeHint(false)}
             className="text-gading/60 hover:text-white p-1 text-sm leading-none shrink-0"
-            title="Tutup tips"
+            title={isEn ? "Close tips" : "Tutup tips"}
           >
             ✕
           </button>
@@ -856,14 +867,24 @@ export const GongPad: React.FC<GongPadProps> = ({
               Gong Gayor 3D
             </span>
             <span className="hidden md:inline text-[10px] text-gading/50 italic shrink-0">
-              &bull; Drag untuk orbit 360°, klik langsung piringan atau pencu gong untuk menabuh
+              {isEn
+                ? "• Drag for 360° orbit, click the gong face or central boss (pencu) directly to strike"
+                : "• Drag untuk orbit 360°, klik langsung piringan atau pencu gong untuk menabuh"}
             </span>
           </div>
 
           <button
             type="button"
             onClick={toggleFullscreen}
-            title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
+            title={
+              isFullscreen
+                ? isEn
+                  ? "Exit Fullscreen (Esc)"
+                  : "Keluar Layar Penuh (Esc)"
+                : isEn
+                ? "Fullscreen Mode"
+                : "Mode Layar Penuh (Fullscreen)"
+            }
             className="pointer-events-auto shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
           >
             {isFullscreen ? (
@@ -871,14 +892,18 @@ export const GongPad: React.FC<GongPadProps> = ({
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Tutup Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Exit Fullscreen" : "Tutup Layar Penuh"}
+                </span>
               </>
             ) : (
               <>
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Fullscreen" : "Layar Penuh"}
+                </span>
               </>
             )}
           </button>
@@ -897,9 +922,15 @@ export const GongPad: React.FC<GongPadProps> = ({
             const isActive = activeIds.has(gong.id.toLowerCase());
             const subtitle =
               gong.id === "gong-ageng"
-                ? "Nada Terdalam"
+                ? isEn
+                  ? "Deepest Tone"
+                  : "Nada Terdalam"
                 : gong.id === "gong-suwukan"
-                ? "Gong Sedang"
+                ? isEn
+                  ? "Medium Gong"
+                  : "Gong Sedang"
+                : isEn
+                ? "Bright Accent"
                 : "Aksen Cerah";
 
             return (
@@ -908,7 +939,11 @@ export const GongPad: React.FC<GongPadProps> = ({
                 type="button"
                 onClick={() => handleStrike(gong)}
                 style={{ touchAction: "manipulation" }}
-                aria-label={`Pukul ${gong.nama}, tombol keyboard ${gong.key}`}
+                aria-label={
+                  isEn
+                    ? `Strike ${gong.nama}, keyboard key ${gong.key}`
+                    : `Pukul ${gong.nama}, tombol keyboard ${gong.key}`
+                }
                 className={`p-2.5 sm:p-3.5 rounded-xl border flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-1 sm:gap-2 transition-[background-color,border-color,color,transform] cursor-pointer active:scale-95 min-h-[60px] min-w-0 ${
                   isActive
                     ? "bg-emas text-tinta border-emas scale-102"
@@ -929,10 +964,20 @@ export const GongPad: React.FC<GongPadProps> = ({
 
         <p className="text-xs text-gading/50 italic text-center px-2">
           <span className="sm:hidden">
-            Ketuk langsung gong 3D atau tombol di atas untuk mendengarkan dengung agung gamelan.
+            {isEn
+              ? "Tap the 3D gong directly or the buttons above to hear the majestic gamelan resonance."
+              : "Ketuk langsung gong 3D atau tombol di atas untuk mendengarkan dengung agung gamelan."}
           </span>
           <span className="hidden sm:inline">
-            Tekan tombol angka <span className="text-emas font-semibold">[1, 2, 3]</span>, tombol di atas, atau klik langsung gong 3D untuk mendengarkan dengung gelombang agung gamelan.
+            {isEn ? (
+              <>
+                Press number keys <span className="text-emas font-semibold">[1, 2, 3]</span>, the buttons above, or click a 3D gong directly to hear the majestic gamelan resonance.
+              </>
+            ) : (
+              <>
+                Tekan tombol angka <span className="text-emas font-semibold">[1, 2, 3]</span>, tombol di atas, atau klik langsung gong 3D untuk mendengarkan dengung gelombang agung gamelan.
+              </>
+            )}
           </span>
         </p>
       </div>

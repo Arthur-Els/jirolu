@@ -15,6 +15,8 @@ import { VolumeControl } from "./VolumeControl";
 import { ModeBelajar } from "@/components/belajar/ModeBelajar";
 import { PanelRekaman } from "@/components/rekam/PanelRekaman";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { getLocalizedInstrument } from "@/lib/i18n/instrumentDict";
 
 interface SoundboardProps {
   instrumen: Instrumen;
@@ -29,6 +31,13 @@ export const Soundboard: React.FC<SoundboardProps> = ({
   bilahMenyala: externalBilahMenyala,
   onNadaDitekan: externalOnNadaDitekan,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+  const localizedInstrumen = useMemo(
+    () => getLocalizedInstrument(instrumen, locale),
+    [instrumen, locale]
+  );
+
   // 1. State laras biasa tanpa localStorage
   const [laras, setLaras] = useState<Laras>(instrumen.larasDefault || "pelog");
   const [strikeQueue, setStrikeQueue] = useState<PadStrikeEvent[]>([]);
@@ -50,7 +59,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
   // Bilah yang sedang disorot (bisa dari props luar, lokal, atau contoh permainan)
   const targetNoteHighlight = externalBilahMenyala || localBilahMenyala || demoTargetNote;
 
-  // Daftar item audio yang aktif saat ini
+  // Daftar item audio yang aktif saat ini (tetap dari sumber stabil agar buffer audio tidak dimuat ulang saat ganti bahasa)
   const currentItems = useMemo<AudioTarget[]>(() => {
     if (instrumen.tipe === "bernada") {
       if (!instrumen.laras) return [];
@@ -59,6 +68,16 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       return instrumen.daftarSuara || [];
     }
   }, [instrumen, laras]);
+
+  // Daftar item terlokalisasi untuk tampilan UI 3D Pad
+  const localizedItems = useMemo<AudioTarget[]>(() => {
+    if (localizedInstrumen.tipe === "bernada") {
+      if (!localizedInstrumen.laras) return [];
+      return localizedInstrumen.laras[laras] || [];
+    } else {
+      return localizedInstrumen.daftarSuara || [];
+    }
+  }, [localizedInstrumen, laras]);
 
   // Hook audio buffer
   const {
@@ -239,17 +258,21 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
             <span className="w-2.5 h-2.5 rounded-full bg-emas animate-pulse shrink-0" />
             <h2 className="font-serif text-xl sm:text-3xl font-bold text-gading truncate">
-              {instrumen.nama}
+              {localizedInstrumen.nama}
             </h2>
-            {instrumen.namaJawa && (
+            {localizedInstrumen.namaJawa && (
               <span className="text-sm font-serif italic text-emas-muda hidden sm:inline shrink-0">
-                ({instrumen.namaJawa})
+                ({localizedInstrumen.namaJawa})
               </span>
             )}
           </div>
           {!isLoading && !audioFilesAvailable && (
             <span
-              title="File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
+              title={
+                isEn
+                  ? "Original .webm recordings are not yet installed in the public folder; the Web Audio API synthesizes instrument tones automatically"
+                  : "File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
+              }
               className="sm:hidden inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-emas/10 border border-emas/30 text-[10px] font-medium text-emas select-none shrink-0"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emas" />
@@ -262,11 +285,15 @@ export const Soundboard: React.FC<SoundboardProps> = ({
           {/* Badge Indikator Ringkas jika Rekaman Belum Ada (Mode Synthesizer) */}
           {!isLoading && !audioFilesAvailable && (
             <span
-              title="File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
+              title={
+                isEn
+                  ? "Original .webm recordings are not yet installed in the public folder; the Web Audio API synthesizes instrument tones automatically"
+                  : "File rekaman asli .webm belum dipasang di folder public, Web Audio API mensintesis nada instrumen secara otomatis"
+              }
               className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emas/10 border border-emas/30 text-[11px] font-medium text-emas select-none"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emas" />
-              Mode Synthesizer
+              {isEn ? "Synthesizer Mode" : "Mode Synthesizer"}
             </span>
           )}
 
@@ -283,7 +310,11 @@ export const Soundboard: React.FC<SoundboardProps> = ({
               onLarasChange={handleLarasChange}
               hasSlendro={hasSlendro}
               disabled={isLearnModeActive}
-              disabledMessage="Laras dikunci ke Pelog saat Mode Belajar aktif"
+              disabledMessage={
+                isEn
+                  ? "Laras is locked to Pelog while Learn Mode is active"
+                  : "Laras dikunci ke Pelog saat Mode Belajar aktif"
+              }
             />
           )}
         </div>
@@ -315,10 +346,12 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {!isAudioUnlocked && (
         <div className="text-center p-3 rounded-xl bg-tinta/60 border border-perunggu/30 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-gading/75">
-            Klik tombol di samping untuk mengaktifkan audio di peramban:
+            {isEn
+              ? "Click the button beside to enable audio in your browser:"
+              : "Klik tombol di samping untuk mengaktifkan audio di peramban:"}
           </span>
           <Button variant="emas" size="sm" onClick={handleUnlock} className="w-full sm:w-auto">
-            Aktifkan Suara Audio
+            {isEn ? "Enable Audio Sound" : "Aktifkan Suara Audio"}
           </Button>
         </div>
       )}
@@ -329,7 +362,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {instrumen.slug === "saron" && (
         <Saron3DPad
           laras={laras}
-          daftarNada={currentItems as Nada[]}
+          daftarNada={localizedItems as Nada[]}
           activeKeyId={
             (demoActiveKey &&
               (currentItems as Nada[]).find(
@@ -349,7 +382,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {instrumen.slug === "bonang" && (
         <Bonang3DPad
           laras={laras}
-          daftarNada={currentItems as Nada[]}
+          daftarNada={localizedItems as Nada[]}
           activeKeyId={
             demoActiveKey ||
             (activePlayingId
@@ -366,7 +399,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {/* GONG 3D */}
       {instrumen.slug === "gong" && (
         <GongPad
-          daftarSuara={currentItems as ItemSuara[]}
+          daftarSuara={localizedItems as ItemSuara[]}
           activeKeyId={activePlayingId || null}
           strikeQueue={strikeQueue}
           onPlay={(item) => triggerPlay(item)}
@@ -376,7 +409,7 @@ export const Soundboard: React.FC<SoundboardProps> = ({
       {/* KENDANG */}
       {instrumen.slug === "kendang" && (
         <KendangPad
-          daftarSuara={currentItems as ItemSuara[]}
+          daftarSuara={localizedItems as ItemSuara[]}
           activeKeyId={activePlayingId || null}
           strikeQueue={strikeQueue}
           onPlay={(item) => triggerPlay(item)}

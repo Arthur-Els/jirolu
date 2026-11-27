@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface PanelRekamanProps {
   isRecording: boolean;
@@ -27,6 +28,9 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
   onPutar,
   onHapus,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+
   // Format detik ke mm:ss
   const formatTimer = (totalSec: number) => {
     const mins = Math.floor(totalSec / 60);
@@ -47,22 +51,22 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
                 size="sm"
                 onClick={onMulaiRekam}
                 disabled={isPlaying}
-                aria-label="Mulai Merekam Permainan"
+                aria-label={isEn ? "Start Recording Performance" : "Mulai Merekam Permainan"}
                 className="gap-1.5 h-9 sm:h-8 text-xs px-3 flex-1 sm:flex-initial"
               >
                 <span className="w-2 h-2 rounded-full bg-tinta" />
-                <span>Rekam</span>
+                <span>{isEn ? "Record" : "Rekam"}</span>
               </Button>
             ) : (
               <Button
                 variant="garis"
                 size="sm"
                 onClick={onBerhenti}
-                aria-label="Berhenti Merekam"
+                aria-label={isEn ? "Stop Recording" : "Berhenti Merekam"}
                 className="gap-1.5 h-9 sm:h-8 text-xs px-3 border-red-400 text-red-300 hover:bg-red-900/20 flex-1 sm:flex-initial"
               >
                 <span className="w-2 h-2 rounded-sm bg-red-400" />
-                <span>Berhenti</span>
+                <span>{isEn ? "Stop" : "Berhenti"}</span>
               </Button>
             )}
 
@@ -73,26 +77,26 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
                 size="sm"
                 onClick={onPutar}
                 disabled={!adaRekaman || isRecording}
-                aria-label="Putar Ulang Permainan"
+                aria-label={isEn ? "Play Back Recording" : "Putar Ulang Permainan"}
                 className="gap-1.5 h-9 sm:h-8 text-xs px-3 flex-1 sm:flex-initial"
               >
                 <svg className="w-3.5 h-3.5 fill-current text-emas" viewBox="0 0 24 24">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                <span>Putar</span>
+                <span>{isEn ? "Play" : "Putar"}</span>
               </Button>
             ) : (
               <Button
                 variant="garis"
                 size="sm"
                 onClick={onBerhenti}
-                aria-label="Berhenti Memutar"
+                aria-label={isEn ? "Stop Playback" : "Berhenti Memutar"}
                 className="gap-1.5 h-9 sm:h-8 text-xs px-3 flex-1 sm:flex-initial"
               >
                 <svg className="w-3 h-3 fill-current text-emas" viewBox="0 0 24 24">
                   <path d="M6 6h12v12H6z" />
                 </svg>
-                <span>Berhenti</span>
+                <span>{isEn ? "Stop" : "Berhenti"}</span>
               </Button>
             )}
 
@@ -102,10 +106,10 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
               size="sm"
               onClick={onHapus}
               disabled={!adaRekaman || isRecording || isPlaying}
-              aria-label="Hapus Rekaman"
+              aria-label={isEn ? "Delete Recording" : "Hapus Rekaman"}
               className="h-9 sm:h-8 text-xs px-2.5 hover:bg-red-500/10 text-red-400 hover:text-red-300 border-red-500/30 hover:border-red-500/60"
             >
-              Hapus
+              {isEn ? "Delete" : "Hapus"}
             </Button>
           </div>
         </div>
@@ -116,16 +120,18 @@ export const PanelRekaman: React.FC<PanelRekamanProps> = ({
             {isRecording ? (
               <span className="inline-flex items-center gap-2 text-red-400 bg-red-950/40 border border-red-500/30 px-2.5 py-1 rounded-full font-mono text-xs">
                 <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                Merekam ({formatTimer(durasiDetik)} / 01:00)
+                {isEn
+                  ? `Recording (${formatTimer(durasiDetik)} / 01:00)`
+                  : `Merekam (${formatTimer(durasiDetik)} / 01:00)`}
               </span>
             ) : isPlaying ? (
               <span className="inline-flex items-center gap-2 text-emas bg-tinta border border-emas/30 px-2.5 py-1 rounded-full font-mono text-xs">
                 <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
-                Memutar Ulang
+                {isEn ? "Playing Back" : "Memutar Ulang"}
               </span>
             ) : (
               <span className="text-gading/40 italic text-xs">
-                *Maksimal 60 detik rekaman
+                {isEn ? "*60 seconds maximum recording" : "*Maksimal 60 detik rekaman"}
               </span>
             )}
           </div>

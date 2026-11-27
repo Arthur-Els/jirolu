@@ -4,6 +4,8 @@ import React from "react";
 import { Lagu } from "@/types/lagu";
 import { StatusBelajar } from "@/lib/belajar/useBelajarLagu";
 import { Button } from "@/components/ui/Button";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { getLocalizedDifficulty, getLocalizedSong } from "@/lib/i18n/laguDict";
 
 interface PanduanLaguProps {
   lagu: Lagu;
@@ -37,6 +39,11 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
   onMulaiDemo,
   onHentikanDemo,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+  const localizedLagu = getLocalizedSong(lagu, locale);
+  const localizedTingkat = getLocalizedDifficulty(lagu.tingkat, locale);
+
   return (
     <div className="py-1 pb-4 border-b border-perunggu/20 space-y-4">
       {/* Pesan Otomatis Ganti Laras */}
@@ -46,7 +53,16 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span>
-            Laras soundboard otomatis disesuaikan ke <strong>{lagu.laras.toUpperCase()}</strong> mengikuti lagu ini.
+            {isEn ? (
+              <>
+                Soundboard laras (tuning) automatically adjusted to{" "}
+                <strong>{lagu.laras.toUpperCase()}</strong> to match this song.
+              </>
+            ) : (
+              <>
+                Laras soundboard otomatis disesuaikan ke <strong>{lagu.laras.toUpperCase()}</strong> mengikuti lagu ini.
+              </>
+            )}
           </span>
         </div>
       )}
@@ -55,13 +71,15 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-perunggu/25">
         <div>
           <span className="text-[10px] uppercase tracking-widest text-emas font-semibold">
-            Mode Belajar Lagu
+            {isEn ? "Song Learning Mode" : "Mode Belajar Lagu"}
           </span>
           <h3 className="font-serif text-xl sm:text-2xl font-bold text-gading">
-            {lagu.judul}
+            {localizedLagu.judul}
           </h3>
           <span className="text-xs text-gading/60 capitalize">
-            Laras: {lagu.laras} • Tingkat: {lagu.tingkat}
+            {isEn
+              ? `Laras: ${lagu.laras} • Level: ${localizedTingkat}`
+              : `Laras: ${lagu.laras} • Tingkat: ${localizedTingkat}`}
           </span>
         </div>
 
@@ -82,14 +100,14 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
                 {isDemoPlaying ? (
                   <>
                     <span className="w-2.5 h-2.5 rounded-sm bg-red-400 animate-pulse" />
-                    <span>Hentikan Contoh</span>
+                    <span>{isEn ? "Stop Demo" : "Hentikan Contoh"}</span>
                   </>
                 ) : (
                   <>
                     <svg className="w-4 h-4 text-emas shrink-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
-                    <span>Contoh Permainan</span>
+                    <span>{isEn ? "Play Demo" : "Contoh Permainan"}</span>
                   </>
                 )}
               </button>
@@ -103,7 +121,7 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
                 }}
                 className="min-h-[44px] flex-1 sm:flex-initial"
               >
-                Mulai Belajar
+                {isEn ? "Start Learning" : "Mulai Belajar"}
               </Button>
             </>
           )}
@@ -111,10 +129,10 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
           {status === "berjalan" && (
             <>
               <Button variant="arang" size="sm" onClick={onUlangi} className="flex-1 sm:flex-initial min-h-[42px]">
-                Ulangi
+                {isEn ? "Restart" : "Ulangi"}
               </Button>
               <Button variant="garis" size="sm" onClick={onKembali} className="flex-1 sm:flex-initial min-h-[42px]">
-                Kembali
+                {isEn ? "Back" : "Kembali"}
               </Button>
             </>
           )}
@@ -128,13 +146,25 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
             <div className="py-1 text-center animate-in fade-in duration-200">
               <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emas/15 border border-emas/40 text-xs text-emas-muda font-medium shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emas animate-ping" />
-                Memainkan contoh melodi... Ikuti sorotan pada alat musik di bawah.
+                {isEn
+                  ? "Playing melody demo... Follow the highlights on the instrument below."
+                  : "Memainkan contoh melodi... Ikuti sorotan pada alat musik di bawah."}
               </span>
             </div>
           ) : (
             <div className="text-center py-2">
               <p className="text-xs sm:text-sm text-gading/75">
-                Dengarkan contoh dengan tombol <strong>&ldquo;Contoh Permainan&rdquo;</strong>, atau klik <strong>&ldquo;Mulai Belajar&rdquo;</strong> untuk langsung bermain mengikuti sorotan bilah/pencon.
+                {isEn ? (
+                  <>
+                    Listen to an example with <strong>&ldquo;Play Demo&rdquo;</strong>, or click{" "}
+                    <strong>&ldquo;Start Learning&rdquo;</strong> to play along following the highlighted bars/pencon.
+                  </>
+                ) : (
+                  <>
+                    Dengarkan contoh dengan tombol <strong>&ldquo;Contoh Permainan&rdquo;</strong>, atau klik{" "}
+                    <strong>&ldquo;Mulai Belajar&rdquo;</strong> untuk langsung bermain mengikuti sorotan bilah/pencon.
+                  </>
+                )}
               </p>
             </div>
           )}
@@ -146,8 +176,22 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
         <div className="text-center py-1 animate-in fade-in duration-200">
           <p className="text-xs sm:text-sm text-gading/80">
             {lagu.alat.includes("bonang") ? (
+              isEn ? (
+                <>
+                  Strike the{" "}
+                  <span className="text-emas font-semibold">lower-row pencon (keys A-J)</span>{" "}
+                  pulsing in gold on the instrument below.
+                </>
+              ) : (
+                <>
+                  Tekan pencon <span className="text-emas font-semibold">baris bawah (tuts A-J)</span> yang sedang menyala berdenyut pada alat musik di bawah.
+                </>
+              )
+            ) : isEn ? (
               <>
-                Tekan pencon <span className="text-emas font-semibold">baris bawah (tuts A-J)</span> yang sedang menyala berdenyut pada alat musik di bawah.
+                Strike the bronze bar{" "}
+                <span className="text-emas font-semibold">(number keys 1-7)</span>{" "}
+                pulsing in gold on the instrument below.
               </>
             ) : (
               <>
@@ -168,21 +212,34 @@ export const PanduanLagu: React.FC<PanduanLaguProps> = ({
           </div>
           <div className="space-y-1.5 max-w-md mx-auto">
             <h4 className="font-serif text-2xl font-bold text-gading">
-              Selamat! Kamu Berhasil Menyelesaikan Lagu Ini
+              {isEn
+                ? "Congratulations! You Completed This Song"
+                : "Selamat! Kamu Berhasil Menyelesaikan Lagu Ini"}
             </h4>
             <p className="text-xs sm:text-sm text-gading/80 leading-relaxed">
-              Kamu telah memainkan seluruh notasi lagu <strong>{lagu.judul}</strong>.
-              {salahHitung === 0
-                ? " Luar biasa! Sempurna tanpa ada salah tekan!"
-                : ` Jumlah salah tekan: ${salahHitung} kali. Latihan terus agar makin lancar!`}
+              {isEn ? (
+                <>
+                  You have played every note of <strong>{localizedLagu.judul}</strong>.
+                  {salahHitung === 0
+                    ? " Wonderful! A flawless run with zero mistakes!"
+                    : ` Mistakes: ${salahHitung} ${salahHitung === 1 ? "time" : "times"}. Keep practicing to get even smoother!`}
+                </>
+              ) : (
+                <>
+                  Kamu telah memainkan seluruh notasi lagu <strong>{localizedLagu.judul}</strong>.
+                  {salahHitung === 0
+                    ? " Luar biasa! Sempurna tanpa ada salah tekan!"
+                    : ` Jumlah salah tekan: ${salahHitung} kali. Latihan terus agar makin lancar!`}
+                </>
+              )}
             </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <Button variant="emas" size="md" onClick={onUlangi}>
-              Main Lagi
+              {isEn ? "Play Again" : "Main Lagi"}
             </Button>
             <Button variant="garis" size="md" onClick={onKeluar}>
-              Kembali ke Main Bebas
+              {isEn ? "Back to Free Play" : "Kembali ke Main Bebas"}
             </Button>
           </div>
         </div>

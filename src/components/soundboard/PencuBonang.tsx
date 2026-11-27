@@ -3,6 +3,7 @@
 import React, { useState, useCallback } from "react";
 import { Nada } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface PencuBonangProps {
   nada: Nada;
@@ -24,6 +25,7 @@ export const PencuBonang: React.FC<PencuBonangProps> = ({
   isPlaybackActive = false,
   onPlay,
 }) => {
+  const { locale } = useLanguage();
   const [isPointerActive, setIsPointerActive] = useState<boolean>(false);
   const isActive = isPointerActive || isTriggeredByKey || isPlaybackActive;
 
@@ -37,13 +39,18 @@ export const PencuBonang: React.FC<PencuBonangProps> = ({
     [nada, onPlay]
   );
 
+  const displayAriaLabel =
+    locale === "en"
+      ? `Bonang pencon note ${nada.nada} (${nada.label.replace(" (tinggi)", " (high)")}), key ${nada.key.toUpperCase()}`
+      : `Pencon Bonang nada ${nada.nada} (${nada.label}), tombol ${nada.key.toUpperCase()}`;
+
   return (
     <div className="flex flex-col items-center gap-1.5 p-1 select-none">
       <button
         type="button"
         onPointerDown={handlePointerDown}
         style={{ touchAction: "none" }}
-        aria-label={`Pencon Bonang nada ${nada.nada} (${nada.label}), tombol ${nada.key.toUpperCase()}`}
+        aria-label={displayAriaLabel}
         className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full relative flex flex-col items-center justify-center transition-[transform,box-shadow,background-color] duration-100 cursor-pointer select-none focus:outline-none focus:ring-2 focus:ring-emas ${
           isActive
             ? "bg-gradient-to-tr from-emas via-emas-muda to-emas shadow-[0_0_30px_rgba(212,175,55,0.9)] scale-95"
@@ -72,7 +79,7 @@ export const PencuBonang: React.FC<PencuBonangProps> = ({
             isActive ? "text-tinta" : "text-[#2e2311]"
           }`}
         >
-          {nada.label.replace(" (tinggi)", "")}
+          {nada.label.replace(/ \((tinggi|high)\)$/, "")}
         </span>
       </button>
 

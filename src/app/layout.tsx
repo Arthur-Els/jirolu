@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/ui/Navbar";
 import { Footer } from "@/components/ui/Footer";
 import { WelcomeAudioProvider } from "@/components/audio/WelcomeAudioProvider";
+import { LanguageProvider } from "@/lib/i18n/LanguageProvider";
 
 // Inisialisasi Google Fonts
 const inter = Inter({
@@ -77,16 +78,18 @@ export default function RootLayout({
       className={`${inter.variable} ${cormorant.variable} ${plusJakarta.variable} ${playfair.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
       <body className="bg-tinta text-gading bg-batik-pattern flex flex-col min-h-screen">
-        <WelcomeAudioProvider>
-          {/* Navigasi Utama Jirolu */}
-          <Navbar />
+        <LanguageProvider>
+          <WelcomeAudioProvider>
+            {/* Navigasi Utama Jirolu */}
+            <Navbar />
 
-          {/* Konten Halaman */}
-          <main className="flex-1 w-full">{children}</main>
+            {/* Konten Halaman */}
+            <main className="flex-1 w-full">{children}</main>
 
-          {/* Footer Jirolu */}
-          <Footer />
-        </WelcomeAudioProvider>
+            {/* Footer Jirolu */}
+            <Footer />
+          </WelcomeAudioProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -9,6 +9,7 @@ import React, {
   useState,
 } from "react";
 import { usePathname } from "next/navigation";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 interface WelcomeAudioContextValue {
   isMuted: boolean;
@@ -40,6 +41,7 @@ const WELCOME_VOLUME = 0.38;
 export const WelcomeAudioProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { locale } = useLanguage();
   const pathname = usePathname();
   const isSoundboardRoute =
     pathname.startsWith("/instrumen") || pathname.startsWith("/soundboard");
@@ -149,6 +151,14 @@ export const WelcomeAudioProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const showFloatingButton = !isSoundboardRoute;
+  const muteLabel =
+    locale === "en"
+      ? isMuted
+        ? "Unmute audio"
+        : "Mute audio"
+      : isMuted
+        ? "Nyalakan suara"
+        : "Matikan suara";
 
   return (
     <WelcomeAudioContext.Provider
@@ -168,8 +178,8 @@ export const WelcomeAudioProvider: React.FC<{ children: React.ReactNode }> = ({
           data-welcome-skip="true"
           onClick={toggleMute}
           aria-pressed={isMuted}
-          aria-label={isMuted ? "Nyalakan suara" : "Matikan suara"}
-          title={isMuted ? "Nyalakan suara" : "Matikan suara"}
+          aria-label={muteLabel}
+          title={muteLabel}
           className={`fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-11 h-11 rounded-full border backdrop-blur-md shadow-card flex items-center justify-center motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 cursor-pointer ${
             isMuted
               ? "bg-paper-2/80 border-rule text-muted hover:text-ink hover:border-accent/60"

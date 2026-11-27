@@ -4,18 +4,23 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  const { locale } = useLanguage();
 
   const navLinks = [
-    { href: "/#galeri", label: "Panggung" },
-    { href: "/tentang", label: "Tentang" },
-    { href: "/cara-bermain", label: "Cara Bermain" },
-    { href: "/tim", label: "Tim" },
+    { href: "/#galeri", label: locale === "en" ? "Stage" : "Panggung" },
+    { href: "/tentang", label: locale === "en" ? "About" : "Tentang" },
+    { href: "/cara-bermain", label: locale === "en" ? "How to Play" : "Cara Bermain" },
+    { href: "/tim", label: locale === "en" ? "Team" : "Tim" },
   ];
+
+  const startPlayingLabel = locale === "en" ? "Start Playing" : "Mulai Bermain";
 
   const isCurrentPage = (href: string) => {
     if (href.startsWith("/#")) return false;
@@ -64,12 +69,15 @@ export const Navbar: React.FC = () => {
       </Link>
 
       {/* Navigasi Desktop */}
-      <nav aria-label="Utama" className="hidden md:flex items-center gap-8">
+      <nav
+        aria-label={locale === "en" ? "Primary" : "Utama"}
+        className="hidden md:flex items-center gap-8"
+      >
         {navLinks.map((link) => {
           const active = isCurrentPage(link.href);
           return (
             <Link
-              key={link.label}
+              key={link.href}
               href={link.href}
               aria-current={active ? "page" : undefined}
               onClick={(e) => handleLinkClick(link.href, e)}
@@ -87,19 +95,29 @@ export const Navbar: React.FC = () => {
 
       {/* Action Button Desktop & Mobile Toggle */}
       <div className="flex items-center gap-3">
+        <LanguageToggle variant="header" className="hidden md:inline-flex" />
+
         {/* Tombol Desktop */}
         <Link
           href="/instrumen/saron"
           className="hidden md:inline-flex rounded-full px-[22px] py-[10px] bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold transition-[background-color,color,transform] duration-200 transform active:scale-95 whitespace-nowrap"
         >
-          Mulai Bermain
+          {startPlayingLabel}
         </Link>
 
         {/* Hamburger Menu Toggle Mobile */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Buka menu navigasi"
+          aria-label={
+            isMobileMenuOpen
+              ? locale === "en"
+                ? "Close navigation menu"
+                : "Tutup menu navigasi"
+              : locale === "en"
+              ? "Open navigation menu"
+              : "Buka menu navigasi"
+          }
           aria-expanded={isMobileMenuOpen}
           className="md:hidden p-2 text-white/80 hover:text-white transition-colors cursor-pointer"
         >
@@ -120,7 +138,7 @@ export const Navbar: React.FC = () => {
             const active = isCurrentPage(link.href);
             return (
               <Link
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
                 onClick={(e) => handleLinkClick(link.href, e)}
@@ -134,13 +152,16 @@ export const Navbar: React.FC = () => {
               </Link>
             );
           })}
-          <div className="pt-3 border-t border-white/10">
+          <div className="pt-3 border-t border-white/10 space-y-3">
+            <div className="flex items-center">
+              <LanguageToggle variant="mobile" />
+            </div>
             <Link
               href="/instrumen/saron"
               onClick={() => setIsMobileMenuOpen(false)}
               className="block text-center w-full py-3 rounded-full bg-emas hover:bg-emas-muda text-tinta text-[14px] font-semibold"
             >
-              Mulai Bermain
+              {startPlayingLabel}
             </Link>
           </div>
         </div>

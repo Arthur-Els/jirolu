@@ -2,6 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import type { Locale } from "@/lib/i18n/types";
 
 interface FeatureCard {
   index: string;
@@ -13,40 +15,77 @@ interface FeatureCard {
   };
 }
 
-const FEATURE_CARDS: FeatureCard[] = [
-  {
-    index: "01",
-    title: "Kenali ragam instrumen",
-    description:
-      "Dengar sampel audio dan pelajari peran gong, kendang, bonang, serta saron dalam gending Jawa.",
-    cta: {
-      text: "Lihat instrumen",
-      action_url: "#galeri",
+const FEATURE_CARDS_BY_LOCALE: Record<Locale, FeatureCard[]> = {
+  id: [
+    {
+      index: "01",
+      title: "Kenali ragam instrumen",
+      description:
+        "Dengar sampel audio dan pelajari peran gong, kendang, bonang, serta saron dalam gending Jawa.",
+      cta: {
+        text: "Lihat instrumen",
+        action_url: "#galeri",
+      },
     },
-  },
-  {
-    index: "02",
-    title: "Tabuh nada langsung",
-    description:
-      "Simulasi interaktif bilah gamelan menggunakan keyboard komputer atau sentuhan layar ponsel.",
-    cta: {
-      text: "Mulai tabuh",
-      action_url: "/instrumen/saron",
+    {
+      index: "02",
+      title: "Tabuh nada langsung",
+      description:
+        "Simulasi interaktif bilah gamelan menggunakan keyboard komputer atau sentuhan layar ponsel.",
+      cta: {
+        text: "Mulai tabuh",
+        action_url: "/instrumen/saron",
+      },
     },
-  },
-  {
-    index: "03",
-    title: "Belajar lagu daerah",
-    description:
-      "Ikuti panduan ketukan visual untuk melagukan tembang tradisional seperti Gundul Pacul dan Lir-Ilir.",
-    cta: {
-      text: "Buka panduan",
-      action_url: "/tutorial",
+    {
+      index: "03",
+      title: "Belajar lagu daerah",
+      description:
+        "Ikuti panduan ketukan visual untuk melagukan tembang tradisional seperti Gundul Pacul dan Lir-Ilir.",
+      cta: {
+        text: "Buka panduan",
+        action_url: "/tutorial",
+      },
     },
-  },
-];
+  ],
+  en: [
+    {
+      index: "01",
+      title: "Discover each instrument",
+      description:
+        "Listen to audio samples and learn the roles of Gong, Kendang, Bonang, and Saron in Javanese Karawitan.",
+      cta: {
+        text: "View instruments",
+        action_url: "#galeri",
+      },
+    },
+    {
+      index: "02",
+      title: "Strike the notes live",
+      description:
+        "Interactive gamelan bars and kettle simulation played with your computer keyboard or mobile touch screen.",
+      cta: {
+        text: "Start playing",
+        action_url: "/instrumen/saron",
+      },
+    },
+    {
+      index: "03",
+      title: "Learn traditional songs",
+      description:
+        "Follow visual beat guides to perform classic Javanese melodies such as Gundul-Gundul Pacul and Lir-Ilir.",
+      cta: {
+        text: "Open guide",
+        action_url: "/tutorial",
+      },
+    },
+  ],
+};
 
 export const FeaturesShowcase: React.FC = () => {
+  const { locale } = useLanguage();
+  const featureCards = FEATURE_CARDS_BY_LOCALE[locale];
+
   const handleCtaClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     url: string
@@ -70,17 +109,19 @@ export const FeaturesShowcase: React.FC = () => {
         {/* Header Section */}
         <header className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-12 sm:mb-16 pointer-events-auto">
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
-            Cara Menikmati Jirolu
+            {locale === "en" ? "How to Experience Jirolu" : "Cara Menikmati Jirolu"}
           </h2>
           <div className="w-[25%] h-0.5 bg-accent mx-auto rounded-full my-3" />
           <p className="text-sm sm:text-base text-ink-2 leading-relaxed max-w-2xl mx-auto font-light">
-            Dari sekadar mendengarkan alunan nada sampai belajar memainkan tembang sendiri.
+            {locale === "en"
+              ? "From simply listening to melodic resonance to learning how to play traditional songs yourself."
+              : "Dari sekadar mendengarkan alunan nada sampai belajar memainkan tembang sendiri."}
           </p>
         </header>
 
         {/* 3-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full pointer-events-auto">
-          {FEATURE_CARDS.map((card) => (
+          {featureCards.map((card) => (
             <div
               key={card.index}
               className="bg-paper-2/85 border border-rule hover:border-accent/50 rounded-2xl p-7 sm:p-9 flex flex-col justify-between w-full motion-safe:transition-colors duration-200"

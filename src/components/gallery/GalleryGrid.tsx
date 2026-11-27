@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -11,6 +11,9 @@ import {
 } from "@/lib/audio/audioEngine";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
 import { useWelcomeAudio } from "@/components/audio/WelcomeAudioProvider";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
+import { getLocalizedInstrument } from "@/lib/i18n/instrumentDict";
+import type { Locale } from "@/lib/i18n/types";
 
 interface GalleryGridProps {
   instruments: Instrumen[];
@@ -24,34 +27,69 @@ interface PosisiPanggungInfo {
   posisiLabel: string;
 }
 
-const METADATA_PANGGUNG: Record<string, PosisiPanggungInfo> = {
-  gong: {
-    zona: "Baris Belakang",
-    peranSpasial: "Penanda Awal dan Akhir Lagu",
-    alasanPenempatan:
-      "Diletakkan paling belakang karena ukurannya yang agung dan rentang gelombang suaranya yang sangat dalam, membungkus seluruh getaran nada instrumen di depannya.",
-    posisiLabel: "Belakang Tengah",
+const METADATA_PANGGUNG_BY_LOCALE: Record<
+  Locale,
+  Record<string, PosisiPanggungInfo>
+> = {
+  id: {
+    gong: {
+      zona: "Baris Belakang",
+      peranSpasial: "Penanda Awal dan Akhir Lagu",
+      alasanPenempatan:
+        "Diletakkan paling belakang karena ukurannya yang agung dan rentang gelombang suaranya yang sangat dalam, membungkus seluruh getaran nada instrumen di depannya.",
+      posisiLabel: "Belakang Tengah",
+    },
+    kendang: {
+      zona: "Tengah",
+      peranSpasial: "Pengatur Dinamika",
+      alasanPenempatan:
+        "Berada tepat di titik pusat agar pengendang dapat mendengar seluruh kelompok instrumen dan memberi aba-aba pergantian tempo secara visual maupun audio ke seluruh pengrawit.",
+      posisiLabel: "Pusat Panggung",
+    },
+    bonang: {
+      zona: "Baris Depan Kiri",
+      peranSpasial: "Penghias Melodi",
+      alasanPenempatan:
+        "Ditempatkan di baris depan mendatar agar jalinan melodi lincah dari sepasang tabuh bindi terdengar jernih menyatu dengan kerangka dasar balungan.",
+      posisiLabel: "Depan Kiri",
+    },
+    saron: {
+      zona: "Baris Depan Kanan",
+      peranSpasial: "Kerangka Utama Melodi",
+      alasanPenempatan:
+        "Berada sejajar di baris depan agar denting lugas bilah perunggu dapat disimak jelas oleh semua penabuh sebagai patokan harmoni lagu.",
+      posisiLabel: "Depan Kanan",
+    },
   },
-  kendang: {
-    zona: "Tengah",
-    peranSpasial: "Pengatur Dinamika",
-    alasanPenempatan:
-      "Berada tepat di titik pusat agar pengendang dapat mendengar seluruh kelompok instrumen dan memberi aba-aba pergantian tempo secara visual maupun audio ke seluruh pengrawit.",
-    posisiLabel: "Pusat Panggung",
-  },
-  bonang: {
-    zona: "Baris Depan Kiri",
-    peranSpasial: "Penghias Melodi",
-    alasanPenempatan:
-      "Ditempatkan di baris depan mendatar agar jalinan melodi lincah dari sepasang tabuh bindi terdengar jernih menyatu dengan kerangka dasar balungan.",
-    posisiLabel: "Depan Kiri",
-  },
-  saron: {
-    zona: "Baris Depan Kanan",
-    peranSpasial: "Kerangka Utama Melodi",
-    alasanPenempatan:
-      "Berada sejajar di baris depan agar denting lugas bilah perunggu dapat disimak jelas oleh semua penabuh sebagai patokan harmoni lagu.",
-    posisiLabel: "Depan Kanan",
+  en: {
+    gong: {
+      zona: "Back Row",
+      peranSpasial: "Marker of Song Beginning and Ending",
+      alasanPenempatan:
+        "Placed at the very back due to its grand size and deeply resonant sound waves, enveloping the vibrations of all instruments in front of it and marking each Gongan (cyclical phrase) from its Gayor (hanging frame).",
+      posisiLabel: "Back Center",
+    },
+    kendang: {
+      zona: "Center",
+      peranSpasial: "Conductor of Dynamics and Tempo",
+      alasanPenempatan:
+        "Positioned right at the center so the drummer can hear every instrument section and signal tempo or dynamic shifts both visually and musically across the ensemble.",
+      posisiLabel: "Stage Center",
+    },
+    bonang: {
+      zona: "Front Left Row",
+      peranSpasial: "Melodic Ornamentation",
+      alasanPenempatan:
+        "Arranged horizontally in the front row so agile melodic phrases struck on its Pencu (raised bosses) ring clearly and weave smoothly into the core balungan melody.",
+      posisiLabel: "Front Left",
+    },
+    saron: {
+      zona: "Front Right Row",
+      peranSpasial: "Core Melodic Skeleton",
+      alasanPenempatan:
+        "Aligned in the front row so the crisp strike of its bronze bars—damped with the Memathet technique—can be heard clearly by every player as the piece's harmonic anchor.",
+      posisiLabel: "Front Right",
+    },
   },
 };
 
@@ -90,6 +128,15 @@ const INSTRUMENT_AREAS: InstrumentPolygonArea[] = [
 ];
 
 export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+  const metadataPanggung = METADATA_PANGGUNG_BY_LOCALE[locale];
+
+  const localizedInstruments = useMemo(
+    () => instruments.map((item) => getLocalizedInstrument(item, locale)),
+    [instruments, locale]
+  );
+
   // State instrumen aktif dan hover
   const [selectedSlug, setSelectedSlug] = useState<string>("saron");
   const [hoveredSlug, setHoveredSlug] = useState<string | null>(null);
@@ -115,7 +162,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
   // State pemutar audio contoh lagu (manual lewat tombol di panel detail)
   const { setExternalAudioPlaying } = useWelcomeAudio();
   const [isPlayingSong, setIsPlayingSong] = useState<boolean>(false);
-  const [songNotice, setSongNotice] = useState<string | null>(null);
+  const [songNoticeSlug, setSongNoticeSlug] = useState<string | null>(null);
   const audioSongRef = useRef<HTMLAudioElement | null>(null);
   const songNoticeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -132,7 +179,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       songNoticeTimerRef.current = null;
     }
     setIsPlayingSong(false);
-    setSongNotice(null);
+    setSongNoticeSlug(null);
   }, []);
 
   // Hentikan audio contoh permainan dan lanjutkan kembali audio welcome bila aktif
@@ -177,19 +224,20 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
   }, [stopSongAudio]);
 
   const selectedInstrument =
-    instruments.find((item) => item.slug === selectedSlug) || instruments[0];
+    localizedInstruments.find((item) => item.slug === selectedSlug) ||
+    localizedInstruments[0];
 
   const hoveredInstrument = hoveredSlug
-    ? instruments.find((item) => item.slug === hoveredSlug)
+    ? localizedInstruments.find((item) => item.slug === hoveredSlug)
     : null;
 
   // Konten card penjelasan di bawah HANYA berubah saat alat musik diklik (selectedInstrument)
   const infoPanggung =
-    METADATA_PANGGUNG[selectedInstrument.slug] || {
-      zona: "Panggung Ansambel",
-      peranSpasial: "Instrumen Karawitan",
+    metadataPanggung[selectedInstrument.slug] || {
+      zona: isEn ? "Ensemble Stage" : "Panggung Ansambel",
+      peranSpasial: isEn ? "Karawitan Instrument" : "Instrumen Karawitan",
       alasanPenempatan: selectedInstrument.fungsi,
-      posisiLabel: "Panggung Gamelan",
+      posisiLabel: isEn ? "Gamelan Stage" : "Panggung Gamelan",
     };
 
   // Handler interaksi pergerakan mouse pada panggung
@@ -254,15 +302,13 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       fallbackStarted = true;
       audioSongRef.current = null;
       setIsPlayingSong(true);
-      setSongNotice(
-        `File "${selectedInstrument.slug}-lagu.mp3" belum tersedia di /public/audio/sampel/. Memainkan simulasi melodi karawitan.`
-      );
+      setSongNoticeSlug(selectedInstrument.slug);
       playInstrumentMelodySample(selectedInstrument.slug, () => {
         setIsPlayingSong(false);
         setExternalAudioPlaying(false);
       });
       songNoticeTimerRef.current = setTimeout(() => {
-        setSongNotice(null);
+        setSongNoticeSlug(null);
         songNoticeTimerRef.current = null;
       }, 7000);
     };
@@ -279,7 +325,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       .play()
       .then(() => {
         setIsPlayingSong(true);
-        setSongNotice(null);
+        setSongNoticeSlug(null);
       })
       .catch(playFallbackMelody);
   };
@@ -326,11 +372,13 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-8 sm:mb-14">
         <ScrollReveal direction="up" distance={24} duration={0.65} scale={0.96}>
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-gading tracking-tight">
-            Denah Panggung Karawitan
+            {isEn ? "Karawitan Stage Map" : "Denah Panggung Karawitan"}
           </h2>
           <div className="w-[25%] h-0.5 bg-emas mx-auto rounded-full my-3" />
           <p className="text-sm sm:text-base text-gading/75 leading-relaxed max-w-2xl mx-auto font-light">
-            Arahkan kursor atau sentuh alat musik pada gambar di bawah untuk melihat informasi mengenai alat musik dan mulai memainkannya.
+            {isEn
+              ? "Hover over or tap an instrument on the stage below to inspect its details and start playing it."
+              : "Arahkan kursor atau sentuh alat musik pada gambar di bawah untuk melihat informasi mengenai alat musik dan mulai memainkannya."}
           </p>
         </ScrollReveal>
       </div>
@@ -355,7 +403,11 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
             {/* Foto Panggung Pendopo Karawitan Penuh */}
             <Image
               src="/background/stage-bg.jpg"
-              alt="Panggung Pendopo Karawitan Jawa"
+              alt={
+                isEn
+                  ? "Javanese Pendopo Karawitan Stage"
+                  : "Panggung Pendopo Karawitan Jawa"
+              }
               fill
               priority
               sizes="100vw"
@@ -396,7 +448,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                 const isHovered = hoveredSlug === area.slug;
                 const isSelected = selectedSlug === area.slug;
                 const isDimmed = hoveredSlug !== null && !isHovered;
-                const instrumen = instruments.find((i) => i.slug === area.slug);
+                const instrumen = localizedInstruments.find(
+                  (i) => i.slug === area.slug
+                );
 
                 return (
                   <g key={area.slug} className="cursor-pointer">
@@ -521,14 +575,14 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
 
                 {/* Peran Singkat */}
                 <p className="text-xs text-gading/85 leading-snug font-light italic">
-                  &ldquo;{METADATA_PANGGUNG[hoveredInstrument.slug]?.peranSpasial}&rdquo;
+                  &ldquo;{metadataPanggung[hoveredInstrument.slug]?.peranSpasial}&rdquo;
                 </p>
 
                 {/* Petunjuk Aksi Klik */}
                 <div className="pt-1.5 flex items-center justify-between text-[11px] font-semibold text-emas">
                   <span className="flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-emas animate-ping" />
-                    Klik untuk melihat
+                    {isEn ? "Click to view" : "Klik untuk melihat"}
                   </span>
                   <span>↓</span>
                 </div>
@@ -550,8 +604,8 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                 </span>
               </div>
               <p className="text-[10px] text-gading/70 truncate">
-                {METADATA_PANGGUNG[selectedInstrument.slug]?.posisiLabel} &bull;{" "}
-                {METADATA_PANGGUNG[selectedInstrument.slug]?.peranSpasial}
+                {metadataPanggung[selectedInstrument.slug]?.posisiLabel} &bull;{" "}
+                {metadataPanggung[selectedInstrument.slug]?.peranSpasial}
               </p>
             </div>
             <button
@@ -559,7 +613,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
               onClick={scrollToInstrumentTabs}
               className="shrink-0 px-4 py-2 rounded-xl bg-accent hover:bg-accent-2 text-accent-ink text-xs font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus cursor-pointer"
             >
-              Lihat Detail ↓
+              {isEn ? "View Details ↓" : "Lihat Detail ↓"}
             </button>
           </div>
         </div>
@@ -572,7 +626,7 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
       >
         {/* Tab Minimalis Bergaris Emas (Bukan Tombol Pill) */}
         <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-12 border-b border-perunggu/20 pb-4 w-full">
-          {instruments.map((inst) => {
+          {localizedInstruments.map((inst) => {
             const isSelected = selectedSlug === inst.slug;
             return (
               <button
@@ -664,7 +718,11 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                   <div className="relative w-full aspect-[4/3] sm:aspect-[1/1] lg:aspect-[4/5] max-w-[480px] mx-auto rounded-3xl overflow-hidden bg-gradient-to-b from-[#18130E] via-[#0E0C0A] to-[#070605] shadow-[0_24px_60px_rgba(0,0,0,0.85)] border border-perunggu/30 group">
                     <Image
                       src={selectedInstrument.gambar}
-                      alt={`Alat musik gamelan ${selectedInstrument.nama}`}
+                      alt={
+                        isEn
+                          ? `${selectedInstrument.nama} Javanese gamelan instrument`
+                          : `Alat musik gamelan ${selectedInstrument.nama}`
+                      }
                       fill
                       sizes="(max-width: 1024px) 100vw, 45vw"
                       className="object-cover object-center motion-safe:transition-transform duration-700 ease-out group-hover:scale-105"
@@ -709,7 +767,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-emas font-semibold text-xs tracking-widest uppercase">
                         <span className="w-1.5 h-1.5 rounded-full bg-emas" />
-                        <span>Fungsi dalam Gamelan</span>
+                        <span>
+                          {isEn ? "Role in the Gamelan" : "Fungsi dalam Gamelan"}
+                        </span>
                       </div>
                       <p className="text-xs sm:text-sm text-gading/75 leading-relaxed font-light">
                         {selectedInstrument.fungsi}
@@ -720,7 +780,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-emas font-semibold text-xs tracking-widest uppercase">
                         <span className="w-1.5 h-1.5 rounded-full bg-emas" />
-                        <span>Alasan Penempatan</span>
+                        <span>
+                          {isEn ? "Stage Placement" : "Alasan Penempatan"}
+                        </span>
                       </div>
                       <p className="text-xs sm:text-sm text-gading/75 leading-relaxed font-light">
                         {infoPanggung.alasanPenempatan}
@@ -736,7 +798,15 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                         type="button"
                         data-welcome-skip="true"
                         onClick={handleToggleSongAudio}
-                        aria-label={`Putar contoh lagu permainan ${selectedInstrument.nama}`}
+                        aria-label={
+                          isPlayingSong
+                            ? isEn
+                              ? `Pause ${selectedInstrument.nama} example`
+                              : `Jeda contoh permainan ${selectedInstrument.nama}`
+                            : isEn
+                            ? `Play ${selectedInstrument.nama} example`
+                            : `Putar contoh lagu permainan ${selectedInstrument.nama}`
+                        }
                         className={`w-full sm:w-auto px-6 py-3 rounded-full border text-xs sm:text-sm font-semibold motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-3 min-h-[48px] cursor-pointer ${
                           isPlayingSong
                             ? "text-accent-ink bg-accent border-accent"
@@ -751,7 +821,9 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                               <span className="w-1 bg-accent-ink rounded-full animate-eq-3" />
                               <span className="w-1 bg-accent-ink rounded-full animate-eq-4" />
                             </div>
-                            <span>Jeda Contoh Permainan</span>
+                            <span>
+                              {isEn ? "Pause Example" : "Jeda Contoh Permainan"}
+                            </span>
                           </>
                         ) : (
                           <>
@@ -759,7 +831,11 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                               <path d="M8 5v14l11-7z" />
                             </svg>
                             <div className="text-left">
-                              <span className="block leading-tight font-semibold">Contoh Permainan {selectedInstrument.nama}</span>
+                              <span className="block leading-tight font-semibold">
+                                {isEn
+                                  ? `Play ${selectedInstrument.nama} Example`
+                                  : `Contoh Permainan ${selectedInstrument.nama}`}
+                              </span>
                             </div>
                           </>
                         )}
@@ -770,16 +846,24 @@ export const GalleryGrid: React.FC<GalleryGridProps> = ({ instruments }) => {
                         href={`/instrumen/${selectedInstrument.slug}`}
                         className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-xs sm:text-[15px] motion-safe:transition-colors duration-150 motion-safe:active:scale-95 focus-visible:outline-2 focus-visible:outline-focus flex items-center justify-center gap-2 min-h-[48px]"
                       >
-                        <span>Mainkan {selectedInstrument.nama}</span>
+                        <span>
+                          {isEn
+                            ? `Play ${selectedInstrument.nama}`
+                            : `Mainkan ${selectedInstrument.nama}`}
+                        </span>
                         <span>→</span>
                       </Link>
                     </div>
 
                     {/* Notifikasi info status audio jika sampel belum ada */}
-                    {songNotice && (
+                    {songNoticeSlug && (
                       <div className="p-3.5 rounded-xl bg-tinta/90 border border-emas/30 text-xs text-gading/80 flex items-start gap-2.5 animate-in fade-in duration-200">
                         <span className="text-emas text-sm">ℹ</span>
-                        <p className="leading-relaxed">{songNotice}</p>
+                        <p className="leading-relaxed">
+                          {isEn
+                            ? `File "${songNoticeSlug}-lagu.mp3" is not yet available in /public/audio/sampel/. Playing a synthesized Karawitan melody simulation.`
+                            : `File "${songNoticeSlug}-lagu.mp3" belum tersedia di /public/audio/sampel/. Memainkan simulasi melodi karawitan.`}
+                        </p>
                       </div>
                     )}
                   </div>

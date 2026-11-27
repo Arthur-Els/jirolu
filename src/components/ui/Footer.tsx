@@ -1,8 +1,14 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export const Footer: React.FC = () => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
+
   return (
     <footer id="kontak" className="relative z-10 w-full bg-tinta text-gading/70 py-14 px-4 sm:px-6 overflow-hidden">
       {/* Garis batas gradasi halus mengalir di tepi atas footer */}
@@ -23,24 +29,31 @@ export const Footer: React.FC = () => {
               </Link>
             </div>
             <p className="text-xs text-emas-muda font-serif italic">
-              &ldquo;Museum gamelan yang bisa kamu mainkan.&rdquo;
+              &ldquo;
+              {isEn
+                ? "A gamelan museum you can play."
+                : "Museum gamelan yang bisa kamu mainkan."}
+              &rdquo;
             </p>
             <p className="text-xs text-gading/60 max-w-md leading-relaxed">
-              Menjembatani keagungan seni karawitan Jawa Tengah dengan generasi muda melalui
-              eksplorasi soundboard interaktif dan penghayatan nilai budaya adiluhung.
+              {isEn
+                ? "Bridging the majesty of Central Javanese Karawitan art with younger generations through interactive soundboard exploration and appreciation of noble cultural values."
+                : "Menjembatani keagungan seni karawitan Jawa Tengah dengan generasi muda melalui eksplorasi soundboard interaktif dan penghayatan nilai budaya adiluhung."}
             </p>
           </div>
 
           {/* Kolom Tengah: Tiga Nada Filosofis */}
           <div className="text-center border-y md:border-y-0 md:border-x border-perunggu/20 py-3 md:py-0 md:px-8 space-y-1">
             <span className="text-[11px] tracking-widest uppercase text-emas font-medium">
-              Tiga Nada Kehidupan
+              {isEn ? "Three Tones of Life" : "Tiga Nada Kehidupan"}
             </span>
             <p className="text-xs italic text-gading/80">
               &ldquo;Ji (1) - Ro (2) - Lu (3)&rdquo;
             </p>
             <p className="text-[10px] text-gading/50">
-              Laras, Raras, Rancak
+              {isEn
+                ? "Laras, Raras, Rancak (Harmony, Beauty, Vibrancy)"
+                : "Laras, Raras, Rancak"}
             </p>
           </div>
 
@@ -49,26 +62,26 @@ export const Footer: React.FC = () => {
             {/* Kolom 1 (Kiri): Navigasi Utama */}
             <div className="flex flex-col gap-2.5">
               <span className="text-[10px] font-semibold text-emas uppercase tracking-widest pb-1 border-b border-perunggu/20">
-                Navigasi
+                {isEn ? "Navigation" : "Navigasi"}
               </span>
               <Link href="/#galeri" className="hover:text-white transition-colors">
-                Panggung
+                {isEn ? "Stage" : "Panggung"}
               </Link>
               <Link href="/tentang" className="hover:text-white transition-colors">
-                Tentang
+                {isEn ? "About" : "Tentang"}
               </Link>
               <Link href="/cara-bermain" className="hover:text-white transition-colors">
-                Cara Bermain
+                {isEn ? "How to Play" : "Cara Bermain"}
               </Link>
               <Link href="/tim" className="hover:text-white transition-colors">
-                Tim
+                {isEn ? "Team" : "Tim"}
               </Link>
             </div>
 
             {/* Kolom 2 (Kanan): Alat Musik */}
             <div className="flex flex-col gap-2.5">
               <span className="text-[10px] font-semibold text-emas uppercase tracking-widest pb-1 border-b border-perunggu/20">
-                Alat Musik
+                {isEn ? "Instruments" : "Alat Musik"}
               </span>
               <Link href="/instrumen/saron" className="hover:text-white transition-colors">
                 Saron
@@ -87,7 +100,12 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-perunggu/15 flex flex-col sm:flex-row items-center justify-between text-[11px] text-gading/40 gap-3">
-          <p>© {new Date().getFullYear()} Jirolu. Dipersembahkan sebagai produk pameran alat musik tradisional Jawa.</p>
+          <p>
+            © {new Date().getFullYear()} Jirolu.{" "}
+            {isEn
+              ? "Presented as an exhibition showcase of traditional Javanese musical instruments."
+              : "Dipersembahkan sebagai produk pameran alat musik tradisional Jawa."}
+          </p>
           <p className="tracking-wide">By PPLG Website Development Team</p>
         </div>
     </footer>

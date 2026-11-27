@@ -6,6 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Nada, Laras } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import {
   PadStrikeEvent,
   useActiveFlashIds,
@@ -174,6 +175,8 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
   wrongFeedbackNote,
   onPlay,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
@@ -860,14 +863,22 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
               />
             </svg>
             <span>
-              💡 <strong>Tips:</strong> Putar ponsel ke <em>mode landscape</em> untuk jangkauan tabuhan bilah terbaik.
+              {isEn ? (
+                <>
+                  💡 <strong>Tips:</strong> Rotate your phone to <em>landscape mode</em> for the best bar-striking reach.
+                </>
+              ) : (
+                <>
+                  💡 <strong>Tips:</strong> Putar ponsel ke <em>mode landscape</em> untuk jangkauan tabuhan bilah terbaik.
+                </>
+              )}
             </span>
           </div>
           <button
             type="button"
             onClick={() => setShowLandscapeHint(false)}
             className="text-gading/60 hover:text-white p-1 text-sm leading-none shrink-0"
-            title="Tutup tips"
+            title={isEn ? "Close tips" : "Tutup tips"}
           >
             ✕
           </button>
@@ -889,17 +900,34 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
         <div className="absolute top-2.5 inset-x-3 sm:top-3 sm:inset-x-4 z-20 flex items-start justify-between gap-2 pointer-events-none">
           <div className="flex items-center gap-2 min-w-0 pt-1">
             <span className="text-[10px] sm:text-[11px] font-serif uppercase tracking-wider sm:tracking-widest text-emas font-bold drop-shadow-md truncate">
-              Saron 3D &bull; {laras === "pelog" ? "Pelog (7 Nada)" : "Slendro (5 Nada)"}
+              Saron 3D &bull;{" "}
+              {laras === "pelog"
+                ? isEn
+                  ? "Pelog (7 Notes)"
+                  : "Pelog (7 Nada)"
+                : isEn
+                ? "Slendro (5 Notes)"
+                : "Slendro (5 Nada)"}
             </span>
             <span className="hidden md:inline text-[10px] text-gading/50 italic shrink-0">
-              &bull; Drag untuk orbit 360°, klik langsung bilah perunggu untuk menabuh
+              {isEn
+                ? "• Drag for 360° orbit, click a bronze bar directly to strike"
+                : "• Drag untuk orbit 360°, klik langsung bilah perunggu untuk menabuh"}
             </span>
           </div>
 
           <button
             type="button"
             onClick={toggleFullscreen}
-            title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
+            title={
+              isFullscreen
+                ? isEn
+                  ? "Exit Fullscreen (Esc)"
+                  : "Keluar Layar Penuh (Esc)"
+                : isEn
+                ? "Fullscreen Mode"
+                : "Mode Layar Penuh (Fullscreen)"
+            }
             className="pointer-events-auto shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
           >
             {isFullscreen ? (
@@ -907,14 +935,18 @@ export const Saron3DPad: React.FC<Saron3DPadProps> = ({
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Tutup Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Exit Fullscreen" : "Tutup Layar Penuh"}
+                </span>
               </>
             ) : (
               <>
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Fullscreen" : "Layar Penuh"}
+                </span>
               </>
             )}
           </button>

@@ -6,6 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { ItemSuara } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import {
   PadStrikeEvent,
   useActiveFlashIds,
@@ -25,6 +26,8 @@ export const KendangPad: React.FC<KendangPadProps> = ({
   strikeQueue,
   onPlay,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
@@ -814,14 +817,22 @@ export const KendangPad: React.FC<KendangPadProps> = ({
               />
             </svg>
             <span>
-              💡 <strong>Tips:</strong> Putar ke <em>mode landscape</em> untuk jangkauan tabuhan kendang terbaik.
+              {isEn ? (
+                <>
+                  💡 <strong>Tips:</strong> Rotate to <em>landscape mode</em> for the best kendang striking reach.
+                </>
+              ) : (
+                <>
+                  💡 <strong>Tips:</strong> Putar ke <em>mode landscape</em> untuk jangkauan tabuhan kendang terbaik.
+                </>
+              )}
             </span>
           </div>
           <button
             type="button"
             onClick={() => setShowLandscapeHint(false)}
             className="text-gading/60 hover:text-white p-1 text-sm leading-none shrink-0"
-            title="Tutup tips"
+            title={isEn ? "Close tips" : "Tutup tips"}
           >
             ✕
           </button>
@@ -847,14 +858,24 @@ export const KendangPad: React.FC<KendangPadProps> = ({
               Kendang 3D
             </span>
             <span className="hidden md:inline text-[10px] text-gading/50 italic shrink-0">
-              &bull; Drag untuk orbit 360°, klik langsung kulit kendang untuk menabuh
+              {isEn
+                ? "• Drag for 360° orbit, click the kendang drumheads directly to strike"
+                : "• Drag untuk orbit 360°, klik langsung kulit kendang untuk menabuh"}
             </span>
           </div>
 
           <button
             type="button"
             onClick={toggleFullscreen}
-            title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
+            title={
+              isFullscreen
+                ? isEn
+                  ? "Exit Fullscreen (Esc)"
+                  : "Keluar Layar Penuh (Esc)"
+                : isEn
+                ? "Fullscreen Mode"
+                : "Mode Layar Penuh (Fullscreen)"
+            }
             className="pointer-events-auto shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
           >
             {isFullscreen ? (
@@ -862,14 +883,18 @@ export const KendangPad: React.FC<KendangPadProps> = ({
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Tutup Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Exit Fullscreen" : "Tutup Layar Penuh"}
+                </span>
               </>
             ) : (
               <>
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Fullscreen" : "Layar Penuh"}
+                </span>
               </>
             )}
           </button>
@@ -897,7 +922,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             >
               <div className="text-left flex flex-col">
                 <span className="font-serif font-bold text-sm sm:text-base">Dah</span>
-                <span className="text-[10px] opacity-75">Tebokan Kiri</span>
+                <span className="text-[10px] opacity-75">
+                  {isEn ? "Left Tebokan (Head)" : "Tebokan Kiri"}
+                </span>
               </div>
               <KeyboardHint shortcutKey={dahItem.key} />
             </button>
@@ -916,7 +943,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             >
               <div className="text-left flex flex-col">
                 <span className="font-serif font-bold text-sm sm:text-base">Dung</span>
-                <span className="text-[10px] opacity-75">Tebokan Kiri</span>
+                <span className="text-[10px] opacity-75">
+                  {isEn ? "Left Tebokan (Head)" : "Tebokan Kiri"}
+                </span>
               </div>
               <KeyboardHint shortcutKey={dungItem.key} />
             </button>
@@ -935,7 +964,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             >
               <div className="text-left flex flex-col">
                 <span className="font-serif font-bold text-sm sm:text-base">Tak</span>
-                <span className="text-[10px] opacity-75">Tebokan Kanan</span>
+                <span className="text-[10px] opacity-75">
+                  {isEn ? "Right Tebokan (Head)" : "Tebokan Kanan"}
+                </span>
               </div>
               <KeyboardHint shortcutKey={takItem.key} />
             </button>
@@ -954,7 +985,9 @@ export const KendangPad: React.FC<KendangPadProps> = ({
             >
               <div className="text-left flex flex-col">
                 <span className="font-serif font-bold text-sm sm:text-base">Tung</span>
-                <span className="text-[10px] opacity-75">Tebokan Kanan</span>
+                <span className="text-[10px] opacity-75">
+                  {isEn ? "Right Tebokan (Head)" : "Tebokan Kanan"}
+                </span>
               </div>
               <KeyboardHint shortcutKey={tungItem.key} />
             </button>

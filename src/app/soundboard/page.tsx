@@ -2,9 +2,11 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 
 export default function SoundboardPage() {
   const router = useRouter();
+  const { locale } = useLanguage();
 
   useEffect(() => {
     router.replace("/instrumen/saron");
@@ -12,7 +14,9 @@ export default function SoundboardPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0d0c0a] text-emas font-mono text-sm">
-      Mengalihkan ke Soundboard Virtual...
+      {locale === "en"
+        ? "Redirecting to Virtual Soundboard..."
+        : "Mengalihkan ke Soundboard Virtual..."}
     </div>
   );
 }

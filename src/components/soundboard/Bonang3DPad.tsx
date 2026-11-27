@@ -6,6 +6,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Nada, Laras } from "@/types/instrumen";
 import { KeyboardHint } from "./KeyboardHint";
 import { updateResponsivePerspectiveCamera } from "@/lib/three/responsiveCamera";
+import { useLanguage } from "@/lib/i18n/LanguageProvider";
 import {
   PadStrikeEvent,
   useActiveFlashIds,
@@ -202,6 +203,8 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
   wrongFeedbackNote,
   onPlay,
 }) => {
+  const { locale } = useLanguage();
+  const isEn = locale === "en";
   const panelRef = useRef<HTMLDivElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
 
@@ -875,14 +878,22 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
               />
             </svg>
             <span>
-              💡 <strong>Tips:</strong> Putar ponsel ke <em>mode landscape</em> untuk jangkauan tabuhan dua baris terbaik.
+              {isEn ? (
+                <>
+                  💡 <strong>Tips:</strong> Rotate your phone to <em>landscape mode</em> for the best two-row striking reach.
+                </>
+              ) : (
+                <>
+                  💡 <strong>Tips:</strong> Putar ponsel ke <em>mode landscape</em> untuk jangkauan tabuhan dua baris terbaik.
+                </>
+              )}
             </span>
           </div>
           <button
             type="button"
             onClick={() => setShowLandscapeHint(false)}
             className="text-gading/60 hover:text-white p-1 text-sm leading-none shrink-0"
-            title="Tutup tips"
+            title={isEn ? "Close tips" : "Tutup tips"}
           >
             ✕
           </button>
@@ -908,14 +919,24 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
               Bonang 3D &bull; {laras === "pelog" ? "Pelog (14 Pencon)" : "Slendro (10 Pencon)"}
             </span>
             <span className="hidden md:inline text-[10px] text-gading/50 italic shrink-0">
-              &bull; Drag untuk orbit 360°, klik langsung pencon untuk menabuh
+              {isEn
+                ? "• Drag for 360° orbit, click a pencon (bossed kettle) directly to strike"
+                : "• Drag untuk orbit 360°, klik langsung pencon untuk menabuh"}
             </span>
           </div>
 
           <button
             type="button"
             onClick={toggleFullscreen}
-            title={isFullscreen ? "Keluar Layar Penuh (Esc)" : "Mode Layar Penuh (Fullscreen)"}
+            title={
+              isFullscreen
+                ? isEn
+                  ? "Exit Fullscreen (Esc)"
+                  : "Keluar Layar Penuh (Esc)"
+                : isEn
+                ? "Fullscreen Mode"
+                : "Mode Layar Penuh (Fullscreen)"
+            }
             className="pointer-events-auto shrink-0 flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-black/60 hover:bg-emas/20 border border-perunggu/40 hover:border-emas text-gading text-xs transition-colors cursor-pointer"
           >
             {isFullscreen ? (
@@ -923,14 +944,18 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Tutup Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Exit Fullscreen" : "Tutup Layar Penuh"}
+                </span>
               </>
             ) : (
               <>
                 <svg className="w-3.5 h-3.5 text-emas" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                 </svg>
-                <span className="hidden sm:inline text-[11px]">Layar Penuh</span>
+                <span className="hidden sm:inline text-[11px]">
+                  {isEn ? "Fullscreen" : "Layar Penuh"}
+                </span>
               </>
             )}
           </button>
@@ -948,10 +973,10 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
         <div className="w-full space-y-1">
           <div className="flex items-center justify-between px-1">
             <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-emas/90">
-              Baris Atas (Nada Tinggi)
+              {isEn ? "Upper Row (High Pitch)" : "Baris Atas (Nada Tinggi)"}
             </span>
             <span className="hidden sm:inline text-[10px] text-gading/40 italic">
-              Tombol [{row1Items[0]?.key.toUpperCase()} - {row1Items[row1Items.length - 1]?.key.toUpperCase()}]
+              {isEn ? "Keys" : "Tombol"} [{row1Items[0]?.key.toUpperCase()} - {row1Items[row1Items.length - 1]?.key.toUpperCase()}]
             </span>
           </div>
           <div
@@ -965,7 +990,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
               const isTarget = targetLearnNote === item.nada && item.baris === 2;
               const isWrong = wrongFeedbackNote === item.nada;
               const isActive = activeIds.has(item.key.toLowerCase());
-              const shortLabel = item.label.replace(" (tinggi)", "");
+              const shortLabel = item.label.replace(/ \((tinggi|high)\)$/, "");
 
               return (
                 <button
@@ -1003,10 +1028,10 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
         <div className="w-full space-y-1">
           <div className="flex items-center justify-between px-1">
             <span className="text-[10px] sm:text-[11px] uppercase tracking-wider font-semibold text-emas/90">
-              Baris Bawah (Nada Rendah)
+              {isEn ? "Lower Row (Low Pitch)" : "Baris Bawah (Nada Rendah)"}
             </span>
             <span className="hidden sm:inline text-[10px] text-gading/40 italic">
-              Tombol [{row2Items[0]?.key.toUpperCase()} - {row2Items[row2Items.length - 1]?.key.toUpperCase()}]
+              {isEn ? "Keys" : "Tombol"} [{row2Items[0]?.key.toUpperCase()} - {row2Items[row2Items.length - 1]?.key.toUpperCase()}]
             </span>
           </div>
           <div
@@ -1020,7 +1045,7 @@ export const Bonang3DPad: React.FC<Bonang3DPadProps> = ({
               const isTarget = targetLearnNote === item.nada && (item.baris === 2 || !item.baris);
               const isWrong = wrongFeedbackNote === item.nada;
               const isActive = activeIds.has(item.key.toLowerCase());
-              const shortLabel = item.label.replace(" (tinggi)", "");
+              const shortLabel = item.label.replace(/ \((tinggi|high)\)$/, "");
 
               return (
                 <button
