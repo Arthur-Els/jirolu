@@ -16,46 +16,49 @@ export default function HomePage() {
 
       {/* Seluruh Konten Halaman Beranda */}
       <div className="relative z-10 flex flex-col items-center w-full">
-        {/* Bagian Pembuka (Hero Section) */}
-        <section className="relative w-full min-h-dvh flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-20 overflow-hidden">
-          {/* Siluet Wayang Kulit Intro */}
+        {/* Area Batas Gerak Wayang (Bagian Pembuka s.d. Batas Atas Denah Panggung) */}
+        <div className="relative w-full overflow-hidden">
+          {/* Siluet Wayang Kulit Intro (di desktop dapat digeser bebas di area ini) */}
           <HeroWayangSilhouettes />
 
-          {/* Hero Content */}
-          <div className="relative max-w-3xl mx-auto text-center flex flex-col items-center z-10 w-full">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-emas text-lg font-mono font-medium mb-1">
-            <span>ꦱꦸꦒꦼꦁꦫꦮꦸꦃ</span>
-          </div>
-            <h1 className="text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.08] text-ink text-center mb-6 tracking-tight font-serif font-normal">
-              Mainkan gamelan Jawa dari layarmu.
-            </h1>
+          {/* Bagian Pembuka (Hero Section) */}
+          <section className="relative z-10 w-full min-h-dvh flex flex-col items-center justify-center px-4 sm:px-6 pt-[120px] pb-20 pointer-events-none">
+            {/* Hero Content */}
+            <div className="relative max-w-3xl mx-auto text-center flex flex-col items-center z-10 w-full pointer-events-auto">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-emas text-lg font-mono font-medium mb-1">
+                <span>ꦱꦸꦒꦼꦁꦫꦮꦸꦃ</span>
+              </div>
+              <h1 className="text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.08] text-ink text-center mb-6 tracking-tight font-serif font-normal">
+                Mainkan gamelan Jawa dari layarmu.
+              </h1>
 
-            <p className="text-[17px] sm:text-[19px] leading-[1.55] text-ink-2 text-center max-w-xl mb-10 font-sans">
-              Eksplorasi gamelan Jawa secara langsung. Dengarkan suaranya, pelajari ketukannya, dan mainkan sendiri.
-            </p>
+              <p className="text-[17px] sm:text-[19px] leading-[1.55] text-ink-2 text-center max-w-xl mb-10 font-sans">
+                Eksplorasi gamelan Jawa secara langsung. Dengarkan suaranya, pelajari ketukannya, dan mainkan sendiri.
+              </p>
 
-            {/* CTA Group */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-              <Link
-                id="btn-primary"
-                href="/instrumen/saron"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
-              >
-                Mulai Bermain
-              </Link>
-              <a
-                id="btn-secondary"
-                href="#galeri"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule font-medium text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
-              >
-                Jelajahi Instrumen
-              </a>
+              {/* CTA Group */}
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+                <Link
+                  id="btn-primary"
+                  href="/instrumen/saron"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-accent hover:bg-accent-2 text-accent-ink font-semibold text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+                >
+                  Mulai Bermain
+                </Link>
+                <a
+                  id="btn-secondary"
+                  href="#galeri"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-paper-2 hover:bg-paper-3 text-ink border border-rule font-medium text-[15px] motion-safe:transition-colors duration-150 flex items-center justify-center min-h-[48px] focus-visible:outline-2 focus-visible:outline-focus focus-visible:outline-offset-2 motion-safe:active:scale-95"
+                >
+                  Jelajahi Instrumen
+                </a>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Bagian: Fitur Utama (Features Showcase) */}
-        <FeaturesShowcase />
+          {/* Bagian: Fitur Utama (Features Showcase) */}
+          <FeaturesShowcase />
+        </div>
 
         {/* Bagian Galeri Koleksi Pameran (Tampilan Rombak Total Bersih & Nyaman) */}
         <div id="koleksi-alat" className="scroll-mt-20" />

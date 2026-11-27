@@ -64,11 +64,11 @@ export const FeaturesShowcase: React.FC = () => {
   return (
     <section
       id="fitur"
-      className="relative w-full pt-20 sm:pt-28 pb-36 sm:pb-48 px-4 sm:px-6 overflow-hidden"
+      className="relative z-10 w-full pt-20 sm:pt-28 pb-36 sm:pb-48 px-4 sm:px-6 overflow-hidden pointer-events-none"
     >
-      <div className="relative z-10 max-w-6xl mx-auto w-full">
+      <div className="relative z-10 max-w-6xl mx-auto w-full pointer-events-none">
         {/* Header Section */}
-        <header className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-12 sm:mb-16">
+        <header className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4 mb-12 sm:mb-16 pointer-events-auto">
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold text-ink tracking-tight">
             Cara Menikmati Jirolu
           </h2>
@@ -79,7 +79,7 @@ export const FeaturesShowcase: React.FC = () => {
         </header>
 
         {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 w-full pointer-events-auto">
           {FEATURE_CARDS.map((card) => (
             <div
               key={card.index}
