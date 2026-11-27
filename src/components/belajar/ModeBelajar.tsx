@@ -218,7 +218,7 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
           <button
             type="button"
             onClick={handlePilihLaguLain}
-            className="text-xs text-emas hover:text-emas-muda underline transition-colors cursor-pointer"
+            className="text-xs text-emas hover:text-emas-muda transition-colors cursor-pointer"
           >
             {isEn ? "← Change Song" : "← Ganti Lagu"}
           </button>

@@ -335,8 +335,8 @@ export const CaraBermainClient: React.FC = () => {
               ? "Understanding Laras (Tuning Scales): Slendro & Pelog"
               : "Mengenal Laras: Slendro & Pelog"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gading/80 font-light leading-relaxed">
-            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-perunggu/20 text-sm text-gading/80 font-light leading-relaxed">
+            <div className="pb-4 md:pb-0 md:pr-6 space-y-2">
               <h3 className="font-serif text-lg font-bold text-emas">
                 {isEn
                   ? "Laras Slendro (5 Notes)"
@@ -365,7 +365,7 @@ export const CaraBermainClient: React.FC = () => {
                 )}
               </p>
             </div>
-            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-2">
+            <div className="pt-4 md:pt-0 md:pl-6 space-y-2">
               <h3 className="font-serif text-lg font-bold text-emas">
                 {isEn ? "Laras Pelog (7 Notes)" : "Laras Pelog"}
               </h3>
@@ -401,8 +401,8 @@ export const CaraBermainClient: React.FC = () => {
               ? "Learn Mode & Recording Features"
               : "Fitur Mode Belajar dan Rekam"}
           </h2>
-          <div className="space-y-4 text-sm text-gading/80 leading-relaxed font-light">
-            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
+          <div className="divide-y divide-perunggu/20 text-sm text-gading/80 leading-relaxed font-light">
+            <div className="pb-4 space-y-1.5">
               <h3 className="font-serif text-base font-bold text-emas">
                 {isEn
                   ? "1. Song Learn Mode (Saron & Bonang)"
@@ -431,7 +431,7 @@ export const CaraBermainClient: React.FC = () => {
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-tinta/60 border border-perunggu/25 space-y-1.5">
+            <div className="pt-4 space-y-1.5">
               <h3 className="font-serif text-base font-bold text-emas">
                 {isEn
                   ? "2. Record & Playback Panel"
