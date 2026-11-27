@@ -5,6 +5,15 @@ import { Lagu } from "@/types/lagu";
 
 export type StatusBelajar = "belum_mulai" | "berjalan" | "selesai";
 
+/** Cari indeks nada berikutnya yang bukan tanda diam ("0") */
+function findNextPlayableIndex(notes: string[], startIndex: number): number {
+  let idx = startIndex;
+  while (idx < notes.length && notes[idx] === "0") {
+    idx++;
+  }
+  return idx;
+}
+
 interface UseBelajarLaguProps {
   lagu: Lagu | null;
   onLarasMismatch?: (larasDibutuhkan: "slendro" | "pelog") => void;
@@ -46,23 +55,18 @@ export function useBelajarLagu({
     }
   }, [lagu, larasAktif]);
 
-  const mulai = useCallback(() => {
+  const startFromBeginning = useCallback(() => {
     if (!lagu) return;
-    setStatus("berjalan");
-    setCurrentStepIndex(0);
+    const firstPlayable = findNextPlayableIndex(lagu.nada, 0);
+    setStatus(firstPlayable >= lagu.nada.length ? "selesai" : "berjalan");
+    setCurrentStepIndex(firstPlayable);
     setSalahHitung(0);
     setLastWrongNote(null);
     setJustCorrect(false);
   }, [lagu]);
 
-  const ulangi = useCallback(() => {
-    if (!lagu) return;
-    setStatus("berjalan");
-    setCurrentStepIndex(0);
-    setSalahHitung(0);
-    setLastWrongNote(null);
-    setJustCorrect(false);
-  }, [lagu]);
+  const mulai = startFromBeginning;
+  const ulangi = startFromBeginning;
 
   const keluar = useCallback(() => {
     setStatus("belum_mulai");
@@ -93,16 +97,17 @@ export function useBelajarLagu({
       }
 
       if (noteSymbol === expectedNote) {
-        // Nada Benar!
+        // Nada Benar! Lewati ketukan diam ("0") secara otomatis ke nada berikutnya
         setJustCorrect(true);
         setTimeout(() => setJustCorrect(false), 200);
 
-        if (currentStepIndex + 1 >= lagu.nada.length) {
+        const nextIndex = findNextPlayableIndex(lagu.nada, currentStepIndex + 1);
+        if (nextIndex >= lagu.nada.length) {
           // Lagu selesai
           setStatus("selesai");
         } else {
           // Lanjut ke nada berikutnya
-          setCurrentStepIndex((prev) => prev + 1);
+          setCurrentStepIndex(nextIndex);
         }
         return true;
       } else {

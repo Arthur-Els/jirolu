@@ -92,8 +92,13 @@ export const ModeBelajar: React.FC<ModeBelajarProps> = ({
 
       setDemoStepIndex(idx);
       const noteSymbol = notes[idx];
-      onTargetNoteChange(noteSymbol);
-      onPlayDemoNote?.(noteSymbol, targetBaris);
+      if (noteSymbol === "0") {
+        // Ketukan diam: hilangkan sorotan dan biarkan jeda 400ms
+        onTargetNoteChange(null);
+      } else {
+        onTargetNoteChange(noteSymbol);
+        onPlayDemoNote?.(noteSymbol, targetBaris);
+      }
 
       demoTimerRef.current = setTimeout(() => {
         playStep(idx + 1);

@@ -44,7 +44,7 @@ export const DaftarLagu: React.FC<DaftarLaguProps> = ({ songs, onSelectSong }) =
               <span className="capitalize text-emas-muda">
                 Laras: {song.laras}
               </span>
-              <span>{song.nada.length} nada</span>
+              <span>{song.nada.filter((n) => n !== "0").length} nada</span>
             </div>
           </button>
         ))}
