@@ -37,6 +37,12 @@ export interface ItemSuara {
   keterangan: string;   // Penjelasan karakter suara (misal: "Dung = pukulan dalam, suara besar")
   frekuensi?: number;   // Frekuensi dasar untuk synthesizer cadangan
   decay?: number;       // Waktu dengung suara (detik), misal Gong butuh 3-5 detik
+  playbackRate?: number; // Rasio kecepatan/pitch pemutaran sampel audio (misal 0.67 atau 0.42)
+  lowpassHz?: number;    // Cut-off low-pass filter (Hz) untuk melembutkan karakter gong lebih besar
+  subBassHz?: number;    // Frekuensi sub-bass halus tambahan agar dentuman tetap dalam & tegas
+  subBassGain?: number;  // Level sub-bass tambahan (0.0 - 1.0)
+  gain?: number;         // Penyesuaian volume relatif antar variasi suara
+  preserveNaturalDecay?: boolean; // Biarkan dengung alami rekaman penuh lalu fade-out di akhir
 }
 
 // Struktur lengkap satu alat musik gamelan di Jirolu

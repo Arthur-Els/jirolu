@@ -19,6 +19,7 @@ let isAudioMuted: boolean = false;
 interface ActiveSound {
   id?: string;
   source: AudioBufferSourceNode | OscillatorNode;
+  extraSources?: AudioScheduledSourceNode[];
   gainNode: GainNode;
   stopTime: number;
 }
@@ -97,6 +98,25 @@ export async function unlockAudioContext(): Promise<boolean> {
   return ctx.state === "running";
 }
 
+/** Helper internal untuk meredam dan menghentikan satu suara aktif (termasuk osilator lapisannya) */
+function fadeAndStopSound(sound: ActiveSound, now: number, fadeDuration: number): void {
+  try {
+    sound.gainNode.gain.cancelScheduledValues(now);
+    sound.gainNode.gain.setValueAtTime(sound.gainNode.gain.value, now);
+    sound.gainNode.gain.linearRampToValueAtTime(0.0001, now + fadeDuration);
+    setTimeout(() => {
+      try {
+        sound.source.stop();
+      } catch {}
+      sound.extraSources?.forEach((extra) => {
+        try {
+          extra.stop();
+        } catch {}
+      });
+    }, fadeDuration * 1000 + 30);
+  } catch {}
+}
+
 /**
  * Menghentikan semua suara yang sedang aktif dengan fade out halus
  * (digunakan saat pengunjung mengganti laras Slendro/Pelog)
@@ -107,16 +127,7 @@ export function stopAllActiveSounds(fadeDuration: number = 0.15): void {
 
   const now = ctx.currentTime;
   activeSounds.forEach((sound) => {
-    try {
-      sound.gainNode.gain.cancelScheduledValues(now);
-      sound.gainNode.gain.setValueAtTime(sound.gainNode.gain.value, now);
-      sound.gainNode.gain.linearRampToValueAtTime(0.0001, now + fadeDuration);
-      setTimeout(() => {
-        try {
-          sound.source.stop();
-        } catch {}
-      }, fadeDuration * 1000 + 30);
-    } catch {}
+    fadeAndStopSound(sound, now, fadeDuration);
   });
 
   activeSounds.clear();
@@ -132,17 +143,7 @@ export function stopSpecificSound(id: string, fadeDuration: number = 0.1): void 
 
   const existing = singleVoiceTrackers.get(id);
   if (existing) {
-    const now = ctx.currentTime;
-    try {
-      existing.gainNode.gain.cancelScheduledValues(now);
-      existing.gainNode.gain.setValueAtTime(existing.gainNode.gain.value, now);
-      existing.gainNode.gain.linearRampToValueAtTime(0.0001, now + fadeDuration);
-      setTimeout(() => {
-        try {
-          existing.source.stop();
-        } catch {}
-      }, fadeDuration * 1000 + 20);
-    } catch {}
+    fadeAndStopSound(existing, ctx.currentTime, fadeDuration);
     singleVoiceTrackers.delete(id);
     activeSounds.delete(existing);
   }
@@ -166,14 +167,24 @@ export async function fetchAudioBuffer(
   }
 }
 
+export interface AudioBufferPlayOptions {
+  playbackRate?: number;
+  lowpassHz?: number;
+  subBassHz?: number;
+  subBassGain?: number;
+  gain?: number;
+  preserveNaturalDecay?: boolean;
+}
+
 /**
- * Memainkan AudioBuffer dengan fade out lembut
+ * Memainkan AudioBuffer dengan dukungan pitch-shift, filter resonansi, sub-bass, dan fade out lembut
  */
 export function playAudioBuffer(
   ctx: AudioContext,
   buffer: AudioBuffer,
   decaySeconds: number = 2.5,
-  soundId?: string
+  soundId?: string,
+  options?: AudioBufferPlayOptions
 ): void {
   try {
     if (soundId) {
@@ -183,14 +194,65 @@ export function playAudioBuffer(
     const source = ctx.createBufferSource();
     source.buffer = buffer;
 
-    const gainNode = ctx.createGain();
     const now = ctx.currentTime;
+    if (options?.playbackRate && options.playbackRate > 0) {
+      source.playbackRate.setValueAtTime(options.playbackRate, now);
+    }
 
-    gainNode.gain.setValueAtTime(0.95, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, now + decaySeconds);
+    const gainNode = ctx.createGain();
+    const targetGain = options?.gain ?? 0.95;
+
+    if (options?.preserveNaturalDecay) {
+      // Pertahankan dengung alami rekaman dan hanya fade-out halus di bagian akhir
+      const fadeTail = Math.min(2.4, decaySeconds * 0.3);
+      const holdEnd = Math.max(now + 0.05, now + decaySeconds - fadeTail);
+      gainNode.gain.setValueAtTime(targetGain, now);
+      gainNode.gain.setValueAtTime(targetGain, holdEnd);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + decaySeconds);
+    } else {
+      gainNode.gain.setValueAtTime(targetGain, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + decaySeconds);
+    }
+
+    if (options?.lowpassHz && options.lowpassHz > 0) {
+      const filter = ctx.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(options.lowpassHz, now);
+      filter.Q.setValueAtTime(0.7, now);
+      source.connect(filter);
+      filter.connect(gainNode);
+    } else {
+      source.connect(gainNode);
+    }
+
+    // Lapisan sub-bass halus agar attack gong turunan besar tetap dalam & tegas
+    const extraSources: AudioScheduledSourceNode[] = [];
+    if (options?.subBassHz && options.subBassHz > 0 && options.subBassGain && options.subBassGain > 0) {
+      const subGain = ctx.createGain();
+      const subStop = now + decaySeconds * 0.75;
+      subGain.gain.setValueAtTime(0.001, now);
+      subGain.gain.linearRampToValueAtTime(options.subBassGain, now + 0.018);
+      subGain.gain.exponentialRampToValueAtTime(0.001, subStop);
+      subGain.connect(gainNode);
+
+      const subOsc = ctx.createOscillator();
+      subOsc.type = "sine";
+      subOsc.frequency.setValueAtTime(options.subBassHz, now);
+
+      const beatOsc = ctx.createOscillator();
+      beatOsc.type = "sine";
+      beatOsc.frequency.setValueAtTime(options.subBassHz + 1.4, now);
+
+      subOsc.connect(subGain);
+      beatOsc.connect(subGain);
+      subOsc.start(now);
+      beatOsc.start(now);
+      subOsc.stop(subStop + 0.05);
+      beatOsc.stop(subStop + 0.05);
+      extraSources.push(subOsc, beatOsc);
+    }
 
     // Hubungkan ke masterGainNode agar volume slider dan mute berfungsi
-    source.connect(gainNode);
     if (masterGainNode) {
       gainNode.connect(masterGainNode);
     } else {
@@ -203,6 +265,7 @@ export function playAudioBuffer(
     const activeItem: ActiveSound = {
       id: soundId,
       source,
+      extraSources: extraSources.length > 0 ? extraSources : undefined,
       gainNode,
       stopTime: now + decaySeconds,
     };

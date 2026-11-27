@@ -13,29 +13,44 @@
     {
       "id": "gong-ageng",
       "nama": "Gong Ageng",
-      "audio": "/audio/gong/gong_ageng.webm",
+      "audio": "/audio/gong/kempul.wav",
       "key": "2",
       "keterangan": "Dentuman terdalam & teragung penutup siklus gongan (tombol 2)",
       "frekuensi": 55,
-      "decay": 4.5
+      "decay": 11.0,
+      "playbackRate": 0.42,
+      "lowpassHz": 950,
+      "subBassHz": 58,
+      "subBassGain": 0.28,
+      "gain": 1.1,
+      "preserveNaturalDecay": true
     },
     {
       "id": "gong-suwukan",
       "nama": "Gong Suwukan",
-      "audio": "/audio/gong/gong_suwukan.webm",
+      "audio": "/audio/gong/kempul.wav",
       "key": "1",
       "keterangan": "Gong berukuran sedang pembagi bagian gending (tombol 1)",
       "frekuensi": 110,
-      "decay": 3.5
+      "decay": 8.0,
+      "playbackRate": 0.67,
+      "lowpassHz": 1800,
+      "subBassHz": 98,
+      "subBassGain": 0.14,
+      "gain": 1.0,
+      "preserveNaturalDecay": true
     },
     {
       "id": "kempul",
       "nama": "Kempul",
-      "audio": "/audio/gong/kempul.webm",
+      "audio": "/audio/gong/kempul.wav",
       "key": "3",
       "keterangan": "Gong gantung aksen berdentang bersih dan cerah (tombol 3)",
       "frekuensi": 220,
-      "decay": 2.8
+      "decay": 6.0,
+      "playbackRate": 1.0,
+      "gain": 0.9,
+      "preserveNaturalDecay": true
     }
   ]
 }

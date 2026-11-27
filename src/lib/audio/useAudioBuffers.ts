@@ -62,11 +62,17 @@ export function useAudioBuffers(items: AudioTarget[]): UseAudioBuffersResult {
 
       let loadedCount = 0;
       const newCache = new Map<string, AudioBuffer>();
+      const pendingByUrl = new Map<string, Promise<AudioBuffer | null>>();
 
       await Promise.all(
         items.map(async (item) => {
           if (!item.audio) return;
-          const buffer = await fetchAudioBuffer(ctx, item.audio);
+          let promise = pendingByUrl.get(item.audio);
+          if (!promise) {
+            promise = fetchAudioBuffer(ctx, item.audio);
+            pendingByUrl.set(item.audio, promise);
+          }
+          const buffer = await promise;
           if (buffer) {
             newCache.set(item.audio, buffer);
             loadedCount++;
@@ -133,8 +139,24 @@ export function useAudioBuffers(items: AudioTarget[]): UseAudioBuffersResult {
     const decay = isItemSuara && (item as ItemSuara).decay ? (item as ItemSuara).decay! : 2.5;
 
     if (cachedBuffer) {
-      // Mainkan file rekaman asli jika ada
-      playAudioBuffer(ctx, cachedBuffer, decay, soundId);
+      // Mainkan file rekaman asli jika ada (termasuk pitch/filter shaping jika dikonfigurasi)
+      const suara = isItemSuara ? (item as ItemSuara) : null;
+      playAudioBuffer(
+        ctx,
+        cachedBuffer,
+        decay,
+        soundId,
+        suara
+          ? {
+              playbackRate: suara.playbackRate,
+              lowpassHz: suara.lowpassHz,
+              subBassHz: suara.subBassHz,
+              subBassGain: suara.subBassGain,
+              gain: suara.gain,
+              preserveNaturalDecay: suara.preserveNaturalDecay,
+            }
+          : undefined
+      );
     } else {
       // Mainkan synthesizer cadangan sesuai kategori alat musik
       if (isItemSuara) {
