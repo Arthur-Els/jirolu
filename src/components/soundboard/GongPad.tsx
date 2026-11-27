@@ -701,9 +701,9 @@ export const GongPad: React.FC<GongPadProps> = ({
             st.swingActive = false;
             st.pivotGroup.rotation.x = 0;
           } else {
-            // Dorongan pertama mengayun ke belakang (-X rotasi), berosilasi lembut
+            // Dorongan pertama mengayun ke belakang (-Z, yaitu rotasi +X), berosilasi lembut
             st.pivotGroup.rotation.x =
-              -Math.sin(st.swingTime * st.swingFreq) * st.swingAmp * decayFactor;
+              Math.sin(st.swingTime * st.swingFreq) * st.swingAmp * decayFactor;
           }
         }
 
